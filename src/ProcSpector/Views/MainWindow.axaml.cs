@@ -57,7 +57,8 @@ namespace ProcSpector.Views
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            ;
+            var hdlWind = new HandleWindow { DataContext = new HandleViewModel { Proc = proc } };
+            hdlWind.ShowDialog(this);
         }
 
         private void OpenModuleView()

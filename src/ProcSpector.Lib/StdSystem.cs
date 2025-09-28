@@ -14,11 +14,11 @@ namespace ProcSpector.Lib
         {
             var raw = Process.GetProcesses();
             foreach (var item in raw)
-                if (Wrap(item) is { } wrap)
+                if (WrapP(item) is { } wrap)
                     yield return wrap;
         }
 
-        private static IProcess? Wrap(Process process)
+        private static IProcess? WrapP(Process process)
         {
             try
             {
@@ -38,13 +38,32 @@ namespace ProcSpector.Lib
             var raw = (StdProc)proc;
             var modules = raw._process.Modules.Cast<ProcessModule>();
             foreach (var item in modules)
-                if (Wrap(item) is { } wrap)
+                if (WrapM(item) is { } wrap)
                     yield return wrap;
         }
 
-        private static IModule Wrap(ProcessModule module)
+        private static IModule WrapM(ProcessModule module)
         {
             var wrap = new StdMod(module);
+            return wrap;
+        }
+
+        public IEnumerable<IHandle> GetHandles(IProcess proc)
+        {
+            var raw = (StdProc)proc;
+
+
+
+
+
+
+
+            throw new InvalidOperationException();
+        }
+
+        private static IHandle WrapH(IntPtr ptr)
+        {
+            var wrap = new StdWnd(ptr);
             return wrap;
         }
     }
