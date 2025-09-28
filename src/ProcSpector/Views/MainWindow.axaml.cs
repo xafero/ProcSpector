@@ -13,12 +13,22 @@ namespace ProcSpector.Views
             InitializeComponent();
         }
 
-        private void OnLoaded(object? sender, RoutedEventArgs e)
+        private void LoadProcesses()
         {
             var sys = Defaults.System;
             var model = this.GetData<MainWindowViewModel>();
             model.Processes.Clear();
             model.Processes.AddRange(sys.Processes);
+        }
+
+        private void OnLoaded(object? sender, RoutedEventArgs e)
+        {
+            LoadProcesses();
+        }
+
+        private void RefreshClick(object? sender, RoutedEventArgs e)
+        {
+            LoadProcesses();
         }
     }
 }
