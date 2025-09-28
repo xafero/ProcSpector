@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using ByteSizeLib;
 using static ProcSpector.Lib.MiscExt;
+using D = ProcSpector.Lib.Defaults;
 
 namespace ProcSpector.Lib
 {
     public sealed class StdProc : IProcess
     {
-        private readonly Process _process;
+        internal readonly Process _process;
 
         public StdProc(Process process)
             => _process = process;
@@ -25,6 +27,7 @@ namespace ProcSpector.Lib
         public bool Responding => _process.Responding;
         public ProcessModule? Main => _process.MainModule;
         public string? FileName => Main?.FileName;
+        public IEnumerable<IModule> Modules => D.System.GetModules(this);
 
         public override string ToString()
             => $"({Name})";

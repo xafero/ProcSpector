@@ -16,9 +16,15 @@ namespace ProcSpector.Views
         private void LoadModules()
         {
             var sys = Defaults.System;
+
             var model = this.GetData<ModuleViewModel>();
             model.Modules.Clear();
-            // TODO model.Modules.AddRange(sys.Processes);
+            if (model.Proc is { } proc)
+            {
+                Title = $"The modules of {proc.Name} (pid: {proc.Id})";
+
+                model.Modules.AddRange(sys.GetModules(proc));
+            }
         }
 
         private void OnLoaded(object? sender, RoutedEventArgs e)

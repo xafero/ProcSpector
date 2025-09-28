@@ -1,12 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using ByteSizeLib;
 
 namespace ProcSpector.Lib
 {
-    public interface IModule
-    {
-    }
-
     public interface IProcess
     {
         int Id { get; }
@@ -17,5 +14,6 @@ namespace ProcSpector.Lib
         ByteSize WorkingSet { get; }
         ByteSize PagedMem { get; }
         string? FileName { get; }
+        IEnumerable<IModule> Modules { get; }
     }
 }

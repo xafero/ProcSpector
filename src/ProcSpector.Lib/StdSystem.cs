@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace ProcSpector.Lib
 {
     public sealed class StdSystem : ISystem
     {
-        public IEnumerable<IProcess> Processes
+        public string UserName => Environment.UserName;
+        public string HostName => Environment.MachineName;
+
+        public IEnumerable<IProcess> GetAllProcesses()
         {
-            get
-            {
-                var raw = Process.GetProcesses();
-                foreach (var item in raw)
-                    if (Wrap(item) is { } wrap)
-                        yield return wrap;
-            }
+            var raw = Process.GetProcesses();
+            foreach (var item in raw)
+                if (Wrap(item) is { } wrap)
+                    yield return wrap;
         }
 
         private static IProcess? Wrap(Process process)
@@ -29,6 +30,21 @@ namespace ProcSpector.Lib
                 return null;
             }
             var wrap = new StdProc(process);
+            return wrap;
+        }
+
+        public IEnumerable<IModule> GetModules(IProcess proc)
+        {
+            var raw = (StdProc)proc;
+            var modules = raw._process.Modules.Cast<ProcessModule>();
+            foreach (var item in modules)
+                if (Wrap(item) is { } wrap)
+                    yield return wrap;
+        }
+
+        private static IModule Wrap(ProcessModule module)
+        {
+            var wrap = new StdMod(module);
             return wrap;
         }
     }

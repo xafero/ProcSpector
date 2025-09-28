@@ -9,11 +9,11 @@
         x:Class="ProcSpector.Views.MainWindow"
         x:DataType="vm:MainViewModel"
         Icon="/Assets/logo.ico"
-        Title="ProcSpector"
+        Title="..."
         Loaded="OnLoaded">
 
     <Design.DataContext>
-        <vm:MainWindowViewModel/>
+        <vm:MainViewModel/>
     </Design.DataContext>
 
     <Grid RowDefinitions="Auto,*" ColumnDefinitions="*">
@@ -26,7 +26,8 @@
                   ItemsSource="{Binding Processes}"
                   AutoGenerateColumns="True" IsReadOnly="True"
                   GridLinesVisibility="All" CanUserResizeColumns="True"
-                  BorderThickness="1" BorderBrush="Gray">
+                  BorderThickness="1" BorderBrush="Gray"
+                  CellPointerPressed="OnCellPointerPressed">
         </DataGrid>
     </Grid>
 

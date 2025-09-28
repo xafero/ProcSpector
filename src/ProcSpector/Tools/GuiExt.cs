@@ -6,6 +6,14 @@ namespace ProcSpector.Tools
 {
     public static class GuiExt
     {
+        public static T? GetDataRaw<T>(this StyledElement item)
+        {
+            if (item.DataContext is T model)
+                return model;
+
+            return default;
+        }
+
         public static T GetData<T>(this StyledElement item)
             where T : new()
         {
