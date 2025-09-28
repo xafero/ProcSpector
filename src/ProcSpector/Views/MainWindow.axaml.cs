@@ -35,11 +35,37 @@ namespace ProcSpector.Views
 
         private void OnCellPointerPressed(object? sender, DataGridCellPointerPressedEventArgs e)
         {
-            if (e.PointerPressedEventArgs.ClickCount == 2 && e.Row.GetDataRaw<IProcess>() is { } proc)
+            if (e.PointerPressedEventArgs.ClickCount == 2)
             {
-                var modWind = new ModuleWindow { DataContext = new ModuleViewModel { Proc = proc } };
-                modWind.ShowDialog(this);
             }
+        }
+
+        private ContextMenu? _rowMenu;
+
+        private void OnLoadingRow(object? sender, DataGridRowEventArgs e)
+        {
+            if (_rowMenu == null)
+            {
+                _rowMenu = new ContextMenu();
+                _rowMenu.Items.Add(new MenuItem { Header = "Show modules", Command = GuiExt.Relay(OpenModuleView) });
+                _rowMenu.Items.Add(new MenuItem { Header = "Show windows", Command = GuiExt.Relay(OpenHandleView) });
+            }
+            e.Row.ContextMenu = _rowMenu;
+        }
+
+        private void OpenHandleView()
+        {
+            if (Grid.SelectedItem is not IProcess proc)
+                return;
+            ;
+        }
+
+        private void OpenModuleView()
+        {
+            if (Grid.SelectedItem is not IProcess proc)
+                return;
+            var modWind = new ModuleWindow { DataContext = new ModuleViewModel { Proc = proc } };
+            modWind.ShowDialog(this);
         }
     }
 }

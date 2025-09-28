@@ -27,7 +27,8 @@
                   AutoGenerateColumns="True" IsReadOnly="True"
                   GridLinesVisibility="All" CanUserResizeColumns="True"
                   BorderThickness="1" BorderBrush="Gray"
-                  CellPointerPressed="OnCellPointerPressed">
+                  CellPointerPressed="OnCellPointerPressed"
+                  LoadingRow="OnLoadingRow" x:Name="Grid">
         </DataGrid>
     </Grid>
 

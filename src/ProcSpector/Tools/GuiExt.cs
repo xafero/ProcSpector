@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Avalonia;
+using CommunityToolkit.Mvvm.Input;
 
 namespace ProcSpector.Tools
 {
@@ -31,6 +34,12 @@ namespace ProcSpector.Tools
             {
                 coll.Add(item);
             }
+        }
+
+        public static ICommand Relay(Action action)
+        {
+            var cmd = new RelayCommand(action);
+            return cmd;
         }
     }
 }
