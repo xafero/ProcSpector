@@ -23,7 +23,7 @@ namespace ProcSpector.Lib
             {
                 _ = process.StartTime;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
