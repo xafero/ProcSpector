@@ -4,8 +4,8 @@ using ProcSpector.Lib;
 
 namespace ProcSpector.ViewModels
 {
-    public partial class MainWindowViewModel : ViewModelBase
+    public partial class ModuleViewModel : ViewModelBase
     {
-        [ObservableProperty] private ObservableCollection<IProcess> _processes = [];
+        [ObservableProperty] private ObservableCollection<IModule> _modules = [];
     }
 }

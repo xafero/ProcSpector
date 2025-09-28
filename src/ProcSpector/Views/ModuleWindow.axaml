@@ -6,14 +6,14 @@
         mc:Ignorable="d" 
         d:DesignWidth="600" d:DesignHeight="450"
         Width="600" Height="450"
-        x:Class="ProcSpector.Views.MainWindow"
-        x:DataType="vm:MainViewModel"
+        x:Class="ProcSpector.Views.ModuleWindow"
+        x:DataType="vm:ModuleViewModel"
         Icon="/Assets/logo.ico"
-        Title="ProcSpector"
+        Title="Module"
         Loaded="OnLoaded">
 
     <Design.DataContext>
-        <vm:MainWindowViewModel/>
+        <vm:ModuleWindowViewModel/>
     </Design.DataContext>
 
     <Grid RowDefinitions="Auto,*" ColumnDefinitions="*">
@@ -23,7 +23,7 @@
             </Button>
         </StackPanel>
         <DataGrid Grid.Row="1" Margin="20,10,20,20" 
-                  ItemsSource="{Binding Processes}"
+                  ItemsSource="{Binding Modules}"
                   AutoGenerateColumns="True" IsReadOnly="True"
                   GridLinesVisibility="All" CanUserResizeColumns="True"
                   BorderThickness="1" BorderBrush="Gray">

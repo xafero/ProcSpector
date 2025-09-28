@@ -3,6 +3,10 @@ using ByteSizeLib;
 
 namespace ProcSpector.Lib
 {
+    public interface IModule
+    {
+    }
+
     public interface IProcess
     {
         int Id { get; }

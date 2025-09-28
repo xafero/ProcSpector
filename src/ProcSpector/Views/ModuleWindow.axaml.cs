@@ -6,29 +6,29 @@ using ProcSpector.ViewModels;
 
 namespace ProcSpector.Views
 {
-    public partial class MainWindow : Window
+    public partial class ModuleWindow : Window
     {
-        public MainWindow()
+        public ModuleWindow()
         {
             InitializeComponent();
         }
 
-        private void LoadProcesses()
+        private void LoadModules()
         {
             var sys = Defaults.System;
-            var model = this.GetData<MainViewModel>();
-            model.Processes.Clear();
-            model.Processes.AddRange(sys.Processes);
+            var model = this.GetData<ModuleViewModel>();
+            model.Modules.Clear();
+            // TODO model.Modules.AddRange(sys.Processes);
         }
 
         private void OnLoaded(object? sender, RoutedEventArgs e)
         {
-            LoadProcesses();
+            LoadModules();
         }
 
         private void RefreshClick(object? sender, RoutedEventArgs e)
         {
-            LoadProcesses();
+            LoadModules();
         }
     }
 }
