@@ -52,7 +52,12 @@ namespace ProcSpector.Lib
         {
             var raw = (StdProc)proc;
             var res = Win32.GetWindows()
-                .Select(h => WrapH(h));
+                .Select(WrapH)
+                .Where(x =>
+                {
+                    var p = (StdWnd)x;
+                    return p.ProcessId == raw.Id && p.Title != null;
+                });
             return res;
         }
 
