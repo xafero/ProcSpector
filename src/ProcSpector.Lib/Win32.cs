@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ProcSpector.Lib
 {
     public record WinStruct(
-        int MainWindowHandle
+        int MainWindowHandle,
+        uint ProcessId,
+        uint ThreadId
     );
 
     internal static class Win32
@@ -26,6 +26,9 @@ namespace ProcSpector.Lib
         [DllImport("user32", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
 
+        [DllImport("user32", SetLastError = true)]
+        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint dwProcessId);
+
         public static List<WinStruct> GetWindows()
         {
             var list = new List<WinStruct>();
@@ -34,7 +37,9 @@ namespace ProcSpector.Lib
 
             bool Callback(int hWnd, int lparam)
             {
-                list.Add(new WinStruct(hWnd));
+                var tId = GetWindowThreadProcessId(hWnd, out var pId);
+                var item = new WinStruct(hWnd, pId, tId);
+                list.Add(item);
                 return true;
             }
         }

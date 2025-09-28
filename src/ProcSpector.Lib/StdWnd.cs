@@ -1,24 +1,23 @@
 using System;
-using System.Diagnostics;
-using ByteSizeLib;
-using static ProcSpector.Lib.MiscExt;
 
 namespace ProcSpector.Lib
 {
     public sealed class StdWnd : IHandle
     {
-        private readonly IntPtr _hWnd;
-
-        public StdWnd(IntPtr hWnd)
+        public StdWnd(IntPtr hWnd, uint procId, uint thrId)
         {
-            _hWnd = hWnd;
-            Title = Win32.GetWindowText(_hWnd);
+            Handle = hWnd;
+            ProcessId = procId;
+            ThreadId = thrId;
+            Title = Win32.GetWindowText(hWnd);
         }
 
-        public IntPtr Handle => _hWnd;
+        public uint ProcessId { get; }
+        public uint ThreadId { get; }
+        public IntPtr Handle { get; }
         public string? Title { get; }
 
         public override string ToString()
-            => $"({_hWnd})";
+            => $"({Handle})";
     }
 }

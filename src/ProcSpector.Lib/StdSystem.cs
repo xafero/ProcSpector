@@ -52,13 +52,13 @@ namespace ProcSpector.Lib
         {
             var raw = (StdProc)proc;
             var res = Win32.GetWindows()
-                .Select(h => WrapH(h.MainWindowHandle));
+                .Select(h => WrapH(h));
             return res;
         }
 
-        private static IHandle WrapH(IntPtr ptr)
+        private static IHandle WrapH(WinStruct obj)
         {
-            var wrap = new StdWnd(ptr);
+            var wrap = new StdWnd(obj.MainWindowHandle, obj.ProcessId, obj.ThreadId);
             return wrap;
         }
     }
