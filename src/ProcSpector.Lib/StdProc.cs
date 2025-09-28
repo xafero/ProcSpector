@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace ProcSpector.Lib
 {
@@ -12,7 +13,10 @@ namespace ProcSpector.Lib
         public string ProcessName
             => _process.ProcessName;
 
+        public IntPtr Hwnd
+            => _process.MainWindowHandle;
+
         public override string ToString()
-            => $"({ProcessName})";
+            => $"({ProcessName}) [{Hwnd}]";
     }
 }

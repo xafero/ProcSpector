@@ -16,13 +16,11 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <StackPanel>
         <DataGrid Margin="20" 
                   ItemsSource="{Binding Processes}"
                   AutoGenerateColumns="True" IsReadOnly="True"
                   GridLinesVisibility="All"
                   BorderThickness="1" BorderBrush="Gray">
         </DataGrid>
-	</StackPanel>
 
 </Window>
