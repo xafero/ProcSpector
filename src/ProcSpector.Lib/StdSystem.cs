@@ -22,6 +22,7 @@ namespace ProcSpector.Lib
             try
             {
                 _ = process.StartTime;
+                _ = process.MainModule;
             }
             catch (Exception)
             {

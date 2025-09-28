@@ -1,19 +1,25 @@
 ﻿using System;
+using ByteSizeLib;
 
 namespace ProcSpector.Lib
 {
     public static class MiscExt
     {
-        public static T? TryGet<T>(Func<T> func)
+        public static TR? TryGet<TI, TR>(TI obj, Func<TI, TR> func)
         {
             try
             {
-                return func.Invoke();
+                return func.Invoke(obj);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return default;
             }
+        }
+
+        public static ByteSize AsBytes(long value)
+        {
+            return ByteSize.FromBytes(value);
         }
     }
 }
