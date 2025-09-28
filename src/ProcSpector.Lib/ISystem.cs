@@ -1,7 +1,9 @@
-﻿namespace ProcSpector.Lib
+﻿using System.Collections.Generic;
+
+namespace ProcSpector.Lib
 {
     public interface ISystem
     {
-        IProcess[] Processes { get; }
+        IEnumerable<IProcess> Processes { get; }
     }
 }

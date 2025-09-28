@@ -1,17 +1,18 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace ProcSpector.Lib
 {
     public sealed class StdSystem : ISystem
     {
-        public IProcess[] Processes
+        public IEnumerable<IProcess> Processes
         {
             get
             {
                 var raw = Process.GetProcesses();
                 var it = raw.Select(IProcess (x) => new StdProc(x));
-                return it.ToArray();
+                return it;
             }
         }
     }

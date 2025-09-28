@@ -7,11 +7,11 @@ namespace ProcSpector.Lib
     {
         int Id { get; }
         string Name { get; }
-        DateTime StartTime { get; }
+        DateTime? StartTime { get; }
         int Threads { get; }
         int Handles { get; }
-        TimeSpan CpuTime { get; }
         ByteSize WorkingSet { get; }
-        ByteSize VirtualMem { get; }
+        ByteSize PagedMem { get; }
+        string? FileName { get; }
     }
 }
