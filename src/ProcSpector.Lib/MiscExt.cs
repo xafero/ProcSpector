@@ -21,5 +21,11 @@ namespace ProcSpector.Lib
         {
             return ByteSize.FromBytes(value);
         }
+
+        public static string? TrimOrNull(this string? text)
+        {
+            var txt = text?.Trim();
+            return string.IsNullOrWhiteSpace(txt) ? null : txt;
+        }
     }
 }

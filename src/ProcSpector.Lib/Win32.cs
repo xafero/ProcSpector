@@ -7,13 +7,17 @@ using System.Threading.Tasks;
 
 namespace ProcSpector.Lib
 {
+    public record WinStruct(
+        int MainWindowHandle
+    );
+
     internal static class Win32
     {
         [DllImport("user32")]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        private delegate bool CallBackPtr(int hwnd, int lParam);
+        private delegate bool CallBackPtr(int hWnd, int lParam);
 
         [DllImport("user32")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -21,5 +25,27 @@ namespace ProcSpector.Lib
 
         [DllImport("user32", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+
+        public static List<WinStruct> GetWindows()
+        {
+            var list = new List<WinStruct>();
+            EnumWindows(Callback, IntPtr.Zero);
+            return list;
+
+            bool Callback(int hWnd, int lparam)
+            {
+                list.Add(new WinStruct(hWnd));
+                return true;
+            }
+        }
+
+        public static string? GetWindowText(IntPtr hWnd)
+        {
+            const int max = 256;
+            var sb = new StringBuilder(max);
+            var size = GetWindowText(hWnd, sb, max);
+            var title = sb.ToString()[..size];
+            return title.TrimOrNull();
+        }
     }
 }

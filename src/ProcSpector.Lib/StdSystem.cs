@@ -51,17 +51,9 @@ namespace ProcSpector.Lib
         public IEnumerable<IHandle> GetHandles(IProcess proc)
         {
             var raw = (StdProc)proc;
-
-
-
-
-
-
-
-
-
-
-            throw new InvalidOperationException();
+            var res = Win32.GetWindows()
+                .Select(h => WrapH(h.MainWindowHandle));
+            return res;
         }
 
         private static IHandle WrapH(IntPtr ptr)
