@@ -9,7 +9,8 @@
         x:Class="ProcSpector.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="ProcSpector">
+        Title="ProcSpector"
+        Loaded="OnLoaded">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>

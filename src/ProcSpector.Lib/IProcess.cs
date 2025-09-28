@@ -1,7 +1,6 @@
 ﻿namespace ProcSpector.Lib
 {
-    public class Class1
+    public interface IProcess
     {
-
     }
 }
