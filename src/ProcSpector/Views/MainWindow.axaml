@@ -16,6 +16,13 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <StackPanel>
+        <DataGrid Margin="20" 
+                  ItemsSource="{Binding Processes}"
+                  AutoGenerateColumns="True" IsReadOnly="True"
+                  GridLinesVisibility="All"
+                  BorderThickness="1" BorderBrush="Gray">
+        </DataGrid>
+	</StackPanel>
 
 </Window>

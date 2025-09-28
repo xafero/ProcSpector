@@ -2,5 +2,6 @@
 {
     public interface IProcess
     {
+        string ProcessName { get; }
     }
 }

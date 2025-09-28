@@ -1,7 +1,8 @@
-using System.Diagnostics;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ProcSpector.Lib;
+using ProcSpector.Tools;
+using ProcSpector.ViewModels;
 
 namespace ProcSpector.Views
 {
@@ -15,10 +16,9 @@ namespace ProcSpector.Views
         private void OnLoaded(object? sender, RoutedEventArgs e)
         {
             var sys = Defaults.System;
-            foreach (var sp in sys.Processes)
-            {
-                Debug.WriteLine(sp);
-            }
+            var model = this.GetData<MainWindowViewModel>();
+            model.Processes.Clear();
+            model.Processes.AddRange(sys.Processes);
         }
     }
 }

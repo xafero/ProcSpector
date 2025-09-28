@@ -7,8 +7,12 @@ namespace ProcSpector.Lib
         private readonly Process _process;
 
         public StdProc(Process process)
-        {
-            _process = process;
-        }
+            => _process = process;
+
+        public string ProcessName
+            => _process.ProcessName;
+
+        public override string ToString()
+            => $"({ProcessName})";
     }
 }

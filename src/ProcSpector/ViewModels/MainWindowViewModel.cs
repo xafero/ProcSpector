@@ -1,7 +1,11 @@
-﻿namespace ProcSpector.ViewModels
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using ProcSpector.Lib;
+
+namespace ProcSpector.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public partial class MainWindowViewModel : ViewModelBase
     {
-        public string Greeting { get; } = "Welcome to Avalonia!";
+        [ObservableProperty] private ObservableCollection<IProcess> _processes = [];
     }
 }
