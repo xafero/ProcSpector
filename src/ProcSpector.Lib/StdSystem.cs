@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 
 namespace ProcSpector.Lib
 {
@@ -11,9 +11,24 @@ namespace ProcSpector.Lib
             get
             {
                 var raw = Process.GetProcesses();
-                var it = raw.Select(IProcess (x) => new StdProc(x));
-                return it;
+                foreach (var item in raw)
+                    if (Wrap(item) is { } wrap)
+                        yield return wrap;
             }
+        }
+
+        private static IProcess? Wrap(Process process)
+        {
+            try
+            {
+                _ = process.StartTime;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            var wrap = new StdProc(process);
+            return wrap;
         }
     }
 }
