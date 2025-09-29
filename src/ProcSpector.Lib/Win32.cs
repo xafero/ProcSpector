@@ -7,7 +7,7 @@ using System.Text;
 namespace ProcSpector.Lib
 {
     public record WinStruct(
-        int MainWindowHandle,
+        IntPtr WindowHandle,
         uint ProcessId,
         uint ThreadId
     );
@@ -18,14 +18,23 @@ namespace ProcSpector.Lib
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        private delegate bool CallBackPtr(int hWnd, int lParam);
+        private delegate bool EnumCallBack(IntPtr hWnd, IntPtr lParam);
 
         [DllImport("user32")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool EnumWindows(CallBackPtr lpEnumFunc, IntPtr lParam);
+        private static extern bool EnumWindows(EnumCallBack lpEnumFunc, IntPtr lParam);
+
+        [DllImport("user32", SetLastError = true)]
+        private static extern bool EnumChildWindows(IntPtr hWndParent, EnumCallBack lpEnumFunc, IntPtr lParam);
 
         [DllImport("user32", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+
+        [DllImport("user32", SetLastError = true)]
+        private static extern int GetClassName(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+
+        [DllImport("user32", SetLastError = true)]
+        private static extern IntPtr GetParent(IntPtr hWnd);
 
         [DllImport("user32", SetLastError = true)]
         private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint dwProcessId);
@@ -49,7 +58,7 @@ namespace ProcSpector.Lib
             EnumWindows(Callback, IntPtr.Zero);
             return list;
 
-            bool Callback(int hWnd, int lparam)
+            bool Callback(IntPtr hWnd, IntPtr lparam)
             {
                 var tId = GetWindowThreadProcessId(hWnd, out var pId);
                 var item = new WinStruct(hWnd, pId, tId);
@@ -58,13 +67,23 @@ namespace ProcSpector.Lib
             }
         }
 
-        public static string? GetWindowText(IntPtr hWnd)
+        private static string? GetTextFromBld(IntPtr hWnd, Func<IntPtr, StringBuilder, int, int> func)
         {
             const int max = 256;
             var sb = new StringBuilder(max);
-            var size = GetWindowText(hWnd, sb, max);
+            var size = func(hWnd, sb, max);
             var title = sb.ToString()[..size];
             return title.TrimOrNull();
+        }
+
+        public static string? GetWindowText(IntPtr hWnd)
+        {
+            return GetTextFromBld(hWnd, GetWindowText);
+        }
+
+        public static string? GetWindowClass(IntPtr hWnd)
+        {
+            return GetTextFromBld(hWnd, GetClassName);
         }
 
         public static Rectangle? GetWindowSize(IntPtr hWnd)

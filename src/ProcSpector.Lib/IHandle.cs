@@ -1,5 +1,4 @@
 using System;
-using System.Drawing;
 
 namespace ProcSpector.Lib
 {
@@ -8,7 +7,10 @@ namespace ProcSpector.Lib
         uint? ThreadId { get; }
         IntPtr? Handle { get; }
         string? Title { get; }
-        Point? Point { get; }
-        Size? Size { get; }
+        int? X { get; }
+        int? Y { get; }
+        int? W { get; }
+        int? H { get; }
+        string? Class { get; }
     }
 }

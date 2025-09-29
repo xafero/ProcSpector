@@ -63,7 +63,7 @@ namespace ProcSpector.Lib
 
         private static IHandle WrapH(WinStruct obj)
         {
-            var wrap = new StdWnd(obj.MainWindowHandle, obj.ProcessId, obj.ThreadId);
+            var wrap = new StdWnd(obj.WindowHandle, obj.ProcessId, obj.ThreadId);
             return wrap;
         }
     }
