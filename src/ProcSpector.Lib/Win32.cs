@@ -9,7 +9,8 @@ namespace ProcSpector.Lib
     public record WinStruct(
         IntPtr WindowHandle,
         uint ProcessId,
-        uint ThreadId
+        uint ThreadId,
+        IntPtr? ParentHandle
     );
 
     internal static class Win32
@@ -52,19 +53,29 @@ namespace ProcSpector.Lib
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
 
-        public static List<WinStruct> GetWindows()
+        public static List<WinStruct> GetWindows(IntPtr? parent = null)
         {
             var list = new List<WinStruct>();
-            EnumWindows(Callback, IntPtr.Zero);
+            if (parent is { } parentPtr)
+                EnumChildWindows(parentPtr, Callback, IntPtr.Zero);
+            else
+                EnumWindows(Callback, IntPtr.Zero);
             return list;
 
-            bool Callback(IntPtr hWnd, IntPtr lparam)
+            bool Callback(IntPtr hWnd, IntPtr _)
             {
                 var tId = GetWindowThreadProcessId(hWnd, out var pId);
-                var item = new WinStruct(hWnd, pId, tId);
+                var oId = GetMyParent(hWnd);
+                var item = new WinStruct(hWnd, pId, tId, oId);
                 list.Add(item);
                 return true;
             }
+        }
+
+        private static IntPtr? GetMyParent(IntPtr hWnd)
+        {
+            var res = GetParent(hWnd);
+            return res == 0 ? null : res;
         }
 
         private static string? GetTextFromBld(IntPtr hWnd, Func<IntPtr, StringBuilder, int, int> func)

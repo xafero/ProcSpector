@@ -48,22 +48,31 @@ namespace ProcSpector.Lib
             return wrap;
         }
 
+        private static IEnumerable<WinStruct> GetAllHandles(IProcess proc)
+        {
+            foreach (var top in Win32.GetWindows().Where(w => w.ProcessId == proc.Id))
+            {
+                yield return top;
+
+                foreach (var sub in Win32.GetWindows(top.WindowHandle))
+                    yield return sub;
+            }
+        }
+
         public IEnumerable<IHandle> GetHandles(IProcess proc)
         {
-            var raw = (StdProc)proc;
-            var res = Win32.GetWindows()
-                .Select(WrapH)
+            var res = GetAllHandles(proc).Select(WrapH)
                 .Where(x =>
                 {
                     var p = (StdWnd)x;
-                    return p.ProcessId == raw.Id && p.Title != null;
+                    return p.ProcessId == proc.Id && p.Title != null;
                 });
             return res;
         }
 
         private static IHandle WrapH(WinStruct obj)
         {
-            var wrap = new StdWnd(obj.WindowHandle, obj.ProcessId, obj.ThreadId);
+            var wrap = new StdWnd(obj.WindowHandle, obj.ProcessId, obj.ThreadId, obj.ParentHandle);
             return wrap;
         }
     }

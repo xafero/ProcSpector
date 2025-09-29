@@ -4,11 +4,12 @@ namespace ProcSpector.Lib
 {
     public sealed class StdWnd : IHandle
     {
-        public StdWnd(IntPtr hWnd, uint procId, uint thrId)
+        public StdWnd(IntPtr hWnd, uint procId, uint thrId, IntPtr? parent)
         {
             Handle = hWnd;
             ProcessId = procId;
             ThreadId = thrId;
+            Parent = parent;
 
             Title = Win32.GetWindowText(hWnd);
             Class = Win32.GetWindowClass(hWnd);
@@ -21,6 +22,7 @@ namespace ProcSpector.Lib
 
         public uint ProcessId { get; }
         public uint? ThreadId { get; }
+        public IntPtr? Parent { get; }
         public IntPtr? Handle { get; }
         public string? Class { get; }
         public string? Title { get; }

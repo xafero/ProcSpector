@@ -4,7 +4,7 @@ namespace ProcSpector.Lib
 {
     public interface IHandle
     {
-        uint? ThreadId { get; }
+        IntPtr? Parent { get; }
         IntPtr? Handle { get; }
         string? Title { get; }
         int? X { get; }
