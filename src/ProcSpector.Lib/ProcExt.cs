@@ -5,7 +5,7 @@ namespace ProcSpector.Lib
 {
     public static class ProcExt
     {
-        public static void OpenFolder(IProcess proc)
+        public static void OpenFolder(IHasFile proc)
         {
             var file = proc.FileName;
             var dir = Path.GetDirectoryName(file);

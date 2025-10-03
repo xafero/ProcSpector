@@ -6,13 +6,6 @@ using System.Text;
 
 namespace ProcSpector.Lib
 {
-    public record WinStruct(
-        IntPtr WindowHandle,
-        uint ProcessId,
-        uint ThreadId,
-        IntPtr? ParentHandle
-    );
-
     internal static class Win32
     {
         [DllImport("user32")]

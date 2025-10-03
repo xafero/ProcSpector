@@ -9,11 +9,11 @@
         x:Class="ProcSpector.Views.ModuleWindow"
         x:DataType="vm:ModuleViewModel"
         Icon="/Assets/logo.ico"
-        Title="Module"
+        Title="..."
         Loaded="OnLoaded">
 
     <Design.DataContext>
-        <vm:ModuleWindowViewModel/>
+        <vm:ModuleViewModel/>
     </Design.DataContext>
 
     <Grid RowDefinitions="Auto,*" ColumnDefinitions="*">
@@ -26,7 +26,9 @@
                   ItemsSource="{Binding Modules}"
                   AutoGenerateColumns="True" IsReadOnly="True"
                   GridLinesVisibility="All" CanUserResizeColumns="True"
-                  BorderThickness="1" BorderBrush="Gray">
+                  BorderThickness="1" BorderBrush="Gray"
+                  CellPointerPressed="OnCellPointerPressed"
+                  LoadingRow="OnLoadingRow" x:Name="Grid">
         </DataGrid>
     </Grid>
 
