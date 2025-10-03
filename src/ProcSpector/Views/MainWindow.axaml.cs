@@ -1,7 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ProcSpector.Lib;
-using ProcSpector.Lib.Memory;
 using ProcSpector.Tools;
 using ProcSpector.ViewModels;
 

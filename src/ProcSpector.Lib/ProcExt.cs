@@ -139,12 +139,17 @@ namespace ProcSpector.Lib
 
         public static void CreateMemSave(IProcess proc)
         {
+            var title = Path.GetFileNameWithoutExtension(proc.FileName);
+            var filePath = GetTimedFileName("RawMem", title, "bin");
 
+            var real = ((StdProc)proc)._process;
+            var regions = MemoryReader.ReadAllMemoryRegions(real);
 
+            using (var stream = File.Create(filePath))
+                foreach (var region in regions)
+                    stream.Write(region.Data);
 
-
-
-            throw new NotImplementedException();
+            OpenInShell(filePath);
         }
     }
 }
