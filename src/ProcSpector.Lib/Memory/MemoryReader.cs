@@ -43,7 +43,7 @@ namespace ProcSpector.Lib.Memory
         private const uint PAGE_NOACCESS = 0x01;
         private const uint PAGE_GUARD = 0x100;
 
-        public static IEnumerable<IMemRegion> ReadAllMemoryRegions(Process process)
+        public static IEnumerable<MemoryRegion> ReadAllMemoryRegions(Process process)
         {
             const uint access = PROCESS_QUERY_INFORMATION | PROCESS_VM_READ;
             var processHandle = OpenProcess(access, false, process.Id);

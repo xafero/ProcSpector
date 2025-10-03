@@ -59,9 +59,9 @@ namespace ProcSpector.Lib
                     yield return wrap;
         }
 
-        private static IMemRegion WrapR(IMemRegion region)
+        private static IMemRegion WrapR(MemoryRegion region)
         {
-            var wrap = region;
+            var wrap = new StdMem(region);
             return wrap;
         }
 

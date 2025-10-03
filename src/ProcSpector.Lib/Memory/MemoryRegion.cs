@@ -2,7 +2,7 @@ using System;
 
 namespace ProcSpector.Lib.Memory
 {
-    public sealed class MemoryRegion : IMemRegion
+    public sealed class MemoryRegion
     {
         public IntPtr BaseAddress { get; set; }
         public long Size { get; set; }
