@@ -53,6 +53,7 @@ namespace ProcSpector.Views
                 _rowMenu.Items.Add(new MenuItem { Header = "Show windows", Command = GuiExt.Relay(OpenHandleView) });
                 _rowMenu.Items.Add(new MenuItem { Header = "Show memory", Command = GuiExt.Relay(OpenMemView) });
                 _rowMenu.Items.Add(new MenuItem { Header = "Copy screen", Command = GuiExt.Relay(CopyScreen) });
+                _rowMenu.Items.Add(new MenuItem { Header = "Dump mini", Command = GuiExt.Relay(DumpMini) });
             }
             e.Row.ContextMenu = _rowMenu;
         }
@@ -69,6 +70,13 @@ namespace ProcSpector.Views
             if (Grid.SelectedItem is not IProcess proc)
                 return;
             ProcExt.CreateScreenShot(proc);
+        }
+
+        private void DumpMini()
+        {
+            if (Grid.SelectedItem is not IProcess proc)
+                return;
+            ProcExt.CreateMiniDump(proc);
         }
 
         private void OpenFolder()
