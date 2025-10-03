@@ -25,7 +25,7 @@ namespace ProcSpector.Lib
         public ByteSize PagedMem => AsBytes(_process.PagedMemorySize64);
         public ByteSize VirtualMem => AsBytes(_process.VirtualMemorySize64);
         public bool Responding => _process.Responding;
-        public ProcessModule? Main => _process.MainModule;
+        public ProcessModule? Main => _process.HasExited ? null : _process.MainModule;
         public string? FileName => Main?.FileName;
         public IEnumerable<IModule> Modules => D.System.GetModules(this);
         public IEnumerable<IHandle> Windows => D.System.GetHandles(this);
