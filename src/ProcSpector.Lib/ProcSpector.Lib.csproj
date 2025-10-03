@@ -3,10 +3,12 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
+    <NoWarn>NU1701</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="ByteSize" Version="2.1.2" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.9" />
   </ItemGroup>
 
 </Project>
