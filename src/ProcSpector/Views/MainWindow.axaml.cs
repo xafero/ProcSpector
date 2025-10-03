@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ProcSpector.Lib;
+using ProcSpector.Lib.Memory;
 using ProcSpector.Tools;
 using ProcSpector.ViewModels;
 
@@ -53,9 +54,17 @@ namespace ProcSpector.Views
                 _rowMenu.Items.Add(new MenuItem { Header = "Show windows", Command = GuiExt.Relay(OpenHandleView) });
                 _rowMenu.Items.Add(new MenuItem { Header = "Show memory", Command = GuiExt.Relay(OpenMemView) });
                 _rowMenu.Items.Add(new MenuItem { Header = "Copy screen", Command = GuiExt.Relay(CopyScreen) });
+                _rowMenu.Items.Add(new MenuItem { Header = "Save memory", Command = GuiExt.Relay(SaveMemory) });
                 _rowMenu.Items.Add(new MenuItem { Header = "Dump mini", Command = GuiExt.Relay(DumpMini) });
             }
             e.Row.ContextMenu = _rowMenu;
+        }
+
+        private void SaveMemory()
+        {
+            if (Grid.SelectedItem is not IProcess proc)
+                return;
+            ProcExt.CreateMemSave(proc);
         }
 
         private void KillTree()

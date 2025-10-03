@@ -6,7 +6,7 @@ namespace ProcSpector.Lib
 {
     public sealed class StdMem : IMemRegion
     {
-        private readonly MemoryRegion _mem;
+        internal readonly MemoryRegion _mem;
 
         public StdMem(MemoryRegion mem)
             => _mem = mem;

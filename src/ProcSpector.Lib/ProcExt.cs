@@ -123,5 +123,28 @@ namespace ProcSpector.Lib
             var fileName = $"{prefix} {title} {nTx}.{ext}";
             return Path.Combine(Environment.CurrentDirectory, fileName);
         }
+
+        public static void CreateMemSave(IMemRegion region)
+        {
+            var title = $"0x{region.BaseAddress.ToInt64():X}";
+            var filePath = GetTimedFileName("Region", title, "bin");
+
+            var real = ((StdMem)region)._mem;
+            if (real.Data is not { Length: >= 1 } data)
+                return;
+
+            File.WriteAllBytes(filePath, data);
+            OpenInShell(filePath);
+        }
+
+        public static void CreateMemSave(IProcess proc)
+        {
+
+
+
+
+
+            throw new NotImplementedException();
+        }
     }
 }

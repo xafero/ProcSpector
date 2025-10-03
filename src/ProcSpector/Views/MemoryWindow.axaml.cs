@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ProcSpector.Lib;
+using ProcSpector.Lib.Memory;
 using ProcSpector.Tools;
 using ProcSpector.ViewModels;
 
@@ -44,8 +45,23 @@ namespace ProcSpector.Views
             }
         }
 
+        private ContextMenu? _rowMenu;
+
         private void OnLoadingRow(object? sender, DataGridRowEventArgs e)
         {
+            if (_rowMenu == null)
+            {
+                _rowMenu = new ContextMenu();
+                _rowMenu.Items.Add(new MenuItem { Header = "Save memory", Command = GuiExt.Relay(SaveMemory) });
+            }
+            e.Row.ContextMenu = _rowMenu;
+        }
+
+        private void SaveMemory()
+        {
+            if (Grid.SelectedItem is not IMemRegion region)
+                return;
+            ProcExt.CreateMemSave(region);
         }
     }
 }
