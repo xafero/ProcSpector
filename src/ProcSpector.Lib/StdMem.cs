@@ -13,9 +13,9 @@ namespace ProcSpector.Lib
 
         public IntPtr BaseAddress => _mem.BaseAddress;
         public ByteSize Size => MiscExt.AsBytes(_mem.Size);
-        public uint Protection => _mem.Protection;
-        public uint State => _mem.State;
-        public uint Type => _mem.Type;
+        public MemoryProtection Protection => (MemoryProtection)_mem.Protection;
+        public MemoryState State => (MemoryState)_mem.State;
+        public MemoryType Type => (MemoryType)_mem.Type;
 
         public override string ToString()
             => $"({BaseAddress})";

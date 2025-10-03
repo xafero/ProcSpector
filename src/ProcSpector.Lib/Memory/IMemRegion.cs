@@ -7,8 +7,8 @@ namespace ProcSpector.Lib.Memory
     {
         IntPtr BaseAddress { get; }
         ByteSize Size { get; }
-        uint Protection { get; }
-        uint State { get; }
-        uint Type { get; }
+        MemoryProtection Protection { get; }
+        MemoryState State { get; }
+        MemoryType Type { get; }
     }
 }
