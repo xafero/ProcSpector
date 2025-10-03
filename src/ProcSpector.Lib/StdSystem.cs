@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using ProcSpector.Lib.Memory;
 
 namespace ProcSpector.Lib
 {
@@ -45,6 +46,22 @@ namespace ProcSpector.Lib
         private static IModule WrapM(ProcessModule module)
         {
             var wrap = new StdMod(module);
+            return wrap;
+        }
+
+        public IEnumerable<IMemRegion> GetRegions(IProcess proc)
+        {
+            var raw = (StdProc)proc;
+            var real = raw._process;
+            var regions = MemoryReader.ReadAllMemoryRegions(real);
+            foreach (var item in regions)
+                if (WrapR(item) is { } wrap)
+                    yield return wrap;
+        }
+
+        private static IMemRegion WrapR(IMemRegion region)
+        {
+            var wrap = region;
             return wrap;
         }
 

@@ -1,0 +1,35 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ProcSpector.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" 
+        d:DesignWidth="600" d:DesignHeight="450"
+        Width="600" Height="450"
+        x:Class="ProcSpector.Views.MemoryWindow"
+        x:DataType="vm:MemoryViewModel"
+        Icon="/Assets/logo.ico"
+        Title="..."
+        Loaded="OnLoaded">
+
+    <Design.DataContext>
+        <vm:MemoryViewModel/>
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto,*" ColumnDefinitions="*">
+        <StackPanel Grid.Row="0">
+            <Button Width="32" Height="32" Margin="10" Click="RefreshClick">
+                <Image Source="../Assets/Buttons/refresh.png" />
+            </Button>
+        </StackPanel>
+        <DataGrid Grid.Row="1" Margin="20,10,20,20" 
+                  ItemsSource="{Binding Regions}"
+                  AutoGenerateColumns="True" IsReadOnly="True"
+                  GridLinesVisibility="All" CanUserResizeColumns="True"
+                  BorderThickness="1" BorderBrush="Gray"
+                  CellPointerPressed="OnCellPointerPressed"
+                  LoadingRow="OnLoadingRow" x:Name="Grid">
+        </DataGrid>
+    </Grid>
+
+</Window>

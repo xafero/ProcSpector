@@ -51,6 +51,7 @@ namespace ProcSpector.Views
                 _rowMenu.Items.Add(new MenuItem { Header = "Open folder", Command = GuiExt.Relay(OpenFolder) });
                 _rowMenu.Items.Add(new MenuItem { Header = "Show modules", Command = GuiExt.Relay(OpenModuleView) });
                 _rowMenu.Items.Add(new MenuItem { Header = "Show windows", Command = GuiExt.Relay(OpenHandleView) });
+                _rowMenu.Items.Add(new MenuItem { Header = "Show memory", Command = GuiExt.Relay(OpenMemView) });
                 _rowMenu.Items.Add(new MenuItem { Header = "Copy screen", Command = GuiExt.Relay(CopyScreen) });
             }
             e.Row.ContextMenu = _rowMenu;
@@ -75,6 +76,14 @@ namespace ProcSpector.Views
             if (Grid.SelectedItem is not IProcess proc)
                 return;
             ProcExt.OpenFolder(proc);
+        }
+
+        private void OpenMemView()
+        {
+            if (Grid.SelectedItem is not IProcess proc)
+                return;
+            var memWind = new MemoryWindow { DataContext = new MemoryViewModel { Proc = proc } };
+            memWind.ShowDialog(this);
         }
 
         private void OpenHandleView()
