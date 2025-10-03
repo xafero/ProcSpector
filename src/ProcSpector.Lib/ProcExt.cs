@@ -60,6 +60,14 @@ namespace ProcSpector.Lib
             CreateScreenShot(win.WindowHandle);
         }
 
+        public static void CreateScreenShot(IHandle handle)
+        {
+            var win = handle.Handle;
+            if (win == null)
+                return;
+            CreateScreenShot(win.Value);
+        }
+
         private static string? CleanCrazy(string text)
         {
             return text
@@ -67,6 +75,8 @@ namespace ProcSpector.Lib
                 .Replace("(", "").Replace(")", "")
                 .Replace("{", "").Replace("}", "")
                 .Replace("-", "").Replace("+", "")
+                .Replace(":", "").Replace(";", "")
+                .Replace(@"\", "")
                 .Replace("  ", " ")
                 .TrimOrNull();
         }
