@@ -5,9 +5,11 @@ namespace ProcSpector.Lib
 {
     public static class ProcExt
     {
-        public static void OpenFolder(IHasFile proc)
+        public static void OpenFolder(IProcess proc) => OpenFileFolder(proc.FileName);
+        public static void OpenFolder(IModule mod) => OpenFileFolder(mod.FileName);
+
+        public static void OpenFileFolder(string? file)
         {
-            var file = proc.FileName;
             var dir = Path.GetDirectoryName(file);
             OpenInShell(dir);
         }

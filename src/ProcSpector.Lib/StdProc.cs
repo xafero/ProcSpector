@@ -7,7 +7,7 @@ using D = ProcSpector.Lib.Defaults;
 
 namespace ProcSpector.Lib
 {
-    public sealed class StdProc : IProcess
+    public sealed class StdProc : IProcessEx
     {
         internal readonly Process _process;
 

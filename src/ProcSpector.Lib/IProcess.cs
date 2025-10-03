@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using ByteSizeLib;
 
 namespace ProcSpector.Lib
@@ -14,6 +13,5 @@ namespace ProcSpector.Lib
         ByteSize WorkingSet { get; }
         ByteSize PagedMem { get; }
         string? FileName { get; }
-        IEnumerable<IModule> Modules { get; }
     }
 }
