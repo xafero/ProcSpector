@@ -23,5 +23,11 @@ namespace ProcSpector.Lib
             };
             Process.Start(info);
         }
+
+        public static void Kill(IProcess proc)
+        {
+            var real = ((StdProc)proc)._process;
+            real.Kill(entireProcessTree: true);
+        }
     }
 }

@@ -47,11 +47,19 @@ namespace ProcSpector.Views
             if (_rowMenu == null)
             {
                 _rowMenu = new ContextMenu();
+                _rowMenu.Items.Add(new MenuItem { Header = "Kill tree", Command = GuiExt.Relay(KillTree) });
                 _rowMenu.Items.Add(new MenuItem { Header = "Open folder", Command = GuiExt.Relay(OpenFolder) });
                 _rowMenu.Items.Add(new MenuItem { Header = "Show modules", Command = GuiExt.Relay(OpenModuleView) });
                 _rowMenu.Items.Add(new MenuItem { Header = "Show windows", Command = GuiExt.Relay(OpenHandleView) });
             }
             e.Row.ContextMenu = _rowMenu;
+        }
+
+        private void KillTree()
+        {
+            if (Grid.SelectedItem is not IProcess proc)
+                return;
+            ProcExt.Kill(proc);
         }
 
         private void OpenFolder()
