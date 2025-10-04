@@ -5,6 +5,13 @@ namespace ProcSpector.Impl.Remote
 {
     public sealed class RemotePlatform : IPlatform, ISystem
     {
+        private readonly IClientCfg _cfg;
+
+        public RemotePlatform(IClientCfg cfg)
+        {
+            _cfg = cfg;
+        }
+
         public ISystem System => this;
         
         public IEnumerable<IProcess> GetAllProcesses()

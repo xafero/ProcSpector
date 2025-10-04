@@ -7,10 +7,6 @@ using ProcSpector.Core;
 using ProcSpector.Impl.Net;
 using System;
 using System.Drawing.Imaging;
-using System.IO;
-using ProcSpector.API;
-using ProcSpector.Core;
-using ProcSpector.Impl.Net;
 using ProcSpector.Lib.Memory;
 
 #pragma warning disable CA1416

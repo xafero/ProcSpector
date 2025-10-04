@@ -9,13 +9,13 @@ namespace ProcSpector.Impl
 {
     public static class Factory
     {
-        public static bool useRemote = false;
+        public static IClientCfg? ClientCfg { private get; set; }
 
         private static IPlatform GetPlatform()
         {
-            if (useRemote)
+            if (ClientCfg is { } cfg)
             {
-                return new RemotePlatform();
+                return new RemotePlatform(cfg);
             }
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
