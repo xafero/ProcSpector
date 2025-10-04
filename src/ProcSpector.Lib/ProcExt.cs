@@ -6,7 +6,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using ProcSpector.API;
-using ProcSpector.Core;
 using ProcSpector.Impl.Net;
 using ProcSpector.Lib.Memory;
 using IMemRegion = ProcSpector.Lib.Memory.IMemRegion;

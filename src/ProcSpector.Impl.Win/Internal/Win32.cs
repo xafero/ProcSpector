@@ -1,12 +1,9 @@
 using System;
 using System.Text;
 using ProcSpector.Core;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Text;
-using ProcSpector.Core;
 
 #pragma warning disable CA1416
 
@@ -40,7 +37,7 @@ namespace ProcSpector.Lib
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct Rect
+        internal struct Rect
         {
             public int Left;
             public int Top;
@@ -53,7 +50,7 @@ namespace ProcSpector.Lib
 
         [DllImport("user32", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool GetWindowRect(IntPtr hWnd, out Rect lpRect);
+        internal static extern bool GetWindowRect(IntPtr hWnd, out Rect lpRect);
 
         public static Rectangle? GetWindowSize(IntPtr hWnd)
         {

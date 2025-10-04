@@ -3,16 +3,7 @@ using ProcSpector.API;
 using ProcSpector.Impl.Net;
 using ProcSpector.Lib;
 using ProcSpector.Lib.Memory;
-using System.Collections.Generic;
 using System.Linq;
-using ProcSpector.API;
-using ProcSpector.Impl.Net;
-using ProcSpector.Lib.Memory;
-using System.Collections.Generic;
-using System.Linq;
-using ProcSpector.API;
-using ProcSpector.Impl.Net;
-using ProcSpector.Lib.Memory;
 
 namespace ProcSpector.Impl.Win
 {

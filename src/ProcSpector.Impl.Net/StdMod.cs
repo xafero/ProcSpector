@@ -1,9 +1,7 @@
 using System.Diagnostics;
 using ProcSpector.API;
 using System;
-using System.Diagnostics;
 using ByteSizeLib;
-using ProcSpector.API;
 using static ProcSpector.Core.MiscExt;
 
 namespace ProcSpector.Impl.Net
