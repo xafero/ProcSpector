@@ -18,7 +18,7 @@ namespace ProcSpector.Impl.Net
                     yield return wrap;
         }
 
-        private static IProcess? WrapP(Process process)
+        private IProcess? WrapP(Process process)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace ProcSpector.Impl.Net
             {
                 return null;
             }
-            var wrap = new StdProc(process);
+            var wrap = new StdProc(process, this);
             return wrap;
         }
 
@@ -42,9 +42,9 @@ namespace ProcSpector.Impl.Net
                     yield return wrap;
         }
 
-        private static IModule WrapM(ProcessModule module)
+        private IModule WrapM(ProcessModule module)
         {
-            var wrap = new StdMod(module);
+            var wrap = new StdMod(module, this);
             return wrap;
         }
 
@@ -60,5 +60,24 @@ namespace ProcSpector.Impl.Net
 
         public string HostName => Environment.MachineName;
         public string UserName => Environment.UserName;
+
+        public void OpenFolder(IProcess proc) => ProcExt.OpenFolder(proc);
+        public void OpenFolder(IModule mod) => ProcExt.OpenFolder(mod);
+        public void Kill(IProcess proc) => ProcExt.Kill(proc);
+
+        public virtual void CreateMemSave(IProcess proc)
+        {
+            // NO-OP
+        }
+
+        public virtual void CreateScreenShot(IProcess proc)
+        {
+            // NO-OP
+        }
+
+        public virtual void CreateMiniDump(IProcess proc)
+        {
+            // NO-OP
+        }
     }
 }

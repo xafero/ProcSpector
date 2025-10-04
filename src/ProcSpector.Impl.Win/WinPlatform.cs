@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace ProcSpector.Impl.Win
 {
-    public sealed class WinPlatform : NetPlatform, IPlatform, ISystem
+    public sealed class WinPlatform : NetPlatform
     {
         public override IEnumerable<IMemRegion> GetRegions(IProcess proc)
         {
@@ -30,7 +30,7 @@ namespace ProcSpector.Impl.Win
             var res = GetAllHandles(proc).Select(WrapH)
                 .Where(x =>
                 {
-                    var p = (StdWnd)(object)x;
+                    var p = (StdWnd)x;
                     return p.ProcessId == proc.Id && p.Title != null;
                 });
             return res;
@@ -52,5 +52,14 @@ namespace ProcSpector.Impl.Win
                     yield return sub;
             }
         }
+
+        public override void CreateMemSave(IProcess proc)
+            => Win32Ext.CreateMemSave(proc);
+
+        public override void CreateScreenShot(IProcess proc)
+            => Win32Ext.CreateScreenShot(proc);
+
+        public override void CreateMiniDump(IProcess proc)
+            => Win32Ext.CreateMiniDump(proc);
     }
 }

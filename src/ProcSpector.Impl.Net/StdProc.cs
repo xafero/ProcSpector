@@ -9,10 +9,12 @@ namespace ProcSpector.Impl.Net
     public sealed class StdProc : IProcess
     {
         public Process Proc { get; }
+        public ISystem Sys { get; }
 
-        public StdProc(Process process)
+        public StdProc(Process process, ISystem sys)
         {
             Proc = process;
+            Sys = sys;
         }
 
         public int Id => Proc.Id;
@@ -32,23 +34,10 @@ namespace ProcSpector.Impl.Net
         public override string ToString()
             => $"({Name})";
 
-        public void Kill() => ProcExt.Kill(this);
-
-        public void CreateMemSave()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void CreateScreenShot()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void CreateMiniDump()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void OpenFolder() => ProcExt.OpenFolder(this);
+        public void Kill() => Sys.Kill(this);
+        public void CreateMemSave() => Sys.CreateMemSave(this);
+        public void CreateScreenShot() => Sys.CreateScreenShot(this);
+        public void CreateMiniDump() => Sys.CreateMiniDump(this);
+        public void OpenFolder() => Sys.OpenFolder(this);
     }
 }

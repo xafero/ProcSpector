@@ -9,10 +9,12 @@ namespace ProcSpector.Impl.Net
     public sealed class StdMod : IModule
     {
         public ProcessModule Mod { get; }
+        public ISystem Sys { get; }
 
-        public StdMod(ProcessModule module)
+        public StdMod(ProcessModule module, ISystem sys)
         {
             Mod = module;
+            Sys = sys;
         }
 
         public IntPtr BaseAddress => Mod.BaseAddress;
@@ -22,6 +24,6 @@ namespace ProcSpector.Impl.Net
         public override string ToString()
             => $"({FileName})";
 
-        public void OpenFolder() => ProcExt.OpenFolder(this);
+        public void OpenFolder() => Sys.OpenFolder(this);
     }
 }

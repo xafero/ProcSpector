@@ -29,5 +29,35 @@ namespace ProcSpector.Impl.Remote
 
         public string HostName { get; }
         public string UserName { get; }
+        
+        public void OpenFolder(IProcess proc)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OpenFolder(IModule mod)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Kill(IProcess proc)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void CreateMemSave(IProcess proc)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void CreateScreenShot(IProcess proc)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void CreateMiniDump(IProcess proc)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
