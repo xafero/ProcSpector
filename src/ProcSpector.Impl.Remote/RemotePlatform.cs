@@ -1,19 +1,23 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using ProcSpector.API;
 
 namespace ProcSpector.Impl.Remote
 {
     public sealed class RemotePlatform : IPlatform, ISystem
     {
-        private readonly IClientCfg _cfg;
+        internal IClientCfg Cfg { get; }
 
         public RemotePlatform(IClientCfg cfg)
         {
-            _cfg = cfg;
+            Cfg = cfg;
+
+            var thread = new Thread(ClientCore.StartLoop) { IsBackground = true, Name = "Loop" };
+            thread.Start(this);
         }
 
         public ISystem System => this;
-        
+
         public IEnumerable<IProcess> GetAllProcesses()
         {
             throw new System.NotImplementedException();
@@ -36,7 +40,7 @@ namespace ProcSpector.Impl.Remote
 
         public string HostName { get; }
         public string UserName { get; }
-        
+
         public void OpenFolder(IProcess proc)
         {
             throw new System.NotImplementedException();

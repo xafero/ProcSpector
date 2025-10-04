@@ -7,6 +7,6 @@ namespace ProcSpector.Config
     public class ClientSettings : IClientCfg
     {
         public string? Address { get; set; }
-        public int Port { get; set; }
+        public int? Port { get; set; }
     }
 }

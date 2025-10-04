@@ -4,6 +4,6 @@ namespace ProcSpector.API
     {
         string? Address { get; }
         
-        int Port { get; }
+        int? Port { get; }
     }
 }
