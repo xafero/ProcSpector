@@ -22,9 +22,6 @@ namespace ProcSpector.Impl.Net
         public override string ToString()
             => $"({FileName})";
 
-        public void OpenFolder()
-        {
-            throw new System.NotImplementedException();
-        }
+        public void OpenFolder() => ProcExt.OpenFolder(this);
     }
 }

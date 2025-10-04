@@ -32,10 +32,7 @@ namespace ProcSpector.Impl.Net
         public override string ToString()
             => $"({Name})";
 
-        public void Kill()
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Kill() => ProcExt.Kill(this);
 
         public void CreateMemSave()
         {
@@ -52,9 +49,6 @@ namespace ProcSpector.Impl.Net
             throw new System.NotImplementedException();
         }
 
-        public void OpenFolder()
-        {
-            throw new System.NotImplementedException();
-        }
+        public void OpenFolder() => ProcExt.OpenFolder(this);
     }
 }
