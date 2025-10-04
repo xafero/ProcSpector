@@ -1,6 +1,8 @@
 ﻿using System;
 using Avalonia;
 
+// ReSharper disable ClassNeverInstantiated.Global
+
 namespace ProcSpector
 {
     internal sealed class Program
