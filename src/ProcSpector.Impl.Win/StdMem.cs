@@ -1,5 +1,6 @@
 using System;
 using ByteSizeLib;
+using ProcSpector.API;
 using ProcSpector.Core;
 using ProcSpector.Lib.Memory;
 
@@ -20,5 +21,10 @@ namespace ProcSpector.Lib
 
         public override string ToString()
             => $"({BaseAddress})";
+
+        public void CreateMemSave()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

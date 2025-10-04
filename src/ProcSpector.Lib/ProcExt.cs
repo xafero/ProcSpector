@@ -72,20 +72,7 @@ namespace ProcSpector.Lib
                 return;
             CreateScreenShot(win.Value);
         }
-
-        private static string? CleanCrazy(string text)
-        {
-            return text
-                .Replace("[", "").Replace("]", "")
-                .Replace("(", "").Replace(")", "")
-                .Replace("{", "").Replace("}", "")
-                .Replace("-", "").Replace("+", "")
-                .Replace(":", "").Replace(";", "")
-                .Replace(@"\", "")
-                .Replace("  ", " ")
-                .TrimOrNull();
-        }
-
+        
         private static void CreateScreenShot(IntPtr hWnd)
         {
             var title = Win32.GetWindowText(hWnd);

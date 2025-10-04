@@ -1,4 +1,5 @@
 using System;
+using ProcSpector.API;
 
 namespace ProcSpector.Lib
 {
@@ -33,5 +34,10 @@ namespace ProcSpector.Lib
 
         public override string ToString()
             => $"({Handle})";
+
+        public void CreateScreenShot()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

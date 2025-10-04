@@ -13,5 +13,18 @@ namespace ProcSpector.Core
             var txt = text?.Trim();
             return string.IsNullOrWhiteSpace(txt) ? null : txt;
         }
+
+        public static string? CleanCrazy(string text)
+        {
+            return text
+                .Replace("[", "").Replace("]", "")
+                .Replace("(", "").Replace(")", "")
+                .Replace("{", "").Replace("}", "")
+                .Replace("-", "").Replace("+", "")
+                .Replace(":", "").Replace(";", "")
+                .Replace(@"\", "")
+                .Replace("  ", " ")
+                .TrimOrNull();
+        }
     }
 }

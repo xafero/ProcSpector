@@ -6,7 +6,7 @@ using ProcSpector.API;
 
 namespace ProcSpector.Impl.Net
 {
-    public sealed class NetPlatform : IPlatform, ISystem
+    public class NetPlatform : IPlatform, ISystem
     {
         public ISystem System => this;
 
@@ -48,12 +48,12 @@ namespace ProcSpector.Impl.Net
             return wrap;
         }
 
-        public IEnumerable<IMemRegion> GetRegions(IProcess proc)
+        public virtual IEnumerable<IMemRegion> GetRegions(IProcess proc)
         {
             return [];
         }
 
-        public IEnumerable<IHandle> GetHandles(IProcess proc)
+        public virtual IEnumerable<IHandle> GetHandles(IProcess proc)
         {
             return [];
         }
