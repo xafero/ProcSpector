@@ -27,7 +27,7 @@ namespace ProcSpector.Lib
         public bool Responding => _process.Responding;
         public ProcessModule? Main => _process.HasExited ? null : _process.MainModule;
         public string? FileName => Main?.FileName;
-        public IEnumerable<IModule> Modules => D.System.GetModules(this);
+        public IEnumerable<IModule> Modules => null; /*D.System.GetModules(this)*/
         public IEnumerable<IHandle> Windows => D.System.GetHandles(this);
 
         public override string ToString()
