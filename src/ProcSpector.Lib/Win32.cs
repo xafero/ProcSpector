@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
+using ProcSpector.Core;
 
 #pragma warning disable CA1416
 

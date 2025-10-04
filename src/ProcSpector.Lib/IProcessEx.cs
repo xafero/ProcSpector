@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ProcSpector.API;
 
 namespace ProcSpector.Lib
 {

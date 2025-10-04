@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
+using ProcSpector.API;
+using ProcSpector.Impl.Net;
 using ProcSpector.Lib.Memory;
+using IMemRegion = ProcSpector.Lib.Memory.IMemRegion;
 
 namespace ProcSpector.Lib
 {
@@ -11,7 +12,7 @@ namespace ProcSpector.Lib
         public IEnumerable<IMemRegion> GetRegions(IProcess proc)
         {
             var raw = (StdProc)proc;
-            var real = raw._process;
+            var real = raw.Proc;
             var regions = MemoryReader.ReadAllMemoryRegions(real);
             foreach (var item in regions)
                 if (WrapR(item) is { } wrap)

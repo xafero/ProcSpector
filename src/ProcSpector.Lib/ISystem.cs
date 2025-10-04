@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using ProcSpector.Lib.Memory;
+using ProcSpector.API;
+using IMemRegion = ProcSpector.Lib.Memory.IMemRegion;
 
 namespace ProcSpector.Lib
 {

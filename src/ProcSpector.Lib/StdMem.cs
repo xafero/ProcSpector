@@ -1,5 +1,6 @@
 using System;
 using ByteSizeLib;
+using ProcSpector.Core;
 using ProcSpector.Lib.Memory;
 
 namespace ProcSpector.Lib

@@ -5,7 +5,11 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using ProcSpector.API;
+using ProcSpector.Core;
+using ProcSpector.Impl.Net;
 using ProcSpector.Lib.Memory;
+using IMemRegion = ProcSpector.Lib.Memory.IMemRegion;
 
 #pragma warning disable CA1416
 
@@ -34,7 +38,7 @@ namespace ProcSpector.Lib
 
         public static void Kill(IProcess proc)
         {
-            var real = ((StdProc)proc)._process;
+            var real = ((StdProc)proc).Proc;
             real.Kill(entireProcessTree: true);
         }
 
@@ -109,7 +113,7 @@ namespace ProcSpector.Lib
             var title = Path.GetFileNameWithoutExtension(proc.FileName);
             var filePath = GetTimedFileName("MiniDump", title, "dmp");
 
-            var real = ((StdProc)proc)._process;
+            var real = ((StdProc)proc).Proc;
             MiniDumper.CreateDump(real, filePath);
 
             OpenInShell(filePath);
@@ -142,7 +146,7 @@ namespace ProcSpector.Lib
             var title = Path.GetFileNameWithoutExtension(proc.FileName);
             var filePath = GetTimedFileName("RawMem", title, "bin");
 
-            var real = ((StdProc)proc)._process;
+            var real = ((StdProc)proc).Proc;
             var regions = MemoryReader.ReadAllMemoryRegions(real);
 
             using (var stream = File.Create(filePath))

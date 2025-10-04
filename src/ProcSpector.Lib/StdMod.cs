@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 using ByteSizeLib;
-using static ProcSpector.Lib.MiscExt;
+using static ProcSpector.Core.MiscExt;
 
 namespace ProcSpector.Lib
 {
