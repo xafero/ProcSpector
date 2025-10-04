@@ -1,6 +1,6 @@
 ﻿namespace ProcSpector.Comm
 {
-    public record HelloMessage : IMessage
+    public record HelloMsg : IMessage
     {
         public string? User { get; init; }
         public string? Host { get; init; }

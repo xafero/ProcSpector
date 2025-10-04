@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using ProcSpector.API;
+using ProcSpector.Comm;
 
 namespace ProcSpector.Impl.Remote
 {
@@ -20,56 +21,91 @@ namespace ProcSpector.Impl.Remote
 
         public IEnumerable<IProcess> GetAllProcesses()
         {
-            Thread.Sleep(15 * 1000);
-            
+            new RequestMsg { Method = nameof(GetAllProcesses) };
+
             throw new System.NotImplementedException();
         }
 
         public IEnumerable<IModule> GetModules(IProcess proc)
         {
+            new RequestMsg { Method = nameof(GetModules) };
+
             throw new System.NotImplementedException();
         }
 
         public IEnumerable<IMemRegion> GetRegions(IProcess proc)
         {
+            new RequestMsg { Method = nameof(GetRegions) };
+
             throw new System.NotImplementedException();
         }
 
         public IEnumerable<IHandle> GetHandles(IProcess proc)
         {
+            new RequestMsg { Method = nameof(GetHandles) };
+
             throw new System.NotImplementedException();
         }
 
-        public string HostName { get; }
-        public string UserName { get; }
+        public string HostName
+        {
+            get
+            {
+                new RequestMsg { Method = nameof(HostName) };
+
+                throw new System.NotImplementedException();
+            }
+        }
+
+        public string UserName
+        {
+            get
+            {
+                new RequestMsg { Method = nameof(UserName) };
+
+                throw new System.NotImplementedException();
+            }
+        }
 
         public void OpenFolder(IProcess proc)
         {
+            new RequestMsg { Method = nameof(OpenFolder) };
+
             throw new System.NotImplementedException();
         }
 
         public void OpenFolder(IModule mod)
         {
+            new RequestMsg { Method = nameof(OpenFolder) };
+
             throw new System.NotImplementedException();
         }
 
         public void Kill(IProcess proc)
         {
+            new RequestMsg { Method = nameof(Kill) };
+
             throw new System.NotImplementedException();
         }
 
         public void CreateMemSave(IProcess proc)
         {
+            new RequestMsg { Method = nameof(CreateMemSave) };
+
             throw new System.NotImplementedException();
         }
 
         public void CreateScreenShot(IProcess proc)
         {
+            new RequestMsg { Method = nameof(CreateScreenShot) };
+
             throw new System.NotImplementedException();
         }
 
         public void CreateMiniDump(IProcess proc)
         {
+            new RequestMsg { Method = nameof(CreateMiniDump) };
+
             throw new System.NotImplementedException();
         }
     }

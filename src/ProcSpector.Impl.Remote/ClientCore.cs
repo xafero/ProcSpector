@@ -39,7 +39,7 @@ namespace ProcSpector.Impl.Remote
             using var reader = new StreamReader(stream, Enc);
             using var writer = new StreamWriter(stream, Enc);
 
-            writer.WriteJson(new HelloMessage { User = Environment.UserName, Host = Environment.MachineName });
+            writer.WriteJson(new HelloMsg { User = Environment.UserName, Host = Environment.MachineName });
 
             while (reader.ReadLine() is { } line)
             {
