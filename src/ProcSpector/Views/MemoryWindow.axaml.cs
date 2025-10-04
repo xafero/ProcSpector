@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using ProcSpector.Lib;
-using ProcSpector.Lib.Memory;
+using ProcSpector.API;
+using ProcSpector.Impl;
 using ProcSpector.Tools;
 using ProcSpector.ViewModels;
 
@@ -16,7 +16,7 @@ namespace ProcSpector.Views
 
         private void LoadRegions()
         {
-            var sys = Defaults.System;
+            var sys = Factory.Platform.Value.System;
 
             var model = this.GetData<MemoryViewModel>();
             model.Regions.Clear();
@@ -61,7 +61,7 @@ namespace ProcSpector.Views
         {
             if (Grid.SelectedItem is not IMemRegion region)
                 return;
-            ProcExt.CreateMemSave(region);
+            region.CreateMemSave();
         }
     }
 }

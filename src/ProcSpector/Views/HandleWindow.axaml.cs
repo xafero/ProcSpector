@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using ProcSpector.Lib;
+using ProcSpector.API;
+using ProcSpector.Impl;
 using ProcSpector.Tools;
 using ProcSpector.ViewModels;
 
@@ -15,7 +16,7 @@ namespace ProcSpector.Views
 
         private void LoadHandles()
         {
-            var sys = Defaults.System;
+            var sys = Factory.Platform.Value.System;
 
             var model = this.GetData<HandleViewModel>();
             model.Handles.Clear();
@@ -60,7 +61,7 @@ namespace ProcSpector.Views
         {
             if (Grid.SelectedItem is not IHandle handle)
                 return;
-            ProcExt.CreateScreenShot(handle);
+            handle.CreateScreenShot();
         }
     }
 }

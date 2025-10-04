@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using ProcSpector.Lib;
+using ProcSpector.API;
+using ProcSpector.Impl;
 using ProcSpector.Tools;
 using ProcSpector.ViewModels;
 
@@ -15,7 +16,7 @@ namespace ProcSpector.Views
 
         private void LoadModules()
         {
-            var sys = Defaults.System;
+            var sys = Factory.Platform.Value.System;
 
             var model = this.GetData<ModuleViewModel>();
             model.Modules.Clear();
@@ -60,7 +61,7 @@ namespace ProcSpector.Views
         {
             if (Grid.SelectedItem is not IModule mod)
                 return;
-            ProcExt.OpenFolder(mod);
+            mod.OpenFolder();
         }
     }
 }

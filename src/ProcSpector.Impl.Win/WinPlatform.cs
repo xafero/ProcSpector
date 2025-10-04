@@ -4,5 +4,6 @@ namespace ProcSpector.Impl.Win
 {
     public sealed class WinPlatform : IPlatform
     {
+        public ISystem System { get; }
     }
 }

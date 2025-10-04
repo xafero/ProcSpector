@@ -2,14 +2,21 @@
 using System.Runtime.InteropServices;
 using ProcSpector.API;
 using ProcSpector.Impl.Net;
+using ProcSpector.Impl.Remote;
 using ProcSpector.Impl.Win;
 
 namespace ProcSpector.Impl
 {
     public static class Factory
     {
-        public static IPlatform GetPlatform()
+        public static bool useRemote = false;
+
+        private static IPlatform GetPlatform()
         {
+            if (useRemote)
+            {
+                return new RemotePlatform();
+            }
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 return new WinPlatform();
@@ -22,5 +29,7 @@ namespace ProcSpector.Impl
             }
             throw new InvalidOperationException(RuntimeInformation.OSDescription);
         }
+
+        public static Lazy<IPlatform> Platform { get; } = new(GetPlatform);
     }
 }

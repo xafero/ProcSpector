@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using ProcSpector.Lib;
+using ProcSpector.API;
+using ProcSpector.Impl;
 using ProcSpector.Tools;
 using ProcSpector.ViewModels;
 
@@ -15,7 +16,7 @@ namespace ProcSpector.Views
 
         private void LoadProcesses()
         {
-            var sys = Defaults.System;
+            var sys = Factory.Platform.Value.System;
             Title = $"All processes for {sys.UserName} on {sys.HostName}";
 
             var model = this.GetData<MainViewModel>();
@@ -63,35 +64,35 @@ namespace ProcSpector.Views
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            ProcExt.CreateMemSave(proc);
+            proc.CreateMemSave();
         }
 
         private void KillTree()
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            ProcExt.Kill(proc);
+            proc.Kill();
         }
 
         private void CopyScreen()
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            ProcExt.CreateScreenShot(proc);
+            proc.CreateScreenShot();
         }
 
         private void DumpMini()
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            ProcExt.CreateMiniDump(proc);
+            proc.CreateMiniDump();
         }
 
         private void OpenFolder()
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            ProcExt.OpenFolder(proc);
+            proc.OpenFolder();
         }
 
         private void OpenMemView()
