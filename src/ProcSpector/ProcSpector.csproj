@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
@@ -27,6 +26,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ProcSpector.Core\ProcSpector.Core.csproj" />
     <ProjectReference Include="..\ProcSpector.Lib\ProcSpector.Lib.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
