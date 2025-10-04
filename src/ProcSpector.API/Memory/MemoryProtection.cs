@@ -3,7 +3,7 @@ using System;
 namespace ProcSpector.Lib.Memory
 {
     [Flags]
-    public enum MemoryProtection : uint
+    public enum MemoryProtect : uint
     {
         NoAccess = 0x01,
         ReadOnly = 0x02,

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using ByteSizeLib;
 
 namespace ProcSpector.Core
@@ -20,6 +21,15 @@ namespace ProcSpector.Core
             {
                 return default;
             }
+        }
+
+        public static string GetTimedFileName(string prefix, string? middle, string ext)
+        {
+            var now = DateTime.Now;
+            var nTx = $"{now:s}".Replace("T", " ").Replace(":", "");
+            var title = StrTool.CleanCrazy(middle ?? "noTitle");
+            var fileName = $"{prefix} {title} {nTx}.{ext}";
+            return Path.Combine(Environment.CurrentDirectory, fileName);
         }
     }
 }

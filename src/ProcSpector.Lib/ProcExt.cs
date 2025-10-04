@@ -6,9 +6,9 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using ProcSpector.API;
+using ProcSpector.Core;
 using ProcSpector.Impl.Net;
 using ProcSpector.Lib.Memory;
-using IMemRegion = ProcSpector.Lib.Memory.IMemRegion;
 
 #pragma warning disable CA1416
 
@@ -75,10 +75,10 @@ namespace ProcSpector.Lib
         private static void CreateScreenShot(IntPtr hWnd)
         {
             var title = Win32.GetWindowText(hWnd);
-            var filePath = GetTimedFileName("Screenshot", title, "png");
+            var filePath = MiscExt.GetTimedFileName("Screenshot", title, "png");
 
             var format = ImageFormat.Png;
-            using (var bitmap = Win32.CaptureWindow(hWnd))
+            using (var bitmap = Win32Gdi.CaptureWindow(hWnd))
                 bitmap?.Save(filePath, format);
 
             OpenInShell(filePath);
@@ -97,29 +97,20 @@ namespace ProcSpector.Lib
         public static void CreateMiniDump(IProcess proc)
         {
             var title = Path.GetFileNameWithoutExtension(proc.FileName);
-            var filePath = GetTimedFileName("MiniDump", title, "dmp");
+            var filePath = MiscExt.GetTimedFileName("MiniDump", title, "dmp");
 
             var real = ((StdProc)proc).Proc;
             MiniDumper.CreateDump(real, filePath);
 
             OpenInShell(filePath);
         }
-
-        private static string GetTimedFileName(string prefix, string? middle, string ext)
-        {
-            var now = DateTime.Now;
-            var nTx = $"{now:s}".Replace("T", " ").Replace(":", "");
-            var title = CleanCrazy(middle ?? "noTitle");
-            var fileName = $"{prefix} {title} {nTx}.{ext}";
-            return Path.Combine(Environment.CurrentDirectory, fileName);
-        }
-
+        
         public static void CreateMemSave(IMemRegion region)
         {
             var title = $"0x{region.BaseAddress.ToInt64():X}";
-            var filePath = GetTimedFileName("Region", title, "bin");
+            var filePath = MiscExt.GetTimedFileName("Region", title, "bin");
 
-            var real = ((StdMem)region)._mem;
+            var real = ((StdMem)region).Mem;
             if (real.Data is not { Length: >= 1 } data)
                 return;
 
@@ -130,7 +121,7 @@ namespace ProcSpector.Lib
         public static void CreateMemSave(IProcess proc)
         {
             var title = Path.GetFileNameWithoutExtension(proc.FileName);
-            var filePath = GetTimedFileName("RawMem", title, "bin");
+            var filePath = MiscExt.GetTimedFileName("RawMem", title, "bin");
 
             var real = ((StdProc)proc).Proc;
             var regions = MemoryReader.ReadAllMemoryRegions(real);

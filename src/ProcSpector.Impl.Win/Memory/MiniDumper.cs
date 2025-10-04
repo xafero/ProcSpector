@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace ProcSpector.Lib.Memory
 {
-    internal static class MiniDumper
+    public static class MiniDumper
     {
         [DllImport("dbghelp", SetLastError = true)]
         private static extern bool MiniDumpWriteDump(IntPtr hProcess, uint processId, IntPtr hFile,
