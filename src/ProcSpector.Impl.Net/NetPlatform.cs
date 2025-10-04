@@ -50,12 +50,12 @@ namespace ProcSpector.Impl.Net
 
         public IEnumerable<IMemRegion> GetRegions(IProcess proc)
         {
-            throw new System.NotImplementedException();
+            return [];
         }
 
         public IEnumerable<IHandle> GetHandles(IProcess proc)
         {
-            throw new System.NotImplementedException();
+            return [];
         }
 
         public string HostName => Environment.MachineName;
