@@ -20,6 +20,8 @@ namespace ProcSpector.Impl.Remote
 
         public IEnumerable<IProcess> GetAllProcesses()
         {
+            Thread.Sleep(15 * 1000);
+            
             throw new System.NotImplementedException();
         }
 

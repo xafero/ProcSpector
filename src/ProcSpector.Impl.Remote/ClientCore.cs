@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Net.Sockets;
 using ProcSpector.API;
+using ProcSpector.Comm;
+using ProcSpector.Core;
 using static ProcSpector.Core.StrTool;
 
 namespace ProcSpector.Impl.Remote
@@ -37,8 +39,7 @@ namespace ProcSpector.Impl.Remote
             using var reader = new StreamReader(stream, Enc);
             using var writer = new StreamWriter(stream, Enc);
 
-            writer.WriteLine("HELLO");
-            writer.Flush();
+            writer.WriteJson(new HelloMessage { User = Environment.UserName, Host = Environment.MachineName });
 
             while (reader.ReadLine() is { } line)
             {

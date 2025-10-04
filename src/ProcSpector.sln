@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcSpector.Server", "ProcS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcSpector.Core", "ProcSpector.Core\ProcSpector.Core.csproj", "{8F611479-F2CC-4770-A15F-3FB05A39ABDE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcSpector.Comm", "ProcSpector.Comm\ProcSpector.Comm.csproj", "{B88BE1BD-01A9-4771-86B4-073B9C6D84C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,18 @@ Global
 		{8F611479-F2CC-4770-A15F-3FB05A39ABDE}.Release|x64.Build.0 = Release|Any CPU
 		{8F611479-F2CC-4770-A15F-3FB05A39ABDE}.Release|x86.ActiveCfg = Release|Any CPU
 		{8F611479-F2CC-4770-A15F-3FB05A39ABDE}.Release|x86.Build.0 = Release|Any CPU
+		{B88BE1BD-01A9-4771-86B4-073B9C6D84C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B88BE1BD-01A9-4771-86B4-073B9C6D84C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B88BE1BD-01A9-4771-86B4-073B9C6D84C6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B88BE1BD-01A9-4771-86B4-073B9C6D84C6}.Debug|x64.Build.0 = Debug|Any CPU
+		{B88BE1BD-01A9-4771-86B4-073B9C6D84C6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B88BE1BD-01A9-4771-86B4-073B9C6D84C6}.Debug|x86.Build.0 = Debug|Any CPU
+		{B88BE1BD-01A9-4771-86B4-073B9C6D84C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B88BE1BD-01A9-4771-86B4-073B9C6D84C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B88BE1BD-01A9-4771-86B4-073B9C6D84C6}.Release|x64.ActiveCfg = Release|Any CPU
+		{B88BE1BD-01A9-4771-86B4-073B9C6D84C6}.Release|x64.Build.0 = Release|Any CPU
+		{B88BE1BD-01A9-4771-86B4-073B9C6D84C6}.Release|x86.ActiveCfg = Release|Any CPU
+		{B88BE1BD-01A9-4771-86B4-073B9C6D84C6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
