@@ -22,9 +22,6 @@ namespace ProcSpector.Lib
         public override string ToString()
             => $"({BaseAddress})";
 
-        public void CreateMemSave()
-        {
-            throw new NotImplementedException();
-        }
+        public void CreateMemSave() => Win32Ext.CreateMemSave(this);
     }
 }

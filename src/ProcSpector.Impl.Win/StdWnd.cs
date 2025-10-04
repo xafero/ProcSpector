@@ -35,9 +35,6 @@ namespace ProcSpector.Lib
         public override string ToString()
             => $"({Handle})";
 
-        public void CreateScreenShot()
-        {
-            throw new NotImplementedException();
-        }
+        public void CreateScreenShot() => Win32Ext.CreateScreenShot(this);
     }
 }
