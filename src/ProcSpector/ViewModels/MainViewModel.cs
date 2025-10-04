@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using ProcSpector.Lib;
+using ProcSpector.API;
 
 namespace ProcSpector.ViewModels
 {

@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ProcSpector.API\ProcSpector.API.csproj" />
     <ProjectReference Include="..\ProcSpector.Core\ProcSpector.Core.csproj" />
   </ItemGroup>
 
