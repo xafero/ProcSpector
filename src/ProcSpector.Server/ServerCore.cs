@@ -5,6 +5,7 @@ using ProcSpector.Comm;
 using ProcSpector.Core;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using ProcSpector.Impl;
 using static ProcSpector.Core.StrTool;
 
 // ReSharper disable AccessToDisposedClosure
@@ -62,6 +63,9 @@ namespace ProcSpector.Server
         {
             var meth = req.Method.TrimOrNull() ?? "_";
             Console.WriteLine($"Received: '{meth}' '{req}'");
+
+            var plat = Factory.Platform.Value;
+            Console.WriteLine(plat);
 
             if (meth.Equals("quit", Inv))
             {
