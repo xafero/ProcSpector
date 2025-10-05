@@ -14,7 +14,7 @@ namespace ProcSpector.Server2
 
             var app = builder.Build();
 
-            app.MapGrpcService<GreeterService>();
+            app.MapGrpcService<InspectorService>();
             app.MapGet("/", () => "You need a gRPC client!");
 
             app.Run();

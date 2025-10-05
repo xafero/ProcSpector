@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\insight.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProcSpector.Core\ProcSpector.Core.csproj" />
+    <ProjectReference Include="..\ProcSpector.Impl\ProcSpector.Impl.csproj" />
   </ItemGroup>
 
 </Project>

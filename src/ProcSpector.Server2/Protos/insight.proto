@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "ProcSpector.Grpc";
+
+package insight;
+
+service Inspector {
+  rpc GetUserName (StrRequest) returns (StrReply);
+  rpc GetHostName (StrRequest) returns (StrReply);
+}
+
+message StrRequest {
+  string method = 1;
+}
+
+message StrReply {
+  string result = 1;
+}
