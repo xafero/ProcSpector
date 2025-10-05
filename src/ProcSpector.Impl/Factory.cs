@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using ProcSpector.API;
 using ProcSpector.Impl.Net;
-using ProcSpector.Impl.Remote2;
+using ProcSpector.Impl.Remote;
 using ProcSpector.Impl.Win;
 
 namespace ProcSpector.Impl

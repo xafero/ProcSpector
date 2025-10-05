@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcSpector.Core", "ProcSpe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcSpector.Comm", "ProcSpector.Comm\ProcSpector.Comm.csproj", "{B88BE1BD-01A9-4771-86B4-073B9C6D84C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcSpector.Impl.Remote2", "ProcSpector.Impl.Remote2\ProcSpector.Impl.Remote2.csproj", "{A1A3C1C4-AE54-4BF2-99F6-EC97C4DCEC48}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,18 +139,6 @@ Global
 		{B88BE1BD-01A9-4771-86B4-073B9C6D84C6}.Release|x64.Build.0 = Release|Any CPU
 		{B88BE1BD-01A9-4771-86B4-073B9C6D84C6}.Release|x86.ActiveCfg = Release|Any CPU
 		{B88BE1BD-01A9-4771-86B4-073B9C6D84C6}.Release|x86.Build.0 = Release|Any CPU
-		{A1A3C1C4-AE54-4BF2-99F6-EC97C4DCEC48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A1A3C1C4-AE54-4BF2-99F6-EC97C4DCEC48}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A1A3C1C4-AE54-4BF2-99F6-EC97C4DCEC48}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{A1A3C1C4-AE54-4BF2-99F6-EC97C4DCEC48}.Debug|x64.Build.0 = Debug|Any CPU
-		{A1A3C1C4-AE54-4BF2-99F6-EC97C4DCEC48}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A1A3C1C4-AE54-4BF2-99F6-EC97C4DCEC48}.Debug|x86.Build.0 = Debug|Any CPU
-		{A1A3C1C4-AE54-4BF2-99F6-EC97C4DCEC48}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A1A3C1C4-AE54-4BF2-99F6-EC97C4DCEC48}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A1A3C1C4-AE54-4BF2-99F6-EC97C4DCEC48}.Release|x64.ActiveCfg = Release|Any CPU
-		{A1A3C1C4-AE54-4BF2-99F6-EC97C4DCEC48}.Release|x64.Build.0 = Release|Any CPU
-		{A1A3C1C4-AE54-4BF2-99F6-EC97C4DCEC48}.Release|x86.ActiveCfg = Release|Any CPU
-		{A1A3C1C4-AE54-4BF2-99F6-EC97C4DCEC48}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

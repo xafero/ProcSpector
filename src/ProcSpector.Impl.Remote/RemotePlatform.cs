@@ -1,61 +1,108 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using Grpc.Net.Client;
 using ProcSpector.API;
-using ProcSpector.Comm;
+using ProcSpector.Grpc;
 
 namespace ProcSpector.Impl.Remote
 {
-    public sealed class RemotePlatform : IPlatform, ISystem
+    public sealed class RemotePlatform : IPlatform, ISystem, IDisposable
     {
         internal IClientCfg Cfg { get; }
+
+        private readonly GrpcChannel _channel;
+        private readonly Inspector.InspectorClient _client;
 
         public RemotePlatform(IClientCfg cfg)
         {
             Cfg = cfg;
-
-            var thread = new Thread(ClientCore.StartLoop) { IsBackground = true, Name = "Loop" };
-            thread.Start(this);
+            _channel = GrpcChannel.ForAddress($"http://{cfg.Address}:{cfg.Port}");
+            _client = new Inspector.InspectorClient(_channel);
         }
 
         public ISystem System => this;
 
-        public IEnumerable<IProcess> GetAllProcesses()
-            => new RequestMsg { Method = nameof(GetAllProcesses) }.WaitFor().Unwrap<IProcess[]>() ?? [];
-
-        public IEnumerable<IModule> GetModules(IProcess proc)
-            => new RequestMsg { Method = nameof(GetModules) }.WaitFor().Unwrap<IModule[]>() ?? [];
-
-        public IEnumerable<IMemRegion> GetRegions(IProcess proc)
-            => new RequestMsg { Method = nameof(GetRegions) }.WaitFor().Unwrap<IMemRegion[]>() ?? [];
-
-        public IEnumerable<IHandle> GetHandles(IProcess proc)
-            => new RequestMsg { Method = nameof(GetHandles) }.WaitFor().Unwrap<IHandle[]>() ?? [];
-
         public string HostName
-            => new RequestMsg { Method = nameof(HostName) }.WaitFor().Unwrap<string>() ?? "";
+        {
+            get
+            {
+                var reply = _client.GetHostName(
+                    new StrRequest { Method = nameof(HostName) }
+                );
+                return reply.Result;
+            }
+        }
 
         public string UserName
-            => new RequestMsg { Method = nameof(UserName) }.WaitFor().Unwrap<string>() ?? "";
+        {
+            get
+            {
+                var reply = _client.GetUserName(
+                    new StrRequest { Method = nameof(UserName) }
+                );
+                return reply.Result;
+            }
+        }
+
+        public IEnumerable<IProcess> GetAllProcesses()
+        {
+            // TODO
+            return [];
+        }
+
+        public IEnumerable<IModule> GetModules(IProcess proc)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IMemRegion> GetRegions(IProcess proc)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IHandle> GetHandles(IProcess proc)
+        {
+            throw new NotImplementedException();
+        }
 
         public void OpenFolder(IProcess proc)
-            => new RequestMsg { Method = nameof(OpenFolder) }.WaitFor();
+        {
+            throw new NotImplementedException();
+        }
 
         public void OpenFolder(IModule mod)
-            => new RequestMsg { Method = nameof(OpenFolder) }.WaitFor();
+        {
+            throw new NotImplementedException();
+        }
 
         public void Kill(IProcess proc)
-            => new RequestMsg { Method = nameof(Kill) }.WaitFor();
+        {
+            throw new NotImplementedException();
+        }
 
         public void CreateMemSave(IProcess proc)
-            => new RequestMsg { Method = nameof(CreateMemSave) }.WaitFor();
+        {
+            throw new NotImplementedException();
+        }
 
         public void CreateScreenShot(IProcess proc)
-            => new RequestMsg { Method = nameof(CreateScreenShot) }.WaitFor();
+        {
+            throw new NotImplementedException();
+        }
 
         public void CreateMiniDump(IProcess proc)
-            => new RequestMsg { Method = nameof(CreateMiniDump) }.WaitFor();
+        {
+            throw new NotImplementedException();
+        }
 
         public void Quit()
-            => new RequestMsg { Method = nameof(Quit) }.WaitFor();
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            _channel.Dispose();
+        }
     }
 }
