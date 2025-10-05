@@ -23,6 +23,8 @@ namespace ProcSpector.Impl.Remote
         internal static void StartLoop(object? sender)
         {
             var platform = (RemotePlatform)sender!;
+            Debug.WriteLine("Connecting ...");
+
             while (platform.Cfg is { } cfg)
             {
                 try
