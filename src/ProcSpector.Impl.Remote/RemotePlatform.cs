@@ -4,6 +4,7 @@ using Grpc.Net.Client;
 using ProcSpector.API;
 using ProcSpector.Comm;
 using ProcSpector.Grpc;
+using ProcSpector.Impl.Remote.Proxy;
 
 namespace ProcSpector.Impl.Remote
 {
@@ -31,7 +32,7 @@ namespace ProcSpector.Impl.Remote
             => _client.GetUserName(new JsonReq()).Res.Unwrap<string>() ?? "";
 
         public IEnumerable<IProcess> GetAllProcesses()
-            => _client.GetUserName(new JsonReq()).Res.Unwrap<IProcess[]>() ?? [];
+            => _client.GetAllProcesses(new JsonReq()).Res.Unwrap<RmProcess[]>() ?? [];
 
         public IEnumerable<IModule> GetModules(IProcess proc)
         {
