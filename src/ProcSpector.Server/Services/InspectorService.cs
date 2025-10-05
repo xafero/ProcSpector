@@ -17,10 +17,10 @@ namespace ProcSpector.Server.Services
         private static ISystem Sys
             => Factory.Platform.Value.System;
 
-        public override Task<StrReply> GetHostName(StrRequest request, ServerCallContext context)
-            => Task.FromResult(new StrReply { Result = Sys.HostName });
+        public override Task<JsonRsp> GetHostName(JsonReq req, ServerCallContext context)
+            => Task.FromResult(new JsonRsp { Res = Sys.HostName });
 
-        public override Task<StrReply> GetUserName(StrRequest request, ServerCallContext context)
-            => Task.FromResult(new StrReply { Result = Sys.UserName });
+        public override Task<JsonRsp> GetUserName(JsonReq req, ServerCallContext context)
+            => Task.FromResult(new JsonRsp { Res = Sys.UserName });
     }
 }

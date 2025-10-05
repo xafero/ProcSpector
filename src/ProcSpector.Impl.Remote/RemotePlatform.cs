@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Grpc.Net.Client;
 using ProcSpector.API;
+using ProcSpector.Comm;
 using ProcSpector.Grpc;
 
 namespace ProcSpector.Impl.Remote
@@ -20,29 +21,14 @@ namespace ProcSpector.Impl.Remote
             _client = new Inspector.InspectorClient(_channel);
         }
 
-        public ISystem System => this;
+        public ISystem System
+            => this;
 
         public string HostName
-        {
-            get
-            {
-                var reply = _client.GetHostName(
-                    new StrRequest { Method = nameof(HostName) }
-                );
-                return reply.Result;
-            }
-        }
+            => _client.GetHostName(new JsonReq()).Res.Unwrap<string>() ?? "";
 
         public string UserName
-        {
-            get
-            {
-                var reply = _client.GetUserName(
-                    new StrRequest { Method = nameof(UserName) }
-                );
-                return reply.Result;
-            }
-        }
+            => _client.GetUserName(new JsonReq()).Res.Unwrap<string>() ?? "";
 
         public IEnumerable<IProcess> GetAllProcesses()
         {

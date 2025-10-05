@@ -5,14 +5,15 @@ option csharp_namespace = "ProcSpector.Grpc";
 package insight;
 
 service Inspector {
-  rpc GetUserName (StrRequest) returns (StrReply);
-  rpc GetHostName (StrRequest) returns (StrReply);
+  rpc GetUserName (JsonReq) returns (JsonRsp);
+  rpc GetHostName (JsonReq) returns (JsonRsp);
+  rpc GetAllProcesses (JsonReq) returns (JsonRsp);
 }
 
-message StrRequest {
-  string method = 1;
+message JsonReq {
+  string arg = 1;
 }
 
-message StrReply {
-  string result = 1;
+message JsonRsp {
+  string res = 1;
 }

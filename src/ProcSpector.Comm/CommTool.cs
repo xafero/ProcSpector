@@ -1,22 +1,16 @@
-using System;
 using System.Text.Json;
+using ProcSpector.Core;
 
 namespace ProcSpector.Comm
 {
     public static class CommTool
     {
-        public static T? Unwrap<T>(this IMessage msg)
+        public static T? Unwrap<T>(this string message)
         {
-            if (msg is ResponseMsg { Type: { } rType } rsp &&
-                Type.GetType(rType) is { } tType)
+            if (message.TrimOrNull() is { } msg)
             {
-                object? val;
-                if (rsp.Value is JsonElement je)
-                    val = je.Deserialize(tType);
-                else
-                    val = Convert.ChangeType(rsp.Value, tType);
-                if (val != null)
-                    return (T)val;
+                var val = JsonSerializer.Deserialize<T>(msg);
+                return val;
             }
             return default;
         }
