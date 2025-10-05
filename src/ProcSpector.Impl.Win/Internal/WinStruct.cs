@@ -1,6 +1,6 @@
 using System;
 
-namespace ProcSpector.Lib
+namespace ProcSpector.Impl.Win.Internal
 {
     public record WinStruct(
         IntPtr WindowHandle,

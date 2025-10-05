@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace ProcSpector.Lib.Memory
+namespace ProcSpector.Impl.Win.Memory
 {
     public static class MiniDumper
     {

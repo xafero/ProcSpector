@@ -1,4 +1,4 @@
-namespace ProcSpector.Lib.Memory
+namespace ProcSpector.API.Memory
 {
     public enum MemoryState : uint
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace ProcSpector.Lib.Memory
+namespace ProcSpector.Impl.Win.Memory
 {
     public sealed class MemoryRegion
     {

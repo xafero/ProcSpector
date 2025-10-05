@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 #pragma warning disable CA1416
 
-namespace ProcSpector.Lib
+namespace ProcSpector.Impl.Win.Internal
 {
     public static class Win32Gdi
     {

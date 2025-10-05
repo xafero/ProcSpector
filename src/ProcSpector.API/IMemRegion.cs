@@ -1,6 +1,6 @@
 using System;
 using ByteSizeLib;
-using ProcSpector.Lib.Memory;
+using ProcSpector.API.Memory;
 
 namespace ProcSpector.API
 {

@@ -1,13 +1,13 @@
 using System;
-using System.Text;
-using ProcSpector.Core;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Text;
+using ProcSpector.Core;
 
 #pragma warning disable CA1416
 
-namespace ProcSpector.Lib
+namespace ProcSpector.Impl.Win.Internal
 {
     public static class Win32
     {

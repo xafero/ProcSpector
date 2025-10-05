@@ -1,10 +1,12 @@
 using System;
 using ByteSizeLib;
 using ProcSpector.API;
+using ProcSpector.API.Memory;
 using ProcSpector.Core;
-using ProcSpector.Lib.Memory;
+using ProcSpector.Impl.Win.Internal;
+using ProcSpector.Impl.Win.Memory;
 
-namespace ProcSpector.Lib
+namespace ProcSpector.Impl.Win
 {
     public sealed class StdMem : IMemRegion
     {

@@ -1,7 +1,8 @@
 using System;
 using ProcSpector.API;
+using ProcSpector.Impl.Win.Internal;
 
-namespace ProcSpector.Lib
+namespace ProcSpector.Impl.Win
 {
     public sealed class StdWnd : IHandle
     {

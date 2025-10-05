@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using ProcSpector.API;
 using ProcSpector.Impl.Net;
-using ProcSpector.Lib;
-using ProcSpector.Lib.Memory;
 using System.Linq;
+using ProcSpector.Impl.Win.Internal;
+using ProcSpector.Impl.Win.Memory;
 
 namespace ProcSpector.Impl.Win
 {

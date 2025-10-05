@@ -1,17 +1,17 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using ProcSpector.API;
 using ProcSpector.Core;
 using ProcSpector.Impl.Net;
-using System;
-using System.Drawing.Imaging;
-using ProcSpector.Lib.Memory;
+using ProcSpector.Impl.Win.Memory;
 
 #pragma warning disable CA1416
 
-namespace ProcSpector.Lib
+namespace ProcSpector.Impl.Win.Internal
 {
     public static class Win32Ext
     {
