@@ -65,7 +65,7 @@ namespace ProcSpector.Impl.Remote
             Task.WaitAll(writing, reading);
         }
 
-        public static IMessage WaitFor(IMessage item, int delay = 100)
+        public static IMessage WaitFor(this IMessage item, int delay = 50)
         {
             _requests.Add(item);
 
