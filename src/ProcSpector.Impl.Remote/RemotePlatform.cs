@@ -21,28 +21,28 @@ namespace ProcSpector.Impl.Remote
 
         public IEnumerable<IProcess> GetAllProcesses()
         {
-            new RequestMsg { Method = nameof(GetAllProcesses) };
+            ClientCore.WaitFor(new RequestMsg { Method = nameof(GetAllProcesses) });
 
             throw new System.NotImplementedException();
         }
 
         public IEnumerable<IModule> GetModules(IProcess proc)
         {
-            new RequestMsg { Method = nameof(GetModules) };
+            ClientCore.WaitFor(new RequestMsg { Method = nameof(GetModules) });
 
             throw new System.NotImplementedException();
         }
 
         public IEnumerable<IMemRegion> GetRegions(IProcess proc)
         {
-            new RequestMsg { Method = nameof(GetRegions) };
+            ClientCore.WaitFor(new RequestMsg { Method = nameof(GetRegions) });
 
             throw new System.NotImplementedException();
         }
 
         public IEnumerable<IHandle> GetHandles(IProcess proc)
         {
-            new RequestMsg { Method = nameof(GetHandles) };
+            ClientCore.WaitFor(new RequestMsg { Method = nameof(GetHandles) });
 
             throw new System.NotImplementedException();
         }
@@ -51,7 +51,7 @@ namespace ProcSpector.Impl.Remote
         {
             get
             {
-                new RequestMsg { Method = nameof(HostName) };
+                ClientCore.WaitFor(new RequestMsg { Method = nameof(HostName) });
 
                 throw new System.NotImplementedException();
             }
@@ -61,7 +61,7 @@ namespace ProcSpector.Impl.Remote
         {
             get
             {
-                new RequestMsg { Method = nameof(UserName) };
+                ClientCore.WaitFor(new RequestMsg { Method = nameof(UserName) });
 
                 throw new System.NotImplementedException();
             }
@@ -69,42 +69,42 @@ namespace ProcSpector.Impl.Remote
 
         public void OpenFolder(IProcess proc)
         {
-            new RequestMsg { Method = nameof(OpenFolder) };
+            ClientCore.WaitFor(new RequestMsg { Method = nameof(OpenFolder) });
 
             throw new System.NotImplementedException();
         }
 
         public void OpenFolder(IModule mod)
         {
-            new RequestMsg { Method = nameof(OpenFolder) };
+            ClientCore.WaitFor(new RequestMsg { Method = nameof(OpenFolder) });
 
             throw new System.NotImplementedException();
         }
 
         public void Kill(IProcess proc)
         {
-            new RequestMsg { Method = nameof(Kill) };
+            ClientCore.WaitFor(new RequestMsg { Method = nameof(Kill) });
 
             throw new System.NotImplementedException();
         }
 
         public void CreateMemSave(IProcess proc)
         {
-            new RequestMsg { Method = nameof(CreateMemSave) };
+            ClientCore.WaitFor(new RequestMsg { Method = nameof(CreateMemSave) });
 
             throw new System.NotImplementedException();
         }
 
         public void CreateScreenShot(IProcess proc)
         {
-            new RequestMsg { Method = nameof(CreateScreenShot) };
+            ClientCore.WaitFor(new RequestMsg { Method = nameof(CreateScreenShot) });
 
             throw new System.NotImplementedException();
         }
 
         public void CreateMiniDump(IProcess proc)
         {
-            new RequestMsg { Method = nameof(CreateMiniDump) };
+            ClientCore.WaitFor(new RequestMsg { Method = nameof(CreateMiniDump) });
 
             throw new System.NotImplementedException();
         }

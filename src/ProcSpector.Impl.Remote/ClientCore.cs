@@ -5,12 +5,21 @@ using System.Net.Sockets;
 using ProcSpector.API;
 using ProcSpector.Comm;
 using ProcSpector.Core;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using static ProcSpector.Core.StrTool;
+
+// ReSharper disable AccessToDisposedClosure
 
 namespace ProcSpector.Impl.Remote
 {
     internal static class ClientCore
     {
+        private static BlockingCollection<IMessage> _requests = new();
+        private static Dictionary<long, IMessage> _responses = new();
+
         internal static void StartLoop(object? sender)
         {
             var platform = (RemotePlatform)sender!;
@@ -41,10 +50,29 @@ namespace ProcSpector.Impl.Remote
 
             writer.WriteJson(new HelloMsg { User = Environment.UserName, Host = Environment.MachineName });
 
-            while (reader.ReadLine() is { } line)
+            var writing = Task.Run(() =>
             {
-                Debug.WriteLine($"Received: '{line}'");
-            }
+                foreach (var message in _requests.GetConsumingEnumerable())
+                    writer.WriteJson(message);
+            });
+            var reading = Task.Run(() =>
+            {
+                while (reader.ReadJson<ResponseMsg>() is { } message)
+                    _responses[message.Id] = message;
+            });
+            Task.WaitAll(writing, reading);
+        }
+
+        public static IMessage WaitFor(IMessage item, int delay = 100)
+        {
+            _requests.Add(item);
+
+            var id = item.Id;
+            IMessage? response;
+            while (!_responses.TryGetValue(id, out response))
+                Thread.Sleep(delay);
+            _responses.Remove(id);
+            return response;
         }
     }
 }
