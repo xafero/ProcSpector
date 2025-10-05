@@ -31,10 +31,7 @@ namespace ProcSpector.Impl.Remote
             => _client.GetUserName(new JsonReq()).Res.Unwrap<string>() ?? "";
 
         public IEnumerable<IProcess> GetAllProcesses()
-        {
-            // TODO
-            return [];
-        }
+            => _client.GetUserName(new JsonReq()).Res.Unwrap<IProcess[]>() ?? [];
 
         public IEnumerable<IModule> GetModules(IProcess proc)
         {

@@ -14,5 +14,15 @@ namespace ProcSpector.Comm
             }
             return default;
         }
+
+        public static string? Wrap(this object? raw)
+        {
+            if (raw is { } val)
+            {
+                var msg = JsonSerializer.Serialize(val);
+                return msg;
+            }
+            return null;
+        }
     }
 }

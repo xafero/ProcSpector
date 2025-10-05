@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using ProcSpector.API;
+using ProcSpector.Comm;
 using ProcSpector.Grpc;
 using ProcSpector.Impl;
 
@@ -18,9 +19,12 @@ namespace ProcSpector.Server.Services
             => Factory.Platform.Value.System;
 
         public override Task<JsonRsp> GetHostName(JsonReq req, ServerCallContext context)
-            => Task.FromResult(new JsonRsp { Res = Sys.HostName });
+            => Task.FromResult(new JsonRsp { Res = Sys.HostName.Wrap() });
 
         public override Task<JsonRsp> GetUserName(JsonReq req, ServerCallContext context)
-            => Task.FromResult(new JsonRsp { Res = Sys.UserName });
+            => Task.FromResult(new JsonRsp { Res = Sys.UserName.Wrap() });
+
+        public override Task<JsonRsp> GetAllProcesses(JsonReq req, ServerCallContext context)
+            => Task.FromResult(new JsonRsp { Res = Sys.GetAllProcesses().Wrap() });
     }
 }
