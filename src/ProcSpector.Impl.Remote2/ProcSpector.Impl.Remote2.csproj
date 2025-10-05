@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\ProcSpector.Server2\Protos\insight.proto" Link="Protos\insight.proto" GrpcServices="Client" />
+    <Protobuf Include="..\ProcSpector.Server\Protos\insight.proto" Link="Protos\insight.proto" GrpcServices="Client" />
   </ItemGroup>
 
   <ItemGroup>

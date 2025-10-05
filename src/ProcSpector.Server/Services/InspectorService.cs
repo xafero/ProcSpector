@@ -5,7 +5,7 @@ using ProcSpector.API;
 using ProcSpector.Grpc;
 using ProcSpector.Impl;
 
-namespace ProcSpector.Server2.Services
+namespace ProcSpector.Server.Services
 {
     public class InspectorService : Inspector.InspectorBase
     {

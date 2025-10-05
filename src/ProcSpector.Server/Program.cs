@@ -1,31 +1,23 @@
-﻿using System;
-using System.Net;
-using System.Net.Sockets;
-using System.Threading;
-using ProcSpector.Core;
-using ProcSpector.Server.Config;
-using static ProcSpector.Server.ServerCore;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using ProcSpector.Server.Services;
 
 namespace ProcSpector.Server
 {
     internal static class Program
     {
-        private static void Main()
+        private static void Main(string[] args)
         {
-            var settings = ConfigTool.ReadJsonObj<AppSettings>();
+            var builder = WebApplication.CreateBuilder(args);
 
-            var addr = NetTool.Parse(settings.Host?.Address) ?? IPAddress.Any;
-            var port = settings.Host?.Port ?? 8093;
-            var backlog = settings.Host?.Backlog ?? 10;
+            builder.Services.AddGrpc();
 
-            using var server = new TcpListener(addr, port);
-            server.Start(backlog);
+            var app = builder.Build();
 
-            var thread = new Thread(StartLoop) { IsBackground = true, Name = "Loop" };
-            thread.Start(server);
+            app.MapGrpcService<InspectorService>();
+            app.MapGet("/", () => "You need a gRPC client!");
 
-            Console.ReadLine();
-            thread.Interrupt();
+            app.Run();
         }
     }
 }
