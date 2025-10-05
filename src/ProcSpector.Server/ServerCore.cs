@@ -82,6 +82,8 @@ namespace ProcSpector.Server
                     return plat.System.UserName;
                 case nameof(ISystem.HostName):
                     return plat.System.HostName;
+                case nameof(ISystem.GetAllProcesses):
+                    return plat.System.GetAllProcesses();
                 case nameof(ISystem.Quit):
                     client.Close();
                     return null;
