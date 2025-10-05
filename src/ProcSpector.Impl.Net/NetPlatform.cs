@@ -79,5 +79,10 @@ namespace ProcSpector.Impl.Net
         {
             // NO-OP
         }
+
+        public void Quit()
+        {
+            // NO-OP
+        }
     }
 }

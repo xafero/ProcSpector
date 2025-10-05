@@ -5,6 +5,7 @@ using ProcSpector.Comm;
 using ProcSpector.Core;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using ProcSpector.API;
 using ProcSpector.Impl;
 using static ProcSpector.Core.StrTool;
 
@@ -61,15 +62,31 @@ namespace ProcSpector.Server
 
         private static void RunThis(RequestMsg req, TcpClient client)
         {
-            var meth = req.Method.TrimOrNull() ?? "_";
-            Console.WriteLine($"Received: '{meth}' '{req}'");
-
-            var plat = Factory.Platform.Value;
-            Console.WriteLine(plat);
-
-            if (meth.Equals("quit", Inv))
+            var value = ExecThis(req, client);
+            var type = value?.GetType() ?? typeof(object);
+            var typeName = type.FullName;
+            var res = new ResponseMsg
             {
-                client.Close();
+                Id = req.Id, Type = typeName, Value = value
+            };
+            _responses.Add(res);
+        }
+
+        private static object? ExecThis(RequestMsg req, TcpClient client)
+        {
+            var plat = Factory.Platform.Value;
+            var meth = req.Method.TrimOrNull() ?? "_";
+            switch (meth)
+            {
+                case nameof(ISystem.UserName):
+                    return plat.System.UserName;
+                case nameof(ISystem.HostName):
+                    return plat.System.HostName;
+                case nameof(ISystem.Quit):
+                    client.Close();
+                    return null;
+                default:
+                    throw new InvalidOperationException(meth);
             }
         }
     }

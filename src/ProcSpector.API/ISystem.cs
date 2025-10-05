@@ -18,5 +18,6 @@ namespace ProcSpector.API
         void CreateMemSave(IProcess proc);
         void CreateScreenShot(IProcess proc);
         void CreateMiniDump(IProcess proc);
+        void Quit();
     }
 }

@@ -108,5 +108,12 @@ namespace ProcSpector.Impl.Remote
 
             throw new System.NotImplementedException();
         }
+
+        public void Quit()
+        {
+            ClientCore.WaitFor(new RequestMsg { Method = nameof(Quit) });
+
+            throw new System.NotImplementedException();
+        }
     }
 }
