@@ -27,7 +27,9 @@ namespace ProcSpector
 
         private static void InitCfg()
         {
-            Factory.ClientCfg = (Env.Cfg = ConfigTool.ReadJsonObj<AppSettings>()).Client;
+            Env.Cfg = ConfigTool.ReadJsonObj<AppSettings>();
+            if (Env.Cfg.Client?.Address != null)
+                Factory.ClientCfg = Env.Cfg.Client;
         }
     }
 }
