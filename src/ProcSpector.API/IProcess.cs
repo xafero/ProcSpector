@@ -1,5 +1,4 @@
 using System;
-using ByteSizeLib;
 
 namespace ProcSpector.API
 {
@@ -10,14 +9,8 @@ namespace ProcSpector.API
         DateTime? StartTime { get; }
         int Threads { get; }
         int Handles { get; }
-        ByteSize WorkingSet { get; }
-        ByteSize PagedMem { get; }
+        long WorkingSet { get; }
+        long PagedMem { get; }
         string? FileName { get; }
-
-        void Kill();
-        void CreateMemSave();
-        void CreateScreenShot();
-        void CreateMiniDump();
-        void OpenFolder();
     }
 }

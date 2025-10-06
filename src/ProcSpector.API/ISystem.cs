@@ -1,23 +1,31 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ProcSpector.API
 {
     public interface ISystem
     {
-        IEnumerable<IProcess> GetAllProcesses();
-        IEnumerable<IModule> GetModules(IProcess proc);
-        IEnumerable<IMemRegion> GetRegions(IProcess proc);
-        IEnumerable<IHandle> GetHandles(IProcess proc);
+        IAsyncEnumerable<IProcess> GetAllProcesses();
+        IAsyncEnumerable<IModule> GetModules(IProcess proc);
+        IAsyncEnumerable<IMemRegion> GetRegions(IProcess proc);
+        IAsyncEnumerable<IHandle> GetHandles(IProcess proc);
 
-        string HostName { get; }
-        string UserName { get; }
+        Task<string> GetHostName();
+        Task<string> GetUserName();
 
-        void OpenFolder(IProcess proc);
-        void OpenFolder(IModule mod);
-        bool Kill(IProcess proc);
-        bool CreateMemSave(IProcess proc);
-        bool CreateScreenShot(IProcess proc);
-        bool CreateMiniDump(IProcess proc);
-        void Quit();
+        Task<bool> CreateScreenShot(IProcess proc);
+        Task<bool> CreateScreenShot(IHandle handle);
+
+        Task<bool> CreateMemSave(IProcess proc);
+        Task<bool> CreateMemSave(IMemRegion mem);
+
+        Task<bool> CreateMiniDump(IProcess proc);
+
+        Task<bool> Kill(IProcess proc);
+
+        Task<bool> OpenFolder(IProcess proc);
+        Task<bool> OpenFolder(IModule mod);
+
+        Task<bool> Quit();
     }
 }

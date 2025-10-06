@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+using System.Threading.Tasks;
 using ProcSpector.API;
 
 namespace ProcSpector.Impl.Net
@@ -10,82 +9,79 @@ namespace ProcSpector.Impl.Net
     {
         public ISystem System => this;
 
-        public IEnumerable<IProcess> GetAllProcesses()
+        public IAsyncEnumerable<IProcess> GetAllProcesses()
         {
-            var raw = Process.GetProcesses();
-            foreach (var item in raw)
-                if (WrapP(item) is { } wrap)
-                    yield return wrap;
+            throw new NotImplementedException();
         }
 
-        private IProcess? WrapP(Process process)
+        public IAsyncEnumerable<IModule> GetModules(IProcess proc)
         {
-            try
-            {
-                _ = process.StartTime;
-                _ = process.MainModule;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-            var wrap = new StdProc(process, this);
-            return wrap;
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<IModule> GetModules(IProcess proc)
+        public IAsyncEnumerable<IMemRegion> GetRegions(IProcess proc)
         {
-            var raw = ProcExt.GetStdProc(proc, this);
-            var modules = raw.Proc.Modules.Cast<ProcessModule>();
-            foreach (var item in modules)
-                if (WrapM(item) is { } wrap)
-                    yield return wrap;
+            throw new NotImplementedException();
         }
 
-        private IModule WrapM(ProcessModule module)
+        public IAsyncEnumerable<IHandle> GetHandles(IProcess proc)
         {
-            var wrap = new StdMod(module, this);
-            return wrap;
+            throw new NotImplementedException();
         }
 
-        public virtual IEnumerable<IMemRegion> GetRegions(IProcess proc)
+        public Task<string> GetHostName()
         {
-            return [];
+            throw new NotImplementedException();
         }
 
-        public virtual IEnumerable<IHandle> GetHandles(IProcess proc)
+        public Task<string> GetUserName()
         {
-            return [];
+            throw new NotImplementedException();
         }
 
-        public string HostName => Environment.MachineName;
-        public string UserName => Environment.UserName;
-
-        public void OpenFolder(IProcess proc) => ProcExt.OpenFolder(proc);
-        public void OpenFolder(IModule mod) => ProcExt.OpenFolder(mod);
-        public bool Kill(IProcess proc) => ProcExt.Kill(proc);
-
-        public virtual bool CreateMemSave(IProcess proc)
+        public Task<bool> CreateScreenShot(IProcess proc)
         {
-            // NO-OP
-            return false;
+            throw new NotImplementedException();
         }
 
-        public virtual bool CreateScreenShot(IProcess proc)
+        public Task<bool> CreateScreenShot(IHandle handle)
         {
-            // NO-OP
-            return false;
+            throw new NotImplementedException();
         }
 
-        public virtual bool CreateMiniDump(IProcess proc)
+        public Task<bool> CreateMemSave(IProcess proc)
         {
-            // NO-OP
-            return false;
+            throw new NotImplementedException();
         }
 
-        public void Quit()
+        public Task<bool> CreateMemSave(IMemRegion mem)
         {
-            // NO-OP
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> CreateMiniDump(IProcess proc)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Kill(IProcess proc)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> OpenFolder(IProcess proc)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> OpenFolder(IModule mod)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Quit()
+        {
+            throw new NotImplementedException();
         }
     }
 }

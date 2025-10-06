@@ -34,10 +34,12 @@ namespace ProcSpector.Impl.Net
         public override string ToString()
             => $"({Name})";
 
-        public void Kill() => Sys.Kill(this);
-        public void CreateMemSave() => Sys.CreateMemSave(this);
-        public void CreateScreenShot() => Sys.CreateScreenShot(this);
-        public void CreateMiniDump() => Sys.CreateMiniDump(this);
-        public void OpenFolder() => Sys.OpenFolder(this);
+        // public void Kill() => Sys.Kill(this);
+        // public void CreateMemSave() => Sys.CreateMemSave(this);
+        // public void CreateScreenShot() => Sys.CreateScreenShot(this);
+        // public void CreateMiniDump() => Sys.CreateMiniDump(this);
+        // public void OpenFolder() => Sys.OpenFolder(this);
+        long IProcess.WorkingSet => Proc.WorkingSet64;
+        long IProcess.PagedMem => Proc.PagedMemorySize64;
     }
 }

@@ -1,9 +1,12 @@
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ProcSpector.API;
 using ProcSpector.Impl;
 using ProcSpector.Tools;
 using ProcSpector.ViewModels;
+
+// ReSharper disable AsyncVoidMethod
 
 namespace ProcSpector.Views
 {
@@ -14,7 +17,7 @@ namespace ProcSpector.Views
             InitializeComponent();
         }
 
-        private void LoadRegions()
+        private async Task LoadRegions()
         {
             var sys = Factory.Platform.Value.System;
 
@@ -24,18 +27,19 @@ namespace ProcSpector.Views
             {
                 Title = $"The memory of {proc.Name} (pid: {proc.Id})";
 
-                model.Regions.AddRange(sys.GetRegions(proc));
+                await foreach (var item in sys.GetRegions(proc))
+                    model.Regions.Add(item);
             }
         }
 
-        private void OnLoaded(object? sender, RoutedEventArgs e)
+        private async void OnLoaded(object? sender, RoutedEventArgs e)
         {
-            LoadRegions();
+            await LoadRegions();
         }
 
-        private void RefreshClick(object? sender, RoutedEventArgs e)
+        private async void RefreshClick(object? sender, RoutedEventArgs e)
         {
-            LoadRegions();
+            await LoadRegions();
         }
 
         private void OnCellPointerPressed(object? sender, DataGridCellPointerPressedEventArgs e)
@@ -61,7 +65,9 @@ namespace ProcSpector.Views
         {
             if (Grid.SelectedItem is not IMemRegion region)
                 return;
-            region.CreateMemSave();
+            Sys.CreateMemSave(region);
         }
+
+        private static ISystem Sys => Factory.Platform.Value.System;
     }
 }

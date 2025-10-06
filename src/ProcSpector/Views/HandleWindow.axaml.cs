@@ -1,9 +1,12 @@
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ProcSpector.API;
 using ProcSpector.Impl;
 using ProcSpector.Tools;
 using ProcSpector.ViewModels;
+
+// ReSharper disable AsyncVoidMethod
 
 namespace ProcSpector.Views
 {
@@ -14,7 +17,7 @@ namespace ProcSpector.Views
             InitializeComponent();
         }
 
-        private void LoadHandles()
+        private async Task LoadHandles()
         {
             var sys = Factory.Platform.Value.System;
 
@@ -24,18 +27,19 @@ namespace ProcSpector.Views
             {
                 Title = $"The windows of {proc.Name} (pid: {proc.Id})";
 
-                model.Handles.AddRange(sys.GetHandles(proc));
+                await foreach (var item in sys.GetHandles(proc))
+                    model.Handles.Add(item);
             }
         }
 
-        private void OnLoaded(object? sender, RoutedEventArgs e)
+        private async void OnLoaded(object? sender, RoutedEventArgs e)
         {
-            LoadHandles();
+            await LoadHandles();
         }
 
-        private void RefreshClick(object? sender, RoutedEventArgs e)
+        private async void RefreshClick(object? sender, RoutedEventArgs e)
         {
-            LoadHandles();
+            await LoadHandles();
         }
 
         private void OnCellPointerPressed(object? sender, DataGridCellPointerPressedEventArgs e)
@@ -61,7 +65,9 @@ namespace ProcSpector.Views
         {
             if (Grid.SelectedItem is not IHandle handle)
                 return;
-            handle.CreateScreenShot();
+            Sys.CreateScreenShot(handle);
         }
+
+        private static ISystem Sys => Factory.Platform.Value.System;
     }
 }

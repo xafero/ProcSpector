@@ -3,7 +3,6 @@ using ByteSizeLib;
 using ProcSpector.API;
 using ProcSpector.API.Memory;
 using ProcSpector.Core;
-using ProcSpector.Impl.Win.Internal;
 using ProcSpector.Impl.Win.Memory;
 
 namespace ProcSpector.Impl.Win
@@ -24,6 +23,8 @@ namespace ProcSpector.Impl.Win
         public override string ToString()
             => $"({BaseAddress})";
 
-        public void CreateMemSave() => Win32Ext.CreateMemSave(this);
+        // public void CreateMemSave() => Win32Ext.CreateMemSave(this);
+        long IMemRegion.BaseAddress => Mem.BaseAddress;
+        long IMemRegion.Size => Mem.Size;
     }
 }

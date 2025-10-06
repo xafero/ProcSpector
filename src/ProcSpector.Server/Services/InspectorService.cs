@@ -20,10 +20,10 @@ namespace ProcSpector.Server.Services
             => Factory.Platform.Value.System;
 
         public override Task<JsonRsp> GetHostName(JsonReq req, ServerCallContext ctx)
-            => Task.FromResult(new JsonRsp { Res = Sys.HostName.Wrap() });
+            => Task.FromResult(new JsonRsp { Res = Sys.GetHostName().Wrap() });
 
         public override Task<JsonRsp> GetUserName(JsonReq req, ServerCallContext ctx)
-            => Task.FromResult(new JsonRsp { Res = Sys.UserName.Wrap() });
+            => Task.FromResult(new JsonRsp { Res = Sys.GetUserName().Wrap() });
 
         public override Task<JsonRsp> GetAllProcesses(JsonReq req, ServerCallContext ctx)
             => Task.FromResult(new JsonRsp { Res = Sys.GetAllProcesses().Wrap() });

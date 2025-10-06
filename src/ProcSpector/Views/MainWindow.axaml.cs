@@ -1,9 +1,12 @@
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ProcSpector.API;
 using ProcSpector.Impl;
 using ProcSpector.Tools;
 using ProcSpector.ViewModels;
+
+// ReSharper disable AsyncVoidMethod
 
 namespace ProcSpector.Views
 {
@@ -14,24 +17,25 @@ namespace ProcSpector.Views
             InitializeComponent();
         }
 
-        private void LoadProcesses()
+        private async Task LoadProcesses()
         {
             var sys = Factory.Platform.Value.System;
-            Title = $"All processes for {sys.UserName} on {sys.HostName}";
+            Title = $"All processes for {await sys.GetUserName()} on {await sys.GetHostName()}";
 
             var model = this.GetData<MainViewModel>();
             model.Processes.Clear();
-            model.Processes.AddRange(sys.GetAllProcesses());
+            await foreach (var item in sys.GetAllProcesses())
+                model.Processes.Add(item);
         }
 
-        private void OnLoaded(object? sender, RoutedEventArgs e)
+        private async void OnLoaded(object? sender, RoutedEventArgs e)
         {
-            LoadProcesses();
+            await LoadProcesses();
         }
 
-        private void RefreshClick(object? sender, RoutedEventArgs e)
+        private async void RefreshClick(object? sender, RoutedEventArgs e)
         {
-            LoadProcesses();
+            await LoadProcesses();
         }
 
         private void OnCellPointerPressed(object? sender, DataGridCellPointerPressedEventArgs e)
@@ -64,35 +68,35 @@ namespace ProcSpector.Views
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            proc.CreateMemSave();
+            Sys.CreateMemSave(proc);
         }
 
         private void KillTree()
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            proc.Kill();
+            Sys.Kill(proc);
         }
 
         private void CopyScreen()
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            proc.CreateScreenShot();
+            Sys.CreateScreenShot(proc);
         }
 
         private void DumpMini()
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            proc.CreateMiniDump();
+            Sys.CreateMiniDump(proc);
         }
 
         private void OpenFolder()
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            proc.OpenFolder();
+            Sys.OpenFolder(proc);
         }
 
         private void OpenMemView()
@@ -118,5 +122,7 @@ namespace ProcSpector.Views
             var modWind = new ModuleWindow { DataContext = new ModuleViewModel { Proc = proc } };
             modWind.ShowDialog(this);
         }
+
+        private static ISystem Sys => Factory.Platform.Value.System;
     }
 }

@@ -36,6 +36,8 @@ namespace ProcSpector.Impl.Win
         public override string ToString()
             => $"({Handle})";
 
-        public void CreateScreenShot() => Win32Ext.CreateScreenShot(this);
+        // public void CreateScreenShot() => Win32Ext.CreateScreenShot(this);
+        long? IHandle.Parent => Parent?.ToInt64();
+        long? IHandle.Handle => Handle?.ToInt64();
     }
 }

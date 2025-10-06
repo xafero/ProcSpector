@@ -24,6 +24,8 @@ namespace ProcSpector.Impl.Net
         public override string ToString()
             => $"({FileName})";
 
-        public void OpenFolder() => Sys.OpenFolder(this);
+        // public void OpenFolder() => Sys.OpenFolder(this);
+        long IModule.BaseAddress => Mod.BaseAddress;
+        long IModule.Size => Mod.ModuleMemorySize;
     }
 }

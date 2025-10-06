@@ -42,7 +42,7 @@ namespace ProcSpector.Impl.Win.Internal
 
         public static void CreateMemSave(IMemRegion region)
         {
-            var title = $"0x{region.BaseAddress.ToInt64():X}";
+            var title = $"0x{region.BaseAddress:X}";
             var filePath = MiscExt.GetTimedFileName("Region", title, "bin");
 
             var real = ((StdMem)region).Mem;
@@ -66,7 +66,7 @@ namespace ProcSpector.Impl.Win.Internal
             var win = handle.Handle;
             if (win == null)
                 return;
-            CreateScreenShot(win.Value);
+            CreateScreenShot(new IntPtr(win.Value));
         }
 
         private static bool CreateScreenShot(IntPtr hWnd)
