@@ -35,19 +35,25 @@ namespace ProcSpector.Impl.Remote
             => _client.GetAllProcesses(new JsonReq()).Res.Unwrap<RmProcess[]>() ?? [];
 
         public IEnumerable<IModule> GetModules(IProcess proc)
-        {
-            throw new NotImplementedException();
-        }
+            => _client.GetModules(new JsonReq()).Res.Unwrap<RmModule[]>() ?? [];
 
         public IEnumerable<IMemRegion> GetRegions(IProcess proc)
-        {
-            throw new NotImplementedException();
-        }
+            => _client.GetRegions(new JsonReq()).Res.Unwrap<RmRegion[]>() ?? [];
 
         public IEnumerable<IHandle> GetHandles(IProcess proc)
-        {
-            throw new NotImplementedException();
-        }
+            => _client.GetHandles(new JsonReq()).Res.Unwrap<RmHandle[]>() ?? [];
+
+        public bool Kill(IProcess proc)
+            => _client.Kill(new JsonReq()).Res.Unwrap<bool>();
+
+        public bool CreateMemSave(IProcess proc)
+            => _client.CreateMemSave(new JsonReq()).Res.Unwrap<bool>();
+
+        public bool CreateScreenShot(IProcess proc)
+            => _client.CreateScreenShot(new JsonReq()).Res.Unwrap<bool>();
+
+        public bool CreateMiniDump(IProcess proc)
+            => _client.CreateMiniDump(new JsonReq()).Res.Unwrap<bool>();
 
         public void OpenFolder(IProcess proc)
         {
@@ -55,26 +61,6 @@ namespace ProcSpector.Impl.Remote
         }
 
         public void OpenFolder(IModule mod)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Kill(IProcess proc)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CreateMemSave(IProcess proc)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CreateScreenShot(IProcess proc)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CreateMiniDump(IProcess proc)
         {
             throw new NotImplementedException();
         }
