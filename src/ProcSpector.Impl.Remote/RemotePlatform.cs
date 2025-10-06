@@ -35,25 +35,25 @@ namespace ProcSpector.Impl.Remote
             => _client.GetAllProcesses(new JsonReq()).Res.Unwrap<RmProcess[]>() ?? [];
 
         public IEnumerable<IModule> GetModules(IProcess proc)
-            => _client.GetModules(new JsonReq()).Res.Unwrap<RmModule[]>() ?? [];
+            => _client.GetModules(new JsonReq { Arg = proc.Wrap() }).Res.Unwrap<RmModule[]>() ?? [];
 
         public IEnumerable<IMemRegion> GetRegions(IProcess proc)
-            => _client.GetRegions(new JsonReq()).Res.Unwrap<RmRegion[]>() ?? [];
+            => _client.GetRegions(new JsonReq { Arg = proc.Wrap() }).Res.Unwrap<RmRegion[]>() ?? [];
 
         public IEnumerable<IHandle> GetHandles(IProcess proc)
-            => _client.GetHandles(new JsonReq()).Res.Unwrap<RmHandle[]>() ?? [];
+            => _client.GetHandles(new JsonReq { Arg = proc.Wrap() }).Res.Unwrap<RmHandle[]>() ?? [];
 
         public bool Kill(IProcess proc)
-            => _client.Kill(new JsonReq()).Res.Unwrap<bool>();
+            => _client.Kill(new JsonReq { Arg = proc.Wrap() }).Res.Unwrap<bool>();
 
         public bool CreateMemSave(IProcess proc)
-            => _client.CreateMemSave(new JsonReq()).Res.Unwrap<bool>();
+            => _client.CreateMemSave(new JsonReq { Arg = proc.Wrap() }).Res.Unwrap<bool>();
 
         public bool CreateScreenShot(IProcess proc)
-            => _client.CreateScreenShot(new JsonReq()).Res.Unwrap<bool>();
+            => _client.CreateScreenShot(new JsonReq { Arg = proc.Wrap() }).Res.Unwrap<bool>();
 
         public bool CreateMiniDump(IProcess proc)
-            => _client.CreateMiniDump(new JsonReq()).Res.Unwrap<bool>();
+            => _client.CreateMiniDump(new JsonReq { Arg = proc.Wrap() }).Res.Unwrap<bool>();
 
         public void OpenFolder(IProcess proc)
         {

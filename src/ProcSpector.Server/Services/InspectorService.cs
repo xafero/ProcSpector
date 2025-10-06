@@ -5,6 +5,7 @@ using ProcSpector.API;
 using ProcSpector.Comm;
 using ProcSpector.Grpc;
 using ProcSpector.Impl;
+using ProcSpector.Impl.Remote.Proxy;
 
 namespace ProcSpector.Server.Services
 {
@@ -28,24 +29,24 @@ namespace ProcSpector.Server.Services
             => Task.FromResult(new JsonRsp { Res = Sys.GetAllProcesses().Wrap() });
 
         public override Task<JsonRsp> GetHandles(JsonReq req, ServerCallContext ctx)
-            => Task.FromResult(new JsonRsp { Res = Sys.GetHandles(null).Wrap() });
+            => Task.FromResult(new JsonRsp { Res = Sys.GetHandles(req.Arg.Unwrap<RmProcess>()!).Wrap() });
 
         public override Task<JsonRsp> GetModules(JsonReq req, ServerCallContext ctx)
-            => Task.FromResult(new JsonRsp { Res = Sys.GetModules(null).Wrap() });
+            => Task.FromResult(new JsonRsp { Res = Sys.GetModules(req.Arg.Unwrap<RmProcess>()!).Wrap() });
 
         public override Task<JsonRsp> GetRegions(JsonReq req, ServerCallContext ctx)
-            => Task.FromResult(new JsonRsp { Res = Sys.GetRegions(null).Wrap() });
+            => Task.FromResult(new JsonRsp { Res = Sys.GetRegions(req.Arg.Unwrap<RmProcess>()!).Wrap() });
 
         public override Task<JsonRsp> CreateMemSave(JsonReq req, ServerCallContext ctx)
-            => Task.FromResult(new JsonRsp { Res = Sys.CreateMemSave(null).Wrap() });
+            => Task.FromResult(new JsonRsp { Res = Sys.CreateMemSave(req.Arg.Unwrap<RmProcess>()!).Wrap() });
 
         public override Task<JsonRsp> CreateMiniDump(JsonReq req, ServerCallContext ctx)
-            => Task.FromResult(new JsonRsp { Res = Sys.CreateMiniDump(null).Wrap() });
+            => Task.FromResult(new JsonRsp { Res = Sys.CreateMiniDump(req.Arg.Unwrap<RmProcess>()!).Wrap() });
 
         public override Task<JsonRsp> CreateScreenShot(JsonReq req, ServerCallContext ctx)
-            => Task.FromResult(new JsonRsp { Res = Sys.CreateScreenShot(null).Wrap() });
+            => Task.FromResult(new JsonRsp { Res = Sys.CreateScreenShot(req.Arg.Unwrap<RmProcess>()!).Wrap() });
 
         public override Task<JsonRsp> Kill(JsonReq req, ServerCallContext ctx)
-            => Task.FromResult(new JsonRsp { Res = Sys.Kill(null).Wrap() });
+            => Task.FromResult(new JsonRsp { Res = Sys.Kill(req.Arg.Unwrap<RmProcess>()!).Wrap() });
     }
 }

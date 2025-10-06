@@ -35,7 +35,7 @@ namespace ProcSpector.Impl.Net
 
         public IEnumerable<IModule> GetModules(IProcess proc)
         {
-            var raw = (StdProc)proc;
+            var raw = ProcExt.GetStdProc(proc, this);
             var modules = raw.Proc.Modules.Cast<ProcessModule>();
             foreach (var item in modules)
                 if (WrapM(item) is { } wrap)
