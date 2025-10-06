@@ -53,13 +53,13 @@ namespace ProcSpector.Impl.Win
             }
         }
 
-        public override void CreateMemSave(IProcess proc)
+        public override bool CreateMemSave(IProcess proc)
             => Win32Ext.CreateMemSave(proc);
 
-        public override void CreateScreenShot(IProcess proc)
+        public override bool CreateScreenShot(IProcess proc)
             => Win32Ext.CreateScreenShot(proc);
 
-        public override void CreateMiniDump(IProcess proc)
+        public override bool CreateMiniDump(IProcess proc)
             => Win32Ext.CreateMiniDump(proc);
     }
 }

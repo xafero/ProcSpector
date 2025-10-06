@@ -18,13 +18,34 @@ namespace ProcSpector.Server.Services
         private static ISystem Sys
             => Factory.Platform.Value.System;
 
-        public override Task<JsonRsp> GetHostName(JsonReq req, ServerCallContext context)
+        public override Task<JsonRsp> GetHostName(JsonReq req, ServerCallContext ctx)
             => Task.FromResult(new JsonRsp { Res = Sys.HostName.Wrap() });
 
-        public override Task<JsonRsp> GetUserName(JsonReq req, ServerCallContext context)
+        public override Task<JsonRsp> GetUserName(JsonReq req, ServerCallContext ctx)
             => Task.FromResult(new JsonRsp { Res = Sys.UserName.Wrap() });
 
-        public override Task<JsonRsp> GetAllProcesses(JsonReq req, ServerCallContext context)
+        public override Task<JsonRsp> GetAllProcesses(JsonReq req, ServerCallContext ctx)
             => Task.FromResult(new JsonRsp { Res = Sys.GetAllProcesses().Wrap() });
+
+        public override Task<JsonRsp> GetHandles(JsonReq req, ServerCallContext ctx)
+            => Task.FromResult(new JsonRsp { Res = Sys.GetHandles(null).Wrap() });
+
+        public override Task<JsonRsp> GetModules(JsonReq req, ServerCallContext ctx)
+            => Task.FromResult(new JsonRsp { Res = Sys.GetModules(null).Wrap() });
+
+        public override Task<JsonRsp> GetRegions(JsonReq req, ServerCallContext ctx)
+            => Task.FromResult(new JsonRsp { Res = Sys.GetRegions(null).Wrap() });
+
+        public override Task<JsonRsp> CreateMemSave(JsonReq req, ServerCallContext ctx)
+            => Task.FromResult(new JsonRsp { Res = Sys.CreateMemSave(null).Wrap() });
+
+        public override Task<JsonRsp> CreateMiniDump(JsonReq req, ServerCallContext ctx)
+            => Task.FromResult(new JsonRsp { Res = Sys.CreateMiniDump(null).Wrap() });
+
+        public override Task<JsonRsp> CreateScreenShot(JsonReq req, ServerCallContext ctx)
+            => Task.FromResult(new JsonRsp { Res = Sys.CreateScreenShot(null).Wrap() });
+
+        public override Task<JsonRsp> Kill(JsonReq req, ServerCallContext ctx)
+            => Task.FromResult(new JsonRsp { Res = Sys.Kill(null).Wrap() });
     }
 }

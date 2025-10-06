@@ -14,10 +14,10 @@ namespace ProcSpector.API
 
         void OpenFolder(IProcess proc);
         void OpenFolder(IModule mod);
-        void Kill(IProcess proc);
-        void CreateMemSave(IProcess proc);
-        void CreateScreenShot(IProcess proc);
-        void CreateMiniDump(IProcess proc);
+        bool Kill(IProcess proc);
+        bool CreateMemSave(IProcess proc);
+        bool CreateScreenShot(IProcess proc);
+        bool CreateMiniDump(IProcess proc);
         void Quit();
     }
 }

@@ -27,10 +27,11 @@ namespace ProcSpector.Impl.Net
             Process.Start(info);
         }
 
-        public static void Kill(IProcess proc)
+        public static bool Kill(IProcess proc)
         {
             var real = ((StdProc)proc).Proc;
             real.Kill(entireProcessTree: true);
+            return real.HasExited;
         }
     }
 }

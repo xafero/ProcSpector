@@ -59,22 +59,22 @@ namespace ProcSpector.Impl.Remote
             throw new NotImplementedException();
         }
 
-        public void Kill(IProcess proc)
+        public bool Kill(IProcess proc)
         {
             throw new NotImplementedException();
         }
 
-        public void CreateMemSave(IProcess proc)
+        public bool CreateMemSave(IProcess proc)
         {
             throw new NotImplementedException();
         }
 
-        public void CreateScreenShot(IProcess proc)
+        public bool CreateScreenShot(IProcess proc)
         {
             throw new NotImplementedException();
         }
 
-        public void CreateMiniDump(IProcess proc)
+        public bool CreateMiniDump(IProcess proc)
         {
             throw new NotImplementedException();
         }

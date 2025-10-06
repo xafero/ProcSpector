@@ -53,12 +53,12 @@ namespace ProcSpector.Impl.Win.Internal
             ProcExt.OpenInShell(filePath);
         }
 
-        public static void CreateScreenShot(IProcess proc)
+        public static bool CreateScreenShot(IProcess proc)
         {
             var win = Win32Ext.GetMainWindow(proc);
             if (win == null)
-                return;
-            CreateScreenShot(win.WindowHandle);
+                return false;
+            return CreateScreenShot(win.WindowHandle);
         }
 
         public static void CreateScreenShot(IHandle handle)
@@ -69,7 +69,7 @@ namespace ProcSpector.Impl.Win.Internal
             CreateScreenShot(win.Value);
         }
 
-        private static void CreateScreenShot(IntPtr hWnd)
+        private static bool CreateScreenShot(IntPtr hWnd)
         {
             var title = Win32.GetWindowText(hWnd);
             var filePath = MiscExt.GetTimedFileName("Screenshot", title, "png");
@@ -79,9 +79,10 @@ namespace ProcSpector.Impl.Win.Internal
                 bitmap?.Save(filePath, format);
 
             ProcExt.OpenInShell(filePath);
+            return true;
         }
 
-        public static void CreateMiniDump(IProcess proc)
+        public static bool CreateMiniDump(IProcess proc)
         {
             var title = Path.GetFileNameWithoutExtension(proc.FileName);
             var filePath = MiscExt.GetTimedFileName("MiniDump", title, "dmp");
@@ -90,9 +91,10 @@ namespace ProcSpector.Impl.Win.Internal
             MiniDumper.CreateDump(real, filePath);
 
             ProcExt.OpenInShell(filePath);
+            return true;
         }
 
-        public static void CreateMemSave(IProcess proc)
+        public static bool CreateMemSave(IProcess proc)
         {
             var title = Path.GetFileNameWithoutExtension(proc.FileName);
             var filePath = MiscExt.GetTimedFileName("RawMem", title, "bin");
@@ -105,6 +107,7 @@ namespace ProcSpector.Impl.Win.Internal
                     stream.Write(region.Data);
 
             ProcExt.OpenInShell(filePath);
+            return true;
         }
     }
 }

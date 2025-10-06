@@ -63,21 +63,24 @@ namespace ProcSpector.Impl.Net
 
         public void OpenFolder(IProcess proc) => ProcExt.OpenFolder(proc);
         public void OpenFolder(IModule mod) => ProcExt.OpenFolder(mod);
-        public void Kill(IProcess proc) => ProcExt.Kill(proc);
+        public bool Kill(IProcess proc) => ProcExt.Kill(proc);
 
-        public virtual void CreateMemSave(IProcess proc)
+        public virtual bool CreateMemSave(IProcess proc)
         {
             // NO-OP
+            return false;
         }
 
-        public virtual void CreateScreenShot(IProcess proc)
+        public virtual bool CreateScreenShot(IProcess proc)
         {
             // NO-OP
+            return false;
         }
 
-        public virtual void CreateMiniDump(IProcess proc)
+        public virtual bool CreateMiniDump(IProcess proc)
         {
             // NO-OP
+            return false;
         }
 
         public void Quit()
