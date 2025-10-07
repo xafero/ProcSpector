@@ -27,7 +27,7 @@ namespace ProcSpector.Views
             {
                 Title = $"The memory of {proc.Name} (pid: {proc.Id})";
 
-                await foreach (var item in sys.GetRegions(proc))
+                foreach (var item in await sys.GetRegions(proc))
                     model.Regions.Add(item);
             }
         }

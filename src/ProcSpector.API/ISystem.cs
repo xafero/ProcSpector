@@ -5,10 +5,10 @@ namespace ProcSpector.API
 {
     public interface ISystem
     {
-        IAsyncEnumerable<IProcess> GetAllProcesses();
-        IAsyncEnumerable<IModule> GetModules(IProcess proc);
-        IAsyncEnumerable<IMemRegion> GetRegions(IProcess proc);
-        IAsyncEnumerable<IHandle> GetHandles(IProcess proc);
+        Task<IEnumerable<IProcess>> GetAllProcesses();
+        Task<IEnumerable<IModule>> GetModules(IProcess proc);
+        Task<IEnumerable<IMemRegion>> GetRegions(IProcess proc);
+        Task<IEnumerable<IHandle>> GetHandles(IProcess proc);
 
         Task<string> GetHostName();
         Task<string> GetUserName();

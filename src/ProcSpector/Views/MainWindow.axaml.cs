@@ -24,7 +24,7 @@ namespace ProcSpector.Views
 
             var model = this.GetData<MainViewModel>();
             model.Processes.Clear();
-            await foreach (var item in sys.GetAllProcesses())
+            foreach (var item in await sys.GetAllProcesses())
                 model.Processes.Add(item);
         }
 

@@ -27,7 +27,7 @@ namespace ProcSpector.Views
             {
                 Title = $"The modules of {proc.Name} (pid: {proc.Id})";
 
-                await foreach (var item in sys.GetModules(proc))
+                foreach (var item in await sys.GetModules(proc))
                     model.Modules.Add(item);
             }
         }

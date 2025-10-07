@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Grpc.Net.Client;
 using ProcSpector.API;
+using ProcSpector.Comm;
+using ProcSpector.Grpc;
+using ProcSpector.Impl.Remote.Proxy;
+using static ProcSpector.Grpc.Inspector;
 
 namespace ProcSpector.Impl.Remote
 {
@@ -10,44 +15,73 @@ namespace ProcSpector.Impl.Remote
         public RemotePlatform(IClientCfg cfg)
         {
             Cfg = cfg;
+            (Channel, Client) = Connect(cfg);
         }
 
+        private GrpcChannel Channel { get; }
+        private InspectorClient Client { get; }
         public IClientCfg Cfg { get; }
-        public ISystem System => this;
 
         public void Dispose()
         {
-            // TODO release managed resources here
+            Channel.Dispose();
         }
 
-        public IAsyncEnumerable<IProcess> GetAllProcesses()
+        private static (GrpcChannel channel, InspectorClient client) Connect(IClientCfg cfg)
         {
-            throw new NotImplementedException();
+            var channel = GrpcChannel.ForAddress($"http://{cfg.Address}:{cfg.Port}");
+            var client = new InspectorClient(channel);
+            return (channel, client);
         }
 
-        public IAsyncEnumerable<IModule> GetModules(IProcess proc)
+        public ISystem System => this;
+
+        public async Task<string> GetHostName()
         {
-            throw new NotImplementedException();
+            var a = new JsonReq();
+            var b = await Client.GetHostNameAsync(a);
+            var c = b.Res.Unwrap<string>();
+            return c ?? "?";
         }
 
-        public IAsyncEnumerable<IMemRegion> GetRegions(IProcess proc)
+        public async Task<string> GetUserName()
         {
-            throw new NotImplementedException();
+            var a = new JsonReq();
+            var b = await Client.GetUserNameAsync(a);
+            var c = b.Res.Unwrap<string>();
+            return c ?? "?";
         }
 
-        public IAsyncEnumerable<IHandle> GetHandles(IProcess proc)
+        public async Task<IEnumerable<IProcess>> GetAllProcesses()
         {
-            throw new NotImplementedException();
+            var a = new JsonReq();
+            var b = await Client.GetAllProcessesAsync(a);
+            var c = b.Res.Unwrap<RmProcess[]>();
+            return c ?? [];
         }
 
-        public Task<string> GetHostName()
+        public async Task<IEnumerable<IModule>> GetModules(IProcess proc)
         {
-            throw new NotImplementedException();
+            var a = new JsonReq { Arg = proc.Wrap() };
+            var b = await Client.GetModulesAsync(a);
+            var c = b.Res.Unwrap<RmModule[]>();
+            return c ?? [];
         }
 
-        public Task<string> GetUserName()
+        public async Task<IEnumerable<IMemRegion>> GetRegions(IProcess proc)
         {
-            throw new NotImplementedException();
+            var a = new JsonReq { Arg = proc.Wrap() };
+            var b = await Client.GetRegionsAsync(a);
+            var c = b.Res.Unwrap<RmRegion[]>();
+            return c ?? [];
+        }
+
+        public async Task<IEnumerable<IHandle>> GetHandles(IProcess proc)
+        {
+            var a = new JsonReq { Arg = proc.Wrap() };
+            var b = await Client.GetHandlesAsync(a);
+            var c = b.Res.Unwrap<RmHandle[]>();
+            return c ?? [];
         }
 
         public Task<bool> CreateScreenShot(IProcess proc)

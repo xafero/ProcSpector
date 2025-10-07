@@ -8,16 +8,16 @@ namespace ProcSpector.Impl.Net
 {
     public static class ProcExt
     {
-        public static void OpenFolder(IProcess proc) => OpenFileFolder(proc.FileName);
-        public static void OpenFolder(IModule mod) => OpenFileFolder(mod.FileName);
+        public static bool OpenFolder(IProcess proc) => OpenFileFolder(proc.FileName);
+        public static bool OpenFolder(IModule mod) => OpenFileFolder(mod.FileName);
 
-        public static void OpenFileFolder(string? file)
+        public static bool OpenFileFolder(string? file)
         {
             var dir = Path.GetDirectoryName(file);
-            OpenInShell(dir);
+            return OpenInShell(dir);
         }
 
-        public static void OpenInShell(string? path)
+        public static bool OpenInShell(string? path)
         {
             var info = new ProcessStartInfo
             {
@@ -25,6 +25,7 @@ namespace ProcSpector.Impl.Net
                 UseShellExecute = true
             };
             Process.Start(info);
+            return true;
         }
 
         public static bool Kill(IProcess proc)
