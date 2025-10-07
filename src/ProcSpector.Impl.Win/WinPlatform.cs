@@ -12,7 +12,7 @@ namespace ProcSpector.Impl.Win
     {
         public override Task<bool> CreateMemSave(IProcess proc)
         {
-            var res = Win32Ext.CreateMemSave(proc);
+            var res = Win32Ext.CreateMemSave(proc, this);
             return Task.FromResult(res);
         }
 
@@ -36,7 +36,7 @@ namespace ProcSpector.Impl.Win
 
         private IEnumerable<IMemRegion> GetRegionsInt(IProcess proc)
         {
-            var raw = (StdProc)proc;
+            var raw = ProcExt.GetStdProc(proc, this);
             var real = raw.Proc;
             var regions = MemoryReader.ReadAllMemoryRegions(real);
             foreach (var item in regions)

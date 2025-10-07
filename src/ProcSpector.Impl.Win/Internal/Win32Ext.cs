@@ -94,12 +94,12 @@ namespace ProcSpector.Impl.Win.Internal
             return true;
         }
 
-        public static bool CreateMemSave(IProcess proc)
+        public static bool CreateMemSave(IProcess proc, ISystem sys)
         {
             var title = Path.GetFileNameWithoutExtension(proc.FileName);
             var filePath = MiscExt.GetTimedFileName("RawMem", title, "bin");
 
-            var real = ((StdProc)proc).Proc;
+            var real = ProcExt.GetStdProc(proc, sys).Proc;
             var regions = MemoryReader.ReadAllMemoryRegions(real);
 
             using (var stream = File.Create(filePath))

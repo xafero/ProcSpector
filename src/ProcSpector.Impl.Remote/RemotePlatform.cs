@@ -84,49 +84,70 @@ namespace ProcSpector.Impl.Remote
             return c ?? [];
         }
 
-        public Task<bool> CreateScreenShot(IProcess proc)
+        public async Task<bool> Kill(IProcess proc)
         {
-            throw new NotImplementedException();
+            var a = new JsonReq { Arg = proc.Wrap() };
+            var b = await Client.KillAsync(a);
+            var c = b.Res.Unwrap<bool>();
+            return c;
         }
 
-        public Task<bool> CreateScreenShot(IHandle handle)
+        public async Task<bool> CreateScreenShot(IProcess proc)
         {
-            throw new NotImplementedException();
+            var a = new JsonReq { Arg = proc.Wrap() };
+            var b = await Client.CreateScreenShotAsync(a);
+            var c = b.Res.Unwrap<bool>();
+            return c;
         }
 
-        public Task<bool> CreateMemSave(IProcess proc)
+        public async Task<bool> CreateScreenShot(IHandle handle)
         {
-            throw new NotImplementedException();
+            var a = new JsonReq { Arg = handle.Wrap() };
+            var b = await Client.CreateScreenShotAsync(a);
+            var c = b.Res.Unwrap<bool>();
+            return c;
         }
 
-        public Task<bool> CreateMemSave(IMemRegion mem)
+        public async Task<bool> CreateMemSave(IProcess proc)
         {
-            throw new NotImplementedException();
+            var a = new JsonReq { Arg = proc.Wrap() };
+            var b = await Client.CreateMemSaveAsync(a);
+            var c = b.Res.Unwrap<bool>();
+            return c;
         }
 
-        public Task<bool> CreateMiniDump(IProcess proc)
+        public async Task<bool> CreateMemSave(IMemRegion mem)
         {
-            throw new NotImplementedException();
+            var a = new JsonReq { Arg = mem.Wrap() };
+            var b = await Client.CreateMemSaveAsync(a);
+            var c = b.Res.Unwrap<bool>();
+            return c;
         }
 
-        public Task<bool> Kill(IProcess proc)
+        public async Task<bool> CreateMiniDump(IProcess proc)
         {
-            throw new NotImplementedException();
+            var a = new JsonReq { Arg = proc.Wrap() };
+            var b = await Client.CreateMiniDumpAsync(a);
+            var c = b.Res.Unwrap<bool>();
+            return c;
         }
 
         public Task<bool> OpenFolder(IProcess proc)
         {
-            throw new NotImplementedException();
+            // TODO
+            return Task.FromResult(false);
         }
 
         public Task<bool> OpenFolder(IModule mod)
         {
-            throw new NotImplementedException();
+            // TODO
+            return Task.FromResult(false);
         }
 
         public Task<bool> Quit()
         {
-            throw new NotImplementedException();
+            // TODO
+            return Task.FromResult(false);
         }
     }
 }
