@@ -33,7 +33,14 @@ namespace ProcSpector.Server.Services
             return b;
         }
 
-        public override async Task<JsonRsp> GetAllProcesses(JsonReq req, ServerCallContext ctx)
+        public override Task<JsonRsp> GetAllProcesses(JsonReq request, ServerCallContext context)
+        {
+            
+            
+            return base.GetAllProcesses(request, context);
+        }
+
+        public async Task<JsonRsp> GetAllProcesses2(JsonReq req, ServerCallContext ctx)
         {
             var a = await Sys.GetAllProcesses();
             var b = new JsonRsp { Res = a.Wrap() };

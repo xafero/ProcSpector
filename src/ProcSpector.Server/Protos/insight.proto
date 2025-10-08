@@ -7,10 +7,10 @@ package insight;
 service Inspector {
   rpc GetHostName (JsonReq) returns (JsonRsp);
   rpc GetUserName (JsonReq) returns (JsonRsp);
-  rpc GetAllProcesses (JsonReq) returns (JsonRsp);
-  rpc GetModules (JsonReq) returns (JsonRsp);
-  rpc GetRegions (JsonReq) returns (JsonRsp);
-  rpc GetHandles (JsonReq) returns (JsonRsp);
+  rpc GetAllProcesses (JsonReq) returns (stream JsonRsp);
+  rpc GetModules (JsonReq) returns (stream JsonRsp);
+  rpc GetRegions (JsonReq) returns (stream JsonRsp);
+  rpc GetHandles (JsonReq) returns (stream JsonRsp);
   rpc Kill (JsonReq) returns (JsonRsp);
   rpc CreateMemSave (JsonReq) returns (JsonRsp);
   rpc CreateScreenShot (JsonReq) returns (JsonRsp);
