@@ -9,7 +9,7 @@ namespace ProcSpector.Impl.Net
     public sealed class StdProc : IProcess
     {
         public Process Proc { get; }
-        public ISystem Sys { get; }
+        private ISystem Sys { get; }
 
         public StdProc(Process process, ISystem sys)
         {
@@ -20,7 +20,7 @@ namespace ProcSpector.Impl.Net
         public int Id => Proc.Id;
         public string Name => Proc.ProcessName;
         public DateTime? StartTime => Proc.StartTime;
-        public DateTime? ExitTime => Proc.ExitTime;
+        // public DateTime? ExitTime => Proc.ExitTime;
         public int Threads => Proc.Threads.Count;
         public int Handles => Proc.HandleCount;
         public TimeSpan? CpuTime => Proc.TotalProcessorTime;

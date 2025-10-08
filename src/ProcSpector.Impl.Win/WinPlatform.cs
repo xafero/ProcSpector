@@ -44,10 +44,10 @@ namespace ProcSpector.Impl.Win
                     yield return wrap;
         }
 
-        public override Task<IEnumerable<IMemRegion>> GetRegions(IProcess proc)
+        public override IAsyncEnumerable<IMemRegion> GetRegions(IProcess proc)
         {
             var res = GetRegionsInt(proc);
-            return Task.FromResult(res);
+            return res.ToAsyncEnumerable();
         }
 
         private static IEnumerable<WinStruct> GetAllHandles(IProcess proc)
@@ -78,10 +78,10 @@ namespace ProcSpector.Impl.Win
             return res;
         }
 
-        public override Task<IEnumerable<IHandle>> GetHandles(IProcess proc)
+        public override IAsyncEnumerable<IHandle> GetHandles(IProcess proc)
         {
             var res = GetHandlesInt(proc);
-            return Task.FromResult(res);
+            return res.ToAsyncEnumerable();
         }
     }
 }

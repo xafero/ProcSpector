@@ -27,7 +27,7 @@ namespace ProcSpector.Views
             {
                 Title = $"The windows of {proc.Name} (pid: {proc.Id})";
 
-                foreach (var item in await sys.GetHandles(proc))
+                await foreach (var item in sys.GetHandles(proc))
                     model.Handles.Add(item);
             }
         }

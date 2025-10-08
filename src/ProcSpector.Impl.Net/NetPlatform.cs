@@ -29,6 +29,7 @@ namespace ProcSpector.Impl.Net
             {
                 _ = process.StartTime;
                 _ = process.MainModule;
+                _ = process.HandleCount;
             }
             catch (Exception)
             {
@@ -46,10 +47,10 @@ namespace ProcSpector.Impl.Net
                     yield return wrap;
         }
 
-        public Task<IEnumerable<IProcess>> GetAllProcesses()
+        public IAsyncEnumerable<IProcess> GetAllProcesses()
         {
             var res = GetAllProcessesInt();
-            return Task.FromResult(res);
+            return res.ToAsyncEnumerable();
         }
 
         private IModule WrapM(ProcessModule module)
@@ -67,22 +68,22 @@ namespace ProcSpector.Impl.Net
                     yield return wrap;
         }
 
-        public Task<IEnumerable<IModule>> GetModules(IProcess proc)
+        public IAsyncEnumerable<IModule> GetModules(IProcess proc)
         {
             var res = GetModulesInt(proc);
-            return Task.FromResult(res);
+            return res.ToAsyncEnumerable();
         }
 
-        public virtual Task<IEnumerable<IMemRegion>> GetRegions(IProcess proc)
+        public virtual IAsyncEnumerable<IMemRegion> GetRegions(IProcess proc)
         {
             var res = Enumerable.Empty<IMemRegion>();
-            return Task.FromResult(res);
+            return res.ToAsyncEnumerable();
         }
 
-        public virtual Task<IEnumerable<IHandle>> GetHandles(IProcess proc)
+        public virtual IAsyncEnumerable<IHandle> GetHandles(IProcess proc)
         {
             var res = Enumerable.Empty<IHandle>();
-            return Task.FromResult(res);
+            return res.ToAsyncEnumerable();
         }
 
         public virtual Task<bool> CreateScreenShot(IProcess proc)
@@ -123,7 +124,7 @@ namespace ProcSpector.Impl.Net
 
         public Task<bool> Kill(IProcess proc)
         {
-            var res = ProcExt.Kill(proc);
+            var res = ProcExt.Kill(proc, this);
             return Task.FromResult(res);
         }
 

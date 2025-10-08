@@ -33,42 +33,31 @@ namespace ProcSpector.Server.Services
             return b;
         }
 
-        public override Task<JsonRsp> GetAllProcesses(JsonReq request, ServerCallContext context)
+        public override async Task GetAllProcesses(JsonReq req, IServerStreamWriter<JsonRsp> rsp, ServerCallContext ctx)
         {
-            
-            
-            return base.GetAllProcesses(request, context);
+            await foreach (var a in Sys.GetAllProcesses())
+                await rsp.WriteAsync(new JsonRsp { Res = a.Wrap() });
         }
 
-        public async Task<JsonRsp> GetAllProcesses2(JsonReq req, ServerCallContext ctx)
-        {
-            var a = await Sys.GetAllProcesses();
-            var b = new JsonRsp { Res = a.Wrap() };
-            return b;
-        }
-
-        public override async Task<JsonRsp> GetHandles(JsonReq req, ServerCallContext ctx)
+        public override async Task GetHandles(JsonReq req, IServerStreamWriter<JsonRsp> rsp, ServerCallContext ctx)
         {
             var a = req.Arg.Unwrap<RmProcess>()!;
-            var b = await Sys.GetHandles(a);
-            var c = new JsonRsp { Res = b.Wrap() };
-            return c;
+            await foreach (var b in Sys.GetHandles(a))
+                await rsp.WriteAsync(new JsonRsp { Res = b.Wrap() });
         }
 
-        public override async Task<JsonRsp> GetModules(JsonReq req, ServerCallContext ctx)
+        public override async Task GetModules(JsonReq req, IServerStreamWriter<JsonRsp> rsp, ServerCallContext ctx)
         {
             var a = req.Arg.Unwrap<RmProcess>()!;
-            var b = await Sys.GetModules(a);
-            var c = new JsonRsp { Res = b.Wrap() };
-            return c;
+            await foreach (var b in Sys.GetModules(a))
+                await rsp.WriteAsync(new JsonRsp { Res = b.Wrap() });
         }
 
-        public override async Task<JsonRsp> GetRegions(JsonReq req, ServerCallContext ctx)
+        public override async Task GetRegions(JsonReq req, IServerStreamWriter<JsonRsp> rsp, ServerCallContext ctx)
         {
             var a = req.Arg.Unwrap<RmProcess>()!;
-            var b = await Sys.GetRegions(a);
-            var c = new JsonRsp { Res = b.Wrap() };
-            return c;
+            await foreach (var b in Sys.GetRegions(a))
+                await rsp.WriteAsync(new JsonRsp { Res = b.Wrap() });
         }
 
         public override async Task<JsonRsp> CreateMemSave(JsonReq req, ServerCallContext ctx)

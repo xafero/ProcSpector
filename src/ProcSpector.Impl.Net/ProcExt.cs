@@ -28,9 +28,9 @@ namespace ProcSpector.Impl.Net
             return true;
         }
 
-        public static bool Kill(IProcess proc)
+        public static bool Kill(IProcess proc, ISystem sys)
         {
-            var real = ((StdProc)proc).Proc;
+            var real = GetStdProc(proc, sys).Proc;
             real.Kill(entireProcessTree: true);
             return real.HasExited;
         }

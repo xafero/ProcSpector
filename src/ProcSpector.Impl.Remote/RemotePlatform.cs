@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Grpc.Core;
 using Grpc.Net.Client;
 using ProcSpector.API;
 using ProcSpector.Comm;
@@ -52,36 +53,36 @@ namespace ProcSpector.Impl.Remote
             return c ?? "?";
         }
 
-        public async Task<IEnumerable<IProcess>> GetAllProcesses()
+        public async IAsyncEnumerable<IProcess> GetAllProcesses()
         {
             var a = new JsonReq();
-            var b = await Client.GetAllProcessesAsync(a);
-            var c = b.Res.Unwrap<RmProcess[]>();
-            return c ?? [];
+            await foreach (var b in Client.GetAllProcesses(a).ResponseStream.ReadAllAsync())
+                if (b.Res.Unwrap<RmProcess>() is { } c)
+                    yield return c;
         }
 
-        public async Task<IEnumerable<IModule>> GetModules(IProcess proc)
+        public async IAsyncEnumerable<IModule> GetModules(IProcess proc)
         {
             var a = new JsonReq { Arg = proc.Wrap() };
-            var b = await Client.GetModulesAsync(a);
-            var c = b.Res.Unwrap<RmModule[]>();
-            return c ?? [];
+            await foreach (var b in Client.GetModules(a).ResponseStream.ReadAllAsync())
+                if (b.Res.Unwrap<RmModule>() is { } c)
+                    yield return c;
         }
 
-        public async Task<IEnumerable<IMemRegion>> GetRegions(IProcess proc)
+        public async IAsyncEnumerable<IMemRegion> GetRegions(IProcess proc)
         {
             var a = new JsonReq { Arg = proc.Wrap() };
-            var b = await Client.GetRegionsAsync(a);
-            var c = b.Res.Unwrap<RmRegion[]>();
-            return c ?? [];
+            await foreach (var b in Client.GetRegions(a).ResponseStream.ReadAllAsync())
+                if (b.Res.Unwrap<RmRegion>() is { } c)
+                    yield return c;
         }
 
-        public async Task<IEnumerable<IHandle>> GetHandles(IProcess proc)
+        public async IAsyncEnumerable<IHandle> GetHandles(IProcess proc)
         {
             var a = new JsonReq { Arg = proc.Wrap() };
-            var b = await Client.GetHandlesAsync(a);
-            var c = b.Res.Unwrap<RmHandle[]>();
-            return c ?? [];
+            await foreach (var b in Client.GetHandles(a).ResponseStream.ReadAllAsync())
+                if (b.Res.Unwrap<RmHandle>() is { } c)
+                    yield return c;
         }
 
         public async Task<bool> Kill(IProcess proc)
