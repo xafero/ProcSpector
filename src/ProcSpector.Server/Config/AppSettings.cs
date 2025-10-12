@@ -1,6 +1,6 @@
 // ReSharper disable ClassNeverInstantiated.Global
 
-namespace ProcSpector.Config
+namespace ProcSpector.Server.Config
 {
     public class AppSettings
     {

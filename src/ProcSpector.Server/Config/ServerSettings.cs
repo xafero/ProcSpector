@@ -2,7 +2,7 @@
 
 using ProcSpector.API;
 
-namespace ProcSpector.Config
+namespace ProcSpector.Server.Config
 {
     public class ServerSettings : IClientCfg
     {

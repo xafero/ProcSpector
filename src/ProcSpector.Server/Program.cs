@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using ProcSpector.Comm;
-using ProcSpector.Config;
 using ProcSpector.Core;
+using ProcSpector.Server.Config;
 using ProcSpector.Server.Services;
 
 namespace ProcSpector.Server
