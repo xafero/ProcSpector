@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using Newtonsoft.Json;
 using ByteSizeLib;
 using ProcSpector.API;
 using static ProcSpector.Core.MiscExt;
@@ -8,7 +9,7 @@ namespace ProcSpector.Impl.Net
 {
     public sealed class StdProc : IProcess
     {
-        public Process Proc { get; }
+        [JsonIgnore] public Process Proc { get; }
         private ISystem Sys { get; }
 
         public StdProc(Process process, ISystem sys)
@@ -24,11 +25,11 @@ namespace ProcSpector.Impl.Net
         public int Threads => Proc.Threads.Count;
         public int Handles => Proc.HandleCount;
         public TimeSpan? CpuTime => Proc.TotalProcessorTime;
-        public ByteSize WorkingSet => AsBytes(Proc.WorkingSet64);
-        public ByteSize PagedMem => AsBytes(Proc.PagedMemorySize64);
-        public ByteSize VirtualMem => AsBytes(Proc.VirtualMemorySize64);
+        [JsonIgnore] public ByteSize WorkingSet => AsBytes(Proc.WorkingSet64);
+        [JsonIgnore] public ByteSize PagedMem => AsBytes(Proc.PagedMemorySize64);
+        [JsonIgnore] public ByteSize VirtualMem => AsBytes(Proc.VirtualMemorySize64);
         public bool Responding => Proc.Responding;
-        public ProcessModule? Main => Proc.HasExited ? null : Proc.MainModule;
+        [JsonIgnore] public ProcessModule? Main => Proc.HasExited ? null : Proc.MainModule;
         public string? FileName => Main?.FileName;
 
         public override string ToString()
