@@ -2,8 +2,8 @@ namespace ProcSpector.API
 {
     public interface IFile
     {
-        string FullName { get; }
+        string? FullName { get; }
         long Length { get; }
-        byte[] Bytes { get; }
+        byte[]? Bytes { get; }
     }
 }

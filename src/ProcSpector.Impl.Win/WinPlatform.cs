@@ -10,22 +10,22 @@ namespace ProcSpector.Impl.Win
 {
     public sealed class WinPlatform : NetPlatform
     {
-        public override Task<bool> CreateMemSave(IProcess proc)
+        public override Task<IFile?> CreateMemSave(IProcess proc)
         {
             var res = Win32Ext.CreateMemSave(proc, this);
-            return Task.FromResult(res);
+            return Task.FromResult<IFile?>(res);
         }
 
-        public override Task<bool> CreateScreenShot(IProcess proc)
+        public override Task<IFile?> CreateScreenShot(IProcess proc)
         {
             var res = Win32Ext.CreateScreenShot(proc);
             return Task.FromResult(res);
         }
 
-        public override Task<bool> CreateMiniDump(IProcess proc)
+        public override Task<IFile?> CreateMiniDump(IProcess proc)
         {
-            var res = Win32Ext.CreateMiniDump(proc);
-            return Task.FromResult(res);
+            var res = Win32Ext.CreateMiniDump(proc, this);
+            return Task.FromResult<IFile?>(res);
         }
 
         private static IMemRegion WrapR(MemoryRegion region)

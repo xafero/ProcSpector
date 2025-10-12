@@ -94,43 +94,43 @@ namespace ProcSpector.Impl.Remote
             return c;
         }
 
-        public async Task<bool> CreateScreenShot(IProcess proc)
+        public async Task<IFile?> CreateScreenShot(IProcess proc)
         {
             var a = new JsonReq { Arg = proc.Wrap() };
             var b = await Client.CreateScreenShotPAsync(a);
-            var c = b.Res.Unwrap<bool>();
+            var c = b.Res.Unwrap<RmFile>();
             return c;
         }
 
-        public async Task<bool> CreateScreenShot(IHandle handle)
+        public async Task<IFile?> CreateScreenShot(IHandle handle)
         {
             var a = new JsonReq { Arg = handle.Wrap() };
             var b = await Client.CreateScreenShotHAsync(a);
-            var c = b.Res.Unwrap<bool>();
+            var c = b.Res.Unwrap<RmFile>();
             return c;
         }
 
-        public async Task<bool> CreateMemSave(IProcess proc)
+        public async Task<IFile?> CreateMemSave(IProcess proc)
         {
             var a = new JsonReq { Arg = proc.Wrap() };
             var b = await Client.CreateMemSavePAsync(a);
-            var c = b.Res.Unwrap<bool>();
+            var c = b.Res.Unwrap<RmFile>();
             return c;
         }
 
-        public async Task<bool> CreateMemSave(IMemRegion mem)
+        public async Task<IFile?> CreateMemSave(IMemRegion mem)
         {
             var a = new JsonReq { Arg = mem.Wrap() };
             var b = await Client.CreateMemSaveRAsync(a);
-            var c = b.Res.Unwrap<bool>();
+            var c = b.Res.Unwrap<RmFile>();
             return c;
         }
 
-        public async Task<bool> CreateMiniDump(IProcess proc)
+        public async Task<IFile?> CreateMiniDump(IProcess proc)
         {
             var a = new JsonReq { Arg = proc.Wrap() };
             var b = await Client.CreateMiniDumpAsync(a);
-            var c = b.Res.Unwrap<bool>();
+            var c = b.Res.Unwrap<RmFile>();
             return c;
         }
 

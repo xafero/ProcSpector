@@ -40,61 +40,68 @@ namespace ProcSpector.Impl.Win.Internal
             return pixels;
         }
 
-        public static void CreateMemSave(IMemRegion region)
+        public static IFile? CreateMemSave(IMemRegion region)
         {
             var title = $"0x{region.BaseAddress:X}";
             var filePath = MiscExt.GetTimedFileName("Region", title, "bin");
 
             var real = ((StdMem)region).Mem;
             if (real.Data is not { Length: >= 1 } data)
-                return;
+                return null;
 
-            File.WriteAllBytes(filePath, data);
-            ProcExt.OpenInShell(filePath);
+            var bunch = StdFile.Create(filePath, stream => stream.Write(data));
+
+            // TODO ProcExt.OpenInShell(filePath);
+            return bunch;
         }
 
-        public static bool CreateScreenShot(IProcess proc)
+        public static IFile? CreateScreenShot(IProcess proc)
         {
-            var win = Win32Ext.GetMainWindow(proc);
+            var win = GetMainWindow(proc);
             if (win == null)
-                return false;
+                return null;
             return CreateScreenShot(win.WindowHandle);
         }
 
-        public static void CreateScreenShot(IHandle handle)
+        public static IFile? CreateScreenShot(IHandle handle)
         {
             var win = handle.Handle;
             if (win == null)
-                return;
-            CreateScreenShot(new IntPtr(win.Value));
+                return null;
+            return CreateScreenShot(new IntPtr(win.Value));
         }
 
-        private static bool CreateScreenShot(IntPtr hWnd)
+        private static IFile CreateScreenShot(IntPtr hWnd)
         {
             var title = Win32.GetWindowText(hWnd);
             var filePath = MiscExt.GetTimedFileName("Screenshot", title, "png");
 
-            var format = ImageFormat.Png;
-            using (var bitmap = Win32Gdi.CaptureWindow(hWnd))
-                bitmap?.Save(filePath, format);
+            var bunch = StdFile.Create(filePath, stream =>
+            {
+                var format = ImageFormat.Png;
+                using var bitmap = Win32Gdi.CaptureWindow(hWnd);
+                bitmap?.Save(stream, format);
+            });
 
-            ProcExt.OpenInShell(filePath);
-            return true;
+            // TODO ProcExt.OpenInShell(filePath);
+            return bunch;
         }
 
-        public static bool CreateMiniDump(IProcess proc)
+        public static IFile CreateMiniDump(IProcess proc, ISystem sys)
         {
             var title = Path.GetFileNameWithoutExtension(proc.FileName);
             var filePath = MiscExt.GetTimedFileName("MiniDump", title, "dmp");
 
-            var real = ((StdProc)proc).Proc;
-            MiniDumper.CreateDump(real, filePath);
+            var real = ProcExt.GetStdProc(proc, sys).Proc;
+            var bytes = MiniDumper.CreateDump(real);
 
-            ProcExt.OpenInShell(filePath);
-            return true;
+            var bunch = StdFile.Create(filePath, stream => stream.Write(bytes));
+
+            // TODO ProcExt.OpenInShell(filePath);
+            return bunch;
         }
 
-        public static bool CreateMemSave(IProcess proc, ISystem sys)
+        public static IFile CreateMemSave(IProcess proc, ISystem sys)
         {
             var title = Path.GetFileNameWithoutExtension(proc.FileName);
             var filePath = MiscExt.GetTimedFileName("RawMem", title, "bin");
@@ -102,12 +109,14 @@ namespace ProcSpector.Impl.Win.Internal
             var real = ProcExt.GetStdProc(proc, sys).Proc;
             var regions = MemoryReader.ReadAllMemoryRegions(real);
 
-            using (var stream = File.Create(filePath))
+            var bunch = StdFile.Create(filePath, stream =>
+            {
                 foreach (var region in regions)
                     stream.Write(region.Data);
+            });
 
-            ProcExt.OpenInShell(filePath);
-            return true;
+            // TODO ProcExt.OpenInShell(filePath);
+            return bunch;
         }
     }
 }

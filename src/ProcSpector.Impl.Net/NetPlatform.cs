@@ -86,34 +86,34 @@ namespace ProcSpector.Impl.Net
             return res.ToAsyncEnumerable();
         }
 
-        public virtual Task<bool> CreateScreenShot(IProcess proc)
+        public virtual Task<IFile?> CreateScreenShot(IProcess proc)
         {
             // NO-OP
-            return Task.FromResult(false);
+            return Task.FromResult<IFile?>(null);
         }
 
-        public virtual Task<bool> CreateScreenShot(IHandle handle)
+        public virtual Task<IFile?> CreateScreenShot(IHandle handle)
         {
             // NO-OP
-            return Task.FromResult(false);
+            return Task.FromResult<IFile?>(null);
         }
 
-        public virtual Task<bool> CreateMemSave(IProcess proc)
+        public virtual Task<IFile?> CreateMemSave(IProcess proc)
         {
             // NO-OP
-            return Task.FromResult(false);
+            return Task.FromResult<IFile?>(null);
         }
 
-        public virtual Task<bool> CreateMemSave(IMemRegion mem)
+        public virtual Task<IFile?> CreateMemSave(IMemRegion mem)
         {
             // NO-OP
-            return Task.FromResult(false);
+            return Task.FromResult<IFile?>(null);
         }
 
-        public virtual Task<bool> CreateMiniDump(IProcess proc)
+        public virtual Task<IFile?> CreateMiniDump(IProcess proc)
         {
             // NO-OP
-            return Task.FromResult(false);
+            return Task.FromResult<IFile?>(null);
         }
 
         public virtual Task<bool> Quit()

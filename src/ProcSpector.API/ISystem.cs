@@ -13,13 +13,13 @@ namespace ProcSpector.API
         Task<string> GetHostName();
         Task<string> GetUserName();
 
-        Task<bool> CreateScreenShot(IProcess proc);
-        Task<bool> CreateScreenShot(IHandle handle);
+        Task<IFile?> CreateScreenShot(IProcess proc);
+        Task<IFile?> CreateScreenShot(IHandle handle);
 
-        Task<bool> CreateMemSave(IProcess proc);
-        Task<bool> CreateMemSave(IMemRegion mem);
+        Task<IFile?> CreateMemSave(IProcess proc);
+        Task<IFile?> CreateMemSave(IMemRegion mem);
 
-        Task<bool> CreateMiniDump(IProcess proc);
+        Task<IFile?> CreateMiniDump(IProcess proc);
 
         Task<bool> Kill(IProcess proc);
 
