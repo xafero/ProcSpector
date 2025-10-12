@@ -97,7 +97,7 @@ namespace ProcSpector.Impl.Remote
         public async Task<bool> CreateScreenShot(IProcess proc)
         {
             var a = new JsonReq { Arg = proc.Wrap() };
-            var b = await Client.CreateScreenShotAsync(a);
+            var b = await Client.CreateScreenShotPAsync(a);
             var c = b.Res.Unwrap<bool>();
             return c;
         }
@@ -105,7 +105,7 @@ namespace ProcSpector.Impl.Remote
         public async Task<bool> CreateScreenShot(IHandle handle)
         {
             var a = new JsonReq { Arg = handle.Wrap() };
-            var b = await Client.CreateScreenShotAsync(a);
+            var b = await Client.CreateScreenShotHAsync(a);
             var c = b.Res.Unwrap<bool>();
             return c;
         }
@@ -113,7 +113,7 @@ namespace ProcSpector.Impl.Remote
         public async Task<bool> CreateMemSave(IProcess proc)
         {
             var a = new JsonReq { Arg = proc.Wrap() };
-            var b = await Client.CreateMemSaveAsync(a);
+            var b = await Client.CreateMemSavePAsync(a);
             var c = b.Res.Unwrap<bool>();
             return c;
         }
@@ -121,7 +121,7 @@ namespace ProcSpector.Impl.Remote
         public async Task<bool> CreateMemSave(IMemRegion mem)
         {
             var a = new JsonReq { Arg = mem.Wrap() };
-            var b = await Client.CreateMemSaveAsync(a);
+            var b = await Client.CreateMemSaveRAsync(a);
             var c = b.Res.Unwrap<bool>();
             return c;
         }

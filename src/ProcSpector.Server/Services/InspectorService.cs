@@ -62,9 +62,17 @@ namespace ProcSpector.Server.Services
                 await rsp.WriteAsync(new JsonRsp { Res = b.Wrap() });
         }
 
-        public override async Task<JsonRsp> CreateMemSave(JsonReq req, ServerCallContext ctx)
+        public override async Task<JsonRsp> CreateMemSaveP(JsonReq req, ServerCallContext ctx)
         {
             var a = req.Arg.Unwrap<RmProcess>()!;
+            var b = await Sys.CreateMemSave(a);
+            var c = new JsonRsp { Res = b.Wrap() };
+            return c;
+        }
+
+        public override async Task<JsonRsp> CreateMemSaveR(JsonReq req, ServerCallContext ctx)
+        {
+            var a = req.Arg.Unwrap<RmRegion>()!;
             var b = await Sys.CreateMemSave(a);
             var c = new JsonRsp { Res = b.Wrap() };
             return c;
@@ -78,9 +86,17 @@ namespace ProcSpector.Server.Services
             return c;
         }
 
-        public override async Task<JsonRsp> CreateScreenShot(JsonReq req, ServerCallContext ctx)
+        public override async Task<JsonRsp> CreateScreenShotP(JsonReq req, ServerCallContext ctx)
         {
             var a = req.Arg.Unwrap<RmProcess>()!;
+            var b = await Sys.CreateScreenShot(a);
+            var c = new JsonRsp { Res = b.Wrap() };
+            return c;
+        }
+
+        public override async Task<JsonRsp> CreateScreenShotH(JsonReq req, ServerCallContext ctx)
+        {
+            var a = req.Arg.Unwrap<RmHandle>()!;
             var b = await Sys.CreateScreenShot(a);
             var c = new JsonRsp { Res = b.Wrap() };
             return c;
