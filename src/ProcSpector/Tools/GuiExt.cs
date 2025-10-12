@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia;
 using CommunityToolkit.Mvvm.Input;
@@ -39,6 +40,12 @@ namespace ProcSpector.Tools
         public static ICommand Relay(Action action)
         {
             var cmd = new RelayCommand(action);
+            return cmd;
+        }
+
+        public static ICommand Relay(Func<Task> func)
+        {
+            var cmd = new AsyncRelayCommand(func);
             return cmd;
         }
     }

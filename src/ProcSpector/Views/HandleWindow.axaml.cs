@@ -2,7 +2,9 @@ using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ProcSpector.API;
+using ProcSpector.Core;
 using ProcSpector.Impl;
+using ProcSpector.Impl.Net;
 using ProcSpector.Tools;
 using ProcSpector.ViewModels;
 
@@ -61,11 +63,12 @@ namespace ProcSpector.Views
             e.Row.ContextMenu = _rowMenu;
         }
 
-        private void CopyScreen()
+        private async Task CopyScreen()
         {
             if (Grid.SelectedItem is not IHandle handle)
                 return;
-            Sys.CreateScreenShot(handle);
+            if ((await Sys.CreateScreenShot(handle)).Save() is { } file)
+                ProcExt.OpenInShell(file);
         }
 
         private static ISystem Sys => Factory.Platform.Value.System;

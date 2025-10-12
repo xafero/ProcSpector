@@ -2,7 +2,9 @@ using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ProcSpector.API;
+using ProcSpector.Core;
 using ProcSpector.Impl;
+using ProcSpector.Impl.Net;
 using ProcSpector.Tools;
 using ProcSpector.ViewModels;
 
@@ -64,39 +66,42 @@ namespace ProcSpector.Views
             e.Row.ContextMenu = _rowMenu;
         }
 
-        private void SaveMemory()
+        private async Task SaveMemory()
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            Sys.CreateMemSave(proc);
+            if ((await Sys.CreateMemSave(proc)).Save() is { } file)
+                ProcExt.OpenInShell(file);
         }
 
-        private void KillTree()
+        private async Task KillTree()
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            Sys.Kill(proc);
+            await Sys.Kill(proc);
         }
 
-        private void CopyScreen()
+        private async Task CopyScreen()
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            Sys.CreateScreenShot(proc);
+            if ((await Sys.CreateScreenShot(proc)).Save() is { } file)
+                ProcExt.OpenInShell(file);
         }
 
-        private void DumpMini()
+        private async Task DumpMini()
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            Sys.CreateMiniDump(proc);
+            if ((await Sys.CreateMiniDump(proc)).Save() is { } file)
+                ProcExt.OpenInShell(file);
         }
 
-        private void OpenFolder()
+        private async Task OpenFolder()
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            Sys.OpenFolder(proc);
+            await Sys.OpenFolder(proc);
         }
 
         private void OpenMemView()

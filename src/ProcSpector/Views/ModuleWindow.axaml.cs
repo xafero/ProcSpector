@@ -61,11 +61,11 @@ namespace ProcSpector.Views
             e.Row.ContextMenu = _rowMenu;
         }
 
-        private void OpenFolder()
+        private async Task OpenFolder()
         {
             if (Grid.SelectedItem is not IModule mod)
                 return;
-            Sys.OpenFolder(mod);
+            await Sys.OpenFolder(mod);
         }
 
         private static ISystem Sys => Factory.Platform.Value.System;
