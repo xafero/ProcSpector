@@ -15,7 +15,7 @@ namespace ProcSpector.Impl.Win.Memory
         public static byte[] CreateDump(Process process, MiniDumpType dumpType = MiniDumpType.MiniDumpWithFullMemory)
         {
             var tmpFile = Path.GetTempFileName();
-            using var fs = new FileStream(tmpFile, FileMode.Create, FileAccess.Write, FileShare.None);
+            var fs = new FileStream(tmpFile, FileMode.Create, FileAccess.Write, FileShare.None);
 
             var success = MiniDumpWriteDump(process.Handle, (uint)process.Id,
                 fs.SafeFileHandle.DangerousGetHandle(), dumpType,
@@ -26,7 +26,9 @@ namespace ProcSpector.Impl.Win.Memory
                 throw new Win32Exception(Marshal.GetLastWin32Error());
             }
 
+            fs.Dispose();
             var bytes = File.ReadAllBytes(tmpFile);
+
             File.Delete(tmpFile);
             return bytes;
         }

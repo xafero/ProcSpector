@@ -10,13 +10,18 @@ namespace ProcSpector.Impl.Net
         public long Length { get; set; }
         public byte[]? Bytes { get; set; }
 
-        public static StdFile Create(string filePath, Action<Stream> action)
+        public static StdFile Create(string filePath, byte[]? bytes, Action<Stream>? action)
         {
-            using var mem = new MemoryStream();
-            action(mem);
-            mem.Flush();
-
-            var array = mem.ToArray();
+            byte[] array;
+            if (bytes != null)
+                array = bytes;
+            else
+            {
+                using var mem = new MemoryStream();
+                action?.Invoke(mem);
+                mem.Flush();
+                array = mem.ToArray();
+            }
             var fileName = Path.GetFileName(filePath);
             var res = new StdFile { FullName = fileName, Length = array.Length, Bytes = array };
             return res;

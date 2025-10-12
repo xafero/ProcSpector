@@ -49,7 +49,7 @@ namespace ProcSpector.Impl.Win.Internal
             if (real.Data is not { Length: >= 1 } data)
                 return null;
 
-            var bunch = StdFile.Create(filePath, stream => stream.Write(data));
+            var bunch = StdFile.Create(filePath, data, null);
 
             // TODO ProcExt.OpenInShell(filePath);
             return bunch;
@@ -76,7 +76,7 @@ namespace ProcSpector.Impl.Win.Internal
             var title = Win32.GetWindowText(hWnd);
             var filePath = MiscExt.GetTimedFileName("Screenshot", title, "png");
 
-            var bunch = StdFile.Create(filePath, stream =>
+            var bunch = StdFile.Create(filePath, null, stream =>
             {
                 var format = ImageFormat.Png;
                 using var bitmap = Win32Gdi.CaptureWindow(hWnd);
@@ -95,7 +95,7 @@ namespace ProcSpector.Impl.Win.Internal
             var real = ProcExt.GetStdProc(proc, sys).Proc;
             var bytes = MiniDumper.CreateDump(real);
 
-            var bunch = StdFile.Create(filePath, stream => stream.Write(bytes));
+            var bunch = StdFile.Create(filePath, bytes, null);
 
             // TODO ProcExt.OpenInShell(filePath);
             return bunch;
@@ -109,7 +109,7 @@ namespace ProcSpector.Impl.Win.Internal
             var real = ProcExt.GetStdProc(proc, sys).Proc;
             var regions = MemoryReader.ReadAllMemoryRegions(real);
 
-            var bunch = StdFile.Create(filePath, stream =>
+            var bunch = StdFile.Create(filePath, null, stream =>
             {
                 foreach (var region in regions)
                     stream.Write(region.Data);
