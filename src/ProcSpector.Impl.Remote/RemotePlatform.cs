@@ -30,7 +30,8 @@ namespace ProcSpector.Impl.Remote
 
         private static (GrpcChannel channel, InspectorClient client) Connect(IClientCfg cfg)
         {
-            var channel = GrpcChannel.ForAddress($"http://{cfg.Address}:{cfg.Port}");
+            var opt = new GrpcChannelOptions { MaxRetryAttempts = 30 };
+            var channel = GrpcChannel.ForAddress(cfg.GetUrl(), opt);
             var client = new InspectorClient(channel);
             return (channel, client);
         }

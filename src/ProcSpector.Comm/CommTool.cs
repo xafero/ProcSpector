@@ -1,4 +1,5 @@
 using System.Text.Json;
+using ProcSpector.API;
 using ProcSpector.Core;
 
 namespace ProcSpector.Comm
@@ -23,6 +24,11 @@ namespace ProcSpector.Comm
                 return msg;
             }
             return null;
+        }
+
+        public static string GetUrl(this IClientCfg cfg)
+        {
+            return $"http://{cfg.Address}:{cfg.Port}";
         }
     }
 }

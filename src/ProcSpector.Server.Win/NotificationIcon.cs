@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
+using Prog = ProcSpector.Server.Program;
 
 namespace ProcSpector.Server.Win
 {
@@ -18,6 +20,8 @@ namespace ProcSpector.Server.Win
             var resources = new ComponentResourceManager(typeof(NotificationIcon));
             NotifyIcon.Icon = (Icon)resources.GetObject("$this.Icon");
             NotifyIcon.ContextMenuStrip = notificationMenu;
+
+            StartIt();
         }
 
         private ToolStripItem[] InitializeMenu()
@@ -32,6 +36,17 @@ namespace ProcSpector.Server.Win
         private void MenuExitClick(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void Start()
+        {
+            Prog.Main([]);
+        }
+
+        private void StartIt()
+        {
+            var thread = new Thread(Start) { IsBackground = true };
+            thread.Start();
         }
     }
 }

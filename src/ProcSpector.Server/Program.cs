@@ -1,14 +1,24 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using ProcSpector.Comm;
+using ProcSpector.Config;
+using ProcSpector.Core;
 using ProcSpector.Server.Services;
 
 namespace ProcSpector.Server
 {
-    internal static class Program
+    public static class Program
     {
-        private static void Main(string[] args)
+        private static AppSettings? _cfg;
+
+        public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            _cfg = ConfigTool.ReadJsonObj<AppSettings>();
+            if (_cfg.Server?.GetUrl() is { } url)
+                builder.WebHost.UseUrls(url);
 
             builder.Services.AddGrpc();
 
