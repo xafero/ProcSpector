@@ -12,8 +12,10 @@ service Inspector {
   rpc GetRegions (JsonReq) returns (stream JsonRsp);
   rpc GetHandles (JsonReq) returns (stream JsonRsp);
   rpc Kill (JsonReq) returns (JsonRsp);
-  rpc CreateMemSave (JsonReq) returns (JsonRsp);
-  rpc CreateScreenShot (JsonReq) returns (JsonRsp);
+  rpc CreateMemSaveP (JsonReq) returns (JsonRsp);
+  rpc CreateMemSaveR (JsonReq) returns (JsonRsp);  
+  rpc CreateScreenShotP (JsonReq) returns (JsonRsp);
+  rpc CreateScreenShotH (JsonReq) returns (JsonRsp);
   rpc CreateMiniDump (JsonReq) returns (JsonRsp);
 }
 

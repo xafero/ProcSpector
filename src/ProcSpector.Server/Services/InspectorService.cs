@@ -7,6 +7,8 @@ using ProcSpector.Grpc;
 using ProcSpector.Impl;
 using ProcSpector.Impl.Remote.Proxy;
 
+// ReSharper disable NotAccessedField.Local
+
 namespace ProcSpector.Server.Services
 {
     public class InspectorService : Inspector.InspectorBase
