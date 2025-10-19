@@ -2,7 +2,7 @@
 
 namespace ProcSpector.Core.Plugins
 {
-    public class Plugin
+    public sealed class Plugin
     {
         public string? Name { get; set; }
         public string? Root { get; set; }
