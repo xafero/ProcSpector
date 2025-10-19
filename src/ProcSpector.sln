@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcSpector.Server", "ProcSpector.Server\ProcSpector.Server.csproj", "{F2C95417-DC6F-4AD7-B665-B908AC6F837B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcSpector.Client", "ProcSpector.Client\ProcSpector.Client.csproj", "{4FB50232-7DB8-466C-96DE-4E0BE5DE25F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcSpector", "ProcSpector\ProcSpector.csproj", "{4FB50232-7DB8-466C-96DE-4E0BE5DE25F7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcSpector.Core", "ProcSpector.Core\ProcSpector.Core.csproj", "{5C82E1EF-E724-4464-A769-9C9DC8204633}"
 EndProject
