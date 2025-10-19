@@ -1,18 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <UseWindowsForms>true</UseWindowsForms>
-    <AssemblyName>ProcSpector</AssemblyName>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Include="..\ProcSpector.Server\appsettings.json" Link="appsettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\ProcSpector.Server\ProcSpector.Server.csproj" />
-  </ItemGroup>
 
 </Project>

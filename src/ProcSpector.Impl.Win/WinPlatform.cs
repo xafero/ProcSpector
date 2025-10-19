@@ -1,87 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ProcSpector.API;
-using ProcSpector.Impl.Net;
-using ProcSpector.Impl.Win.Internal;
-using ProcSpector.Impl.Win.Memory;
+﻿using ProcSpector.Impl.Net;
 
 namespace ProcSpector.Impl.Win
 {
     public sealed class WinPlatform : NetPlatform
     {
-        public override Task<IFile?> CreateMemSave(IProcess proc)
-        {
-            var res = Win32Ext.CreateMemSave(proc, this);
-            return Task.FromResult<IFile?>(res);
-        }
-
-        public override Task<IFile?> CreateScreenShot(IProcess proc)
-        {
-            var res = Win32Ext.CreateScreenShot(proc);
-            return Task.FromResult(res);
-        }
-
-        public override Task<IFile?> CreateMiniDump(IProcess proc)
-        {
-            var res = Win32Ext.CreateMiniDump(proc, this);
-            return Task.FromResult<IFile?>(res);
-        }
-
-        private static IMemRegion WrapR(MemoryRegion region)
-        {
-            var wrap = new StdMem(region);
-            return wrap;
-        }
-
-        private IEnumerable<IMemRegion> GetRegionsInt(IProcess proc)
-        {
-            var raw = ProcExt.GetStdProc(proc, this);
-            var real = raw.Proc;
-            var regions = MemoryReader.ReadAllMemoryRegions(real);
-            foreach (var item in regions)
-                if (WrapR(item) is { } wrap)
-                    yield return wrap;
-        }
-
-        public override IAsyncEnumerable<IMemRegion> GetRegions(IProcess proc)
-        {
-            var res = GetRegionsInt(proc);
-            return res.ToAsyncEnumerable();
-        }
-
-        private static IEnumerable<WinStruct> GetAllHandles(IProcess proc)
-        {
-            foreach (var top in Win32.GetWindows().Where(w => w.ProcessId == proc.Id))
-            {
-                yield return top;
-
-                foreach (var sub in Win32.GetWindows(top.WindowHandle))
-                    yield return sub;
-            }
-        }
-
-        private static IHandle WrapH(WinStruct obj)
-        {
-            var wrap = new StdWnd(obj.WindowHandle, obj.ProcessId, obj.ThreadId, obj.ParentHandle);
-            return wrap;
-        }
-
-        private IEnumerable<IHandle> GetHandlesInt(IProcess proc)
-        {
-            var res = GetAllHandles(proc).Select(WrapH)
-                .Where(x =>
-                {
-                    var p = (StdWnd)x;
-                    return p.ProcessId == proc.Id && p.Title != null;
-                });
-            return res;
-        }
-
-        public override IAsyncEnumerable<IHandle> GetHandles(IProcess proc)
-        {
-            var res = GetHandlesInt(proc);
-            return res.ToAsyncEnumerable();
-        }
     }
 }
