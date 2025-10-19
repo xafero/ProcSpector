@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProcSpector.Core\ProcSpector.Core.csproj" />
+    <ProjectReference Include="..\ProcSpector.Impl\ProcSpector.Impl.csproj" />
   </ItemGroup>
 
   <ItemGroup>

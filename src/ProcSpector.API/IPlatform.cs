@@ -2,5 +2,6 @@
 {
     public interface IPlatform
     {
+        ISystem System { get; }
     }
 }
