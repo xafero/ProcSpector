@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="H.InputSimulator" Version="1.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ProcSpector.Impl.Net\ProcSpector.Impl.Net.csproj" />
   </ItemGroup>
 

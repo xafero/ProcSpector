@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+using ProcSpector.Core.Plugins;
 
 namespace ProcSpector
 {
@@ -6,7 +8,9 @@ namespace ProcSpector
     {
         private static void Main()
         {
-            Console.WriteLine("Hello, World Client!");
+            var x = PluginTool.ListPlugins();
+            var j = JsonConvert.SerializeObject(x);
+            Console.WriteLine($"'{j}'");
             Console.ReadLine();
         }
     }
