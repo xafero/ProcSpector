@@ -10,6 +10,9 @@ namespace ProcSpector
     {
         private static async Task Main()
         {
+            var s = Factory.Platform.Value.System;
+            PluginTool.Context.S = s;
+
             var x = PluginTool.Plugins.Value;
             var j = JsonConvert.SerializeObject(x);
             Console.WriteLine($"'{j}'");
@@ -21,11 +24,10 @@ namespace ProcSpector
                 act.Handler(42, "fine!");
             }
 
-            var p = Factory.Platform;
-            await foreach (var process in p.Value.System.GetProcesses())
+            /* await foreach (var process in s.GetProcesses())
             {
                 Console.WriteLine($" '{process}'");
-            }
+            } */
 
             Console.ReadLine();
         }

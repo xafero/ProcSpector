@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using ProcSpector.API;
+using ProcSpector.Impl.Net.Data;
 
 namespace ProcSpector.Impl.Net
 {
