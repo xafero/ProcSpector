@@ -8,7 +8,7 @@ namespace ProcSpector
     {
         private static void Main()
         {
-            var x = PluginTool.ListPlugins();
+            var x = PluginTool.Plugins.Value;
             var j = JsonConvert.SerializeObject(x);
             Console.WriteLine($"'{j}'");
             Console.ReadLine();
