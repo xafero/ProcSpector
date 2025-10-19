@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using ProcSpector.Comm;
 using ProcSpector.Core;
 using ProcSpector.Server.Config;
 using ProcSpector.Server.Services;

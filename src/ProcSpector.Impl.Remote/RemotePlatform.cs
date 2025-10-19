@@ -1,7 +1,7 @@
 using System;
 using Grpc.Net.Client;
 using ProcSpector.API;
-using ProcSpector.Comm;
+using ProcSpector.Core;
 using static ProcSpector.Grpc.Inspector;
 
 namespace ProcSpector.Impl.Remote

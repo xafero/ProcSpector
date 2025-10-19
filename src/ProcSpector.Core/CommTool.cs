@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using ProcSpector.API;
-using ProcSpector.Core;
 
-namespace ProcSpector.Comm
+namespace ProcSpector.Core
 {
     public static class CommTool
     {
