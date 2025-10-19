@@ -5,4 +5,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProcSpector.API\ProcSpector.API.csproj" />
+    <ProjectReference Include="..\ProcSpector.Impl.Net\ProcSpector.Impl.Net.csproj" />
+    <ProjectReference Include="..\ProcSpector.Impl.Remote\ProcSpector.Impl.Remote.csproj" />
+    <ProjectReference Include="..\ProcSpector.Impl.Win\ProcSpector.Impl.Win.csproj" />
+  </ItemGroup>
+
 </Project>
