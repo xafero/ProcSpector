@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Grpc.Core;
 using Grpc.Net.Client;
 using ProcSpector.API;
@@ -45,6 +46,14 @@ namespace ProcSpector.Impl.Remote
                 var res = req.Res.Unwrap<FeatureFlags>();
                 return res;
             }
+        }
+
+        public async Task<IUserInfo?> GetUserInfo()
+        {
+            var arg = new JsonReq();
+            var req = await Client.GetUserInfoAsync(arg);
+            var res = req.Res.Unwrap<IUserInfo>();
+            return res;
         }
 
         public async IAsyncEnumerable<IProcess> GetProcesses()

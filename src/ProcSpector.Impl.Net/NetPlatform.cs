@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using ProcSpector.API;
 using ProcSpector.Impl.Net.Data;
+using FF = ProcSpector.API.FeatureFlags;
 
 namespace ProcSpector.Impl.Net
 {
@@ -10,7 +12,13 @@ namespace ProcSpector.Impl.Net
     {
         public ISystem System => this;
 
-        public FeatureFlags Flags => FeatureFlags.GetProcesses;
+        public FF Flags => FF.GetUserInfo | FF.GetProcesses;
+
+        public Task<IUserInfo?> GetUserInfo()
+            => Task.FromResult<IUserInfo?>(GetUserInfoSync());
+
+        private IUserInfo GetUserInfoSync()
+            => new NetUser();
 
         public IAsyncEnumerable<IProcess> GetProcesses()
             => GetProcessesSync().ToAsyncEnumerable();

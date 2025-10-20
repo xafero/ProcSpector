@@ -7,9 +7,10 @@ namespace ProcSpector.API
     {
         None = 0,
 
-        GetProcesses = 1L << 0,
+        GetUserInfo = 1L << 0,
 
-        B = 1L << 1,
+        GetProcesses = 1L << 1,
+
         C = 1L << 2,
         D = 1L << 3,
         E = 1L << 4,

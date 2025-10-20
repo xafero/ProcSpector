@@ -6,8 +6,7 @@ package insight;
 
 service Inspector {
   rpc GetFlags (JsonReq) returns (JsonRsp);
-  rpc GetHostName (JsonReq) returns (JsonRsp);
-  rpc GetUserName (JsonReq) returns (JsonRsp);
+  rpc GetUserInfo (JsonReq) returns (JsonRsp);
   rpc GetProcesses (JsonReq) returns (stream JsonRsp);
   rpc GetModules (JsonReq) returns (stream JsonRsp);
   rpc GetRegions (JsonReq) returns (stream JsonRsp);
