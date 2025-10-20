@@ -1,0 +1,19 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ProcSpector.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" 
+        d:DesignWidth="1230" d:DesignHeight="575"
+        Width="1230" Height="575"
+        x:Class="ProcSpector.Views.ProcWindow"
+        x:DataType="vm:ProcViewModel"
+        Icon="/Assets/logo.ico"
+        Title="..."
+        Loaded="OnLoaded">
+
+    <Design.DataContext>
+        <vm:ProcViewModel/>
+    </Design.DataContext>
+
+</Window>
