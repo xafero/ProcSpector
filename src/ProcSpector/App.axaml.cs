@@ -20,9 +20,9 @@ namespace ProcSpector
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 DisableAvaloniaDataAnnotationValidation();
-                desktop.MainWindow = new MainWindow
+                desktop.MainWindow = new ProcWindow
                 {
-                    DataContext = new MainViewModel(),
+                    DataContext = new ProcViewModel(),
                 };
             }
 
