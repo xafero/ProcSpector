@@ -1,35 +1,35 @@
 ﻿using System;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using ProcSpector.Core.Plugins;
 using ProcSpector.Impl;
+using Avalonia;
+using ProcSpector.Config;
+using ProcSpector.Core;
+using ProcSpector.Tools;
+
+// ReSharper disable ClassNeverInstantiated.Global
 
 namespace ProcSpector
 {
-    internal static class Program
+    internal sealed class Program
     {
-        private static async Task Main()
+        [STAThread]
+        public static void Main(string[] args)
         {
-            var s = Factory.Platform.Value.System;
-            PluginTool.Context.S = s;
+            InitCfg();
+            BuildAvaloniaApp()
+                .StartWithClassicDesktopLifetime(args);
+        }
 
-            var x = PluginTool.Plugins.Value;
-            var j = JsonConvert.SerializeObject(x);
-            Console.WriteLine($"'{j}'");
+        public static AppBuilder BuildAvaloniaApp()
+            => AppBuilder.Configure<App>()
+                .UsePlatformDetect()
+                .WithInterFont()
+                .LogToTrace();
 
-            var z = PluginTool.Context.ContextMenu;
-            foreach (var act in z[CtxMenu.Process])
-            {
-                Console.WriteLine("    " + act);
-                act.Handler(42, "fine!");
-            }
-
-            /* await foreach (var process in s.GetProcesses())
-            {
-                Console.WriteLine($" '{process}'");
-            } */
-
-            Console.ReadLine();
+        private static void InitCfg()
+        {
+            Env.Cfg = ConfigTool.ReadJsonObj<AppSettings>();
+            if (Env.Cfg.Client?.Address != null)
+                Factory.ClientCfg = Env.Cfg.Client;
         }
     }
 }
