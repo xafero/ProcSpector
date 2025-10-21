@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using ProcSpector.API;
+using ProcSpector.Impl.Net.Tools;
 
 namespace ProcSpector.Impl.Net.Data
 {
@@ -11,6 +12,7 @@ namespace ProcSpector.Impl.Net.Data
 
         public int? Id => _item.Id;
         public string Name => _item.ProcessName;
+        public string? Path => _item.TryMainModule()?.FileName;
 
         public override string ToString() => $"#{Id} - {Name}";
     }
