@@ -1,7 +1,9 @@
+using System;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ProcSpector.API;
+using ProcSpector.Core.Plugins;
 using ProcSpector.Impl;
 using ProcSpector.Tools;
 using ProcSpector.ViewModels;
@@ -46,10 +48,21 @@ namespace ProcSpector.Views
 
         private void OnCellPointerPressed(object? sender, DataGridCellPointerPressedEventArgs e)
         {
+            if (e.PointerPressedEventArgs.ClickCount == 2)
+            {
+            }
         }
+
+        private ContextMenu? _rowMenu;
 
         private void OnLoadingRow(object? sender, DataGridRowEventArgs e)
         {
+            if (_rowMenu == null)
+            {
+                _rowMenu = new ContextMenu();
+                _rowMenu.FillContextMenu(CtxMenu.Process, sender ?? this);
+            }
+            e.Row.ContextMenu = _rowMenu;
         }
     }
 }

@@ -1,8 +1,8 @@
 
 function onProcessClick(s, e)
 {
-    var x = c.GetFirstProcess('notepad++');
-    c.LogDebug(x);
+    var x = e.Name;
+    c.LogDebug("I've found " + x + "!");
 }
 
 function init()

@@ -12,7 +12,7 @@ namespace ProcSpector.Core.Plugins
     {
         public void LogDebug(object line)
         {
-            if (Debugger.IsAttached)
+            if (!Debugger.IsAttached)
                 Console.WriteLine(line);
             else
                 Debug.WriteLine(line);
@@ -21,7 +21,7 @@ namespace ProcSpector.Core.Plugins
         public IDictionary<CtxMenu, List<CtxMenuItem>> ContextMenu
             = new SortedDictionary<CtxMenu, List<CtxMenuItem>>();
 
-        public void AddContextOption(string target, string title, EventHandler<string> handler)
+        public void AddContextOption(string target, string title, EventHandler<object> handler)
         {
             var tgt = EnumTool.ParseArg<CtxMenu>(target).Single();
             if (!ContextMenu.TryGetValue(tgt, out var res))

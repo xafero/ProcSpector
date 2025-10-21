@@ -4,7 +4,9 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia;
+using Avalonia.Controls;
 using CommunityToolkit.Mvvm.Input;
+using ProcSpector.Core.Plugins;
 
 namespace ProcSpector.Tools
 {
@@ -37,16 +39,49 @@ namespace ProcSpector.Tools
             }
         }
 
-        public static ICommand Relay(Action action)
+        public static ICommand Relay(this EventHandler<object> handler, object arg, Func<object, object> get)
+        {
+            var cmd = new RelayCommand(DoExecute);
+            return cmd;
+
+            void DoExecute()
+            {
+                var obj = get(arg);
+                handler(arg, obj);
+            }
+        }
+
+        public static ICommand Relay(this Action action)
         {
             var cmd = new RelayCommand(action);
             return cmd;
         }
 
-        public static ICommand Relay(Func<Task> func)
+        public static ICommand Relay(this Func<Task> func)
         {
             var cmd = new AsyncRelayCommand(func);
             return cmd;
+        }
+
+        public static void FillContextMenu(this ContextMenu rowMenu, CtxMenu menu, object sender)
+        {
+            var cm = PluginTool.Context.ContextMenu;
+            var ri = rowMenu.Items;
+            foreach (var act in cm[menu])
+            {
+                var mi = new MenuItem
+                {
+                    Header = act.Title, Command = Relay(act.Handler, sender, GetSelected)
+                };
+                ri.Add(mi);
+            }
+        }
+
+        private static object GetSelected(object arg)
+        {
+            var grid = (DataGrid)arg;
+            var item = grid.SelectedItem;
+            return item;
         }
     }
 }
