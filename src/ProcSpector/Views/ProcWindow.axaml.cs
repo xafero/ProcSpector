@@ -30,7 +30,8 @@ namespace ProcSpector.Views
             model.Processes.Clear();
             if (f.HasFlag(FeatureFlags.GetProcesses))
                 await foreach (var item in sys.GetProcesses())
-                    model.Processes.Add(item);
+                    if (item.Path is not null)
+                        model.Processes.Add(item);
         }
 
         private async void OnLoaded(object? sender, RoutedEventArgs e)
