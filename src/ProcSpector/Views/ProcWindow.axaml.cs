@@ -20,15 +20,17 @@ namespace ProcSpector.Views
         private async Task LoadProcesses()
         {
             var sys = Factory.Platform.Value.System;
-            var usr = sys.Flags.HasFlag(FeatureFlags.GetUserInfo)
+            var f = sys.Flags;
+            var usr = f.HasFlag(FeatureFlags.GetUserInfo)
                 ? await sys.GetUserInfo()
                 : null;
             Title = $"All processes for {usr?.Name ?? "?"} on {usr?.Host ?? "?"}";
 
             var model = this.GetData<ProcViewModel>();
             model.Processes.Clear();
-            await foreach (var item in sys.GetProcesses())
-                model.Processes.Add(item);
+            if (f.HasFlag(FeatureFlags.GetProcesses))
+                await foreach (var item in sys.GetProcesses())
+                    model.Processes.Add(item);
         }
 
         private async void OnLoaded(object? sender, RoutedEventArgs e)
