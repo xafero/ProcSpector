@@ -11,9 +11,12 @@ namespace ProcSpector.API
 
         GetProcesses = 1L << 1,
 
-        C = 1L << 2,
-        D = 1L << 3,
-        E = 1L << 4,
+        GetModules = 1L << 2,
+
+        GetWindows = 1L << 3,
+
+        GetMemory = 1L << 4,
+
         F = 1L << 5
     }
 }

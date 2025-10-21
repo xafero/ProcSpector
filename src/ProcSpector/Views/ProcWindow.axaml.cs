@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -61,8 +60,45 @@ namespace ProcSpector.Views
             {
                 _rowMenu = new ContextMenu();
                 _rowMenu.FillContextMenu(CtxMenu.Process, sender ?? this);
+                CreateContextMenu(_rowMenu);
             }
             e.Row.ContextMenu = _rowMenu;
+        }
+
+        private void CreateContextMenu(ContextMenu menu)
+        {
+            var sys = Factory.Platform.Value.System;
+            var f = sys.Flags;
+            if (f.HasFlag(FeatureFlags.GetModules))
+                menu.Items.Add(new MenuItem { Header = "Show modules", Command = GuiExt.Relay(OpenModuleView) });
+            if (f.HasFlag(FeatureFlags.GetWindows))
+                menu.Items.Add(new MenuItem { Header = "Show windows", Command = GuiExt.Relay(OpenHandleView) });
+            if (f.HasFlag(FeatureFlags.GetMemory))
+                menu.Items.Add(new MenuItem { Header = "Show memory", Command = GuiExt.Relay(OpenMemView) });
+        }
+
+        private void OpenModuleView()
+        {
+            if (Grid.SelectedItem is not IProcess proc)
+                return;
+            var modWind = new ModuleWindow { DataContext = new ModuleViewModel { Proc = proc } };
+            modWind.ShowDialog(this);
+        }
+
+        private void OpenHandleView()
+        {
+            if (Grid.SelectedItem is not IProcess proc)
+                return;
+            var hdlWind = new HandleWindow { DataContext = new HandleViewModel { Proc = proc } };
+            hdlWind.ShowDialog(this);
+        }
+
+        private void OpenMemView()
+        {
+            if (Grid.SelectedItem is not IProcess proc)
+                return;
+            var memWind = new MemoryWindow { DataContext = new MemoryViewModel { Proc = proc } };
+            memWind.ShowDialog(this);
         }
     }
 }
