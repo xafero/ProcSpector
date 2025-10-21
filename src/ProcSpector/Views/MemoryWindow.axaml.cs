@@ -25,5 +25,31 @@ namespace ProcSpector.Views
 
             throw new System.NotImplementedException();
         }
+
+        private void OnLoadingRow(object? sender, DataGridRowEventArgs e)
+        {
+
+
+
+            throw new System.NotImplementedException();
+        }
+
+        private void OnCellPointerPressed(object? sender, DataGridCellPointerPressedEventArgs e)
+        {
+
+
+
+
+            throw new System.NotImplementedException();
+        }
+
+        private void RefreshClick(object? sender, RoutedEventArgs e)
+        {
+
+
+
+
+            throw new System.NotImplementedException();
+        }
     }
 }

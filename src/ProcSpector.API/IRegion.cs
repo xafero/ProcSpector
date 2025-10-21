@@ -1,6 +1,6 @@
 ﻿namespace ProcSpector.API
 {
-    public interface IModule
+    public interface IRegion
     {
     }
 }

@@ -6,7 +6,7 @@ namespace ProcSpector.ViewModels
 {
     public partial class ModuleViewModel : ViewModelBase
     {
-        [ObservableProperty] private ObservableCollection<IProcess> _processes = [];
+        [ObservableProperty] private ObservableCollection<IModule> _modules = [];
 
         [ObservableProperty] private IProcess? _proc;
     }
