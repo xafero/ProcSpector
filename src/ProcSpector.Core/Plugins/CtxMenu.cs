@@ -4,6 +4,8 @@
     {
         None = 0,
 
-        Process
+        Process,
+
+        Window
     }
 }

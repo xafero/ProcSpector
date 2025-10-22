@@ -67,5 +67,25 @@ namespace ProcSpector.Impl.Remote
                     yield return res;
             }
         }
+
+        public async IAsyncEnumerable<IHandle> GetHandles(IProcess proc)
+        {
+            var arg = new JsonReq();
+            var req = Client.GetHandles(arg);
+            await foreach (var item in req.ResponseStream.ReadAllAsync())
+            {
+                var res = item.Res.Unwrap<IHandle>();
+                if (res is not null)
+                    yield return res;
+            }
+        }
+
+        public async Task<IFile?> CreateScreenShot(IHandle handle)
+        {
+            var arg = new JsonReq();
+            var req = await Client.CreateScreenShotHAsync(arg);
+            var res = req.Res.Unwrap<IFile>();
+            return res;
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace ProcSpector.ViewModels
 {
     public partial class HandleViewModel : ViewModelBase
     {
-        [ObservableProperty] private ObservableCollection<IWindow> _handles = [];
+        [ObservableProperty] private ObservableCollection<IHandle> _handles = [];
 
         [ObservableProperty] private IProcess? _proc;
     }

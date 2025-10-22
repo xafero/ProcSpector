@@ -16,5 +16,16 @@ namespace ProcSpector.Impl.Net.Tools
                 return null;
             }
         }
+
+        public static bool OpenInShell(string? path)
+        {
+            var info = new ProcessStartInfo
+            {
+                FileName = path,
+                UseShellExecute = true
+            };
+            Process.Start(info);
+            return true;
+        }
     }
 }

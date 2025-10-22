@@ -6,7 +6,7 @@ namespace ProcSpector.ViewModels
 {
     public partial class MemoryViewModel : ViewModelBase
     {
-        [ObservableProperty] private ObservableCollection<IRegion> _regions = [];
+        [ObservableProperty] private ObservableCollection<IMemRegion> _regions = [];
 
         [ObservableProperty] private IProcess? _proc;
     }

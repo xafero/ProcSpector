@@ -10,5 +10,9 @@ namespace ProcSpector.API
         Task<IUserInfo?> GetUserInfo();
 
         IAsyncEnumerable<IProcess> GetProcesses();
+
+        IAsyncEnumerable<IHandle> GetHandles(IProcess proc);
+
+        Task<IFile?> CreateScreenShot(IHandle handle);
     }
 }

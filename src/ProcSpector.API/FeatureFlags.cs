@@ -17,6 +17,6 @@ namespace ProcSpector.API
 
         GetMemory = 1L << 4,
 
-        F = 1L << 5
+        CopyScreen = 1L << 5
     }
 }

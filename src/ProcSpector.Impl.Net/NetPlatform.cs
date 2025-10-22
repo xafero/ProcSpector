@@ -28,5 +28,18 @@ namespace ProcSpector.Impl.Net
             foreach (var item in Process.GetProcesses())
                 yield return new NetProc(item);
         }
+
+        public IAsyncEnumerable<IHandle> GetHandles(IProcess arg)
+            => GetHandlesSync(arg).ToAsyncEnumerable();
+
+        private IEnumerable<IHandle> GetHandlesSync(IProcess arg)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<IFile?> CreateScreenShot(IHandle handle)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
