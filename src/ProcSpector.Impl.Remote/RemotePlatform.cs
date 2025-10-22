@@ -80,12 +80,29 @@ namespace ProcSpector.Impl.Remote
             }
         }
 
+        public async IAsyncEnumerable<IMemRegion> GetRegions(IProcess proc)
+        {
+            var arg = new JsonReq();
+            var req = Client.GetRegions(arg);
+            await foreach (var item in req.ResponseStream.ReadAllAsync())
+            {
+                var res = item.Res.Unwrap<IMemRegion>();
+                if (res is not null)
+                    yield return res;
+            }
+        }
+
         public async Task<IFile?> CreateScreenShot(IHandle handle)
         {
             var arg = new JsonReq();
             var req = await Client.CreateScreenShotHAsync(arg);
             var res = req.Res.Unwrap<IFile>();
             return res;
+        }
+
+        public Task<IFile?> CreateMemSave(IMemRegion mem)
+        {
+            throw new NotImplementedException();
         }
     }
 }

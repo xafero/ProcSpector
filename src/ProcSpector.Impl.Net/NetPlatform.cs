@@ -37,7 +37,20 @@ namespace ProcSpector.Impl.Net
             throw new System.NotImplementedException();
         }
 
+        public IAsyncEnumerable<IMemRegion> GetRegions(IProcess arg)
+            => GetRegionsSync(arg).ToAsyncEnumerable();
+
+        private IEnumerable<IMemRegion> GetRegionsSync(IProcess arg)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<IFile?> CreateScreenShot(IHandle handle)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<IFile?> CreateMemSave(IMemRegion mem)
         {
             throw new System.NotImplementedException();
         }

@@ -6,6 +6,8 @@
 
         Process,
 
-        Window
+        Window,
+
+        Memory
     }
 }

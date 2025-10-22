@@ -1,11 +1,5 @@
-using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using ProcSpector.API;
-using ProcSpector.Core.Plugins;
-using ProcSpector.Impl;
-using ProcSpector.Tools;
-using ProcSpector.ViewModels;
 
 // ReSharper disable AsyncVoidMethod
 

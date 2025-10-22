@@ -13,6 +13,10 @@ namespace ProcSpector.API
 
         IAsyncEnumerable<IHandle> GetHandles(IProcess proc);
 
+        IAsyncEnumerable<IMemRegion> GetRegions(IProcess proc);
+
         Task<IFile?> CreateScreenShot(IHandle handle);
+
+        Task<IFile?> CreateMemSave(IMemRegion mem);
     }
 }

@@ -2,8 +2,10 @@ using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ProcSpector.API;
+using ProcSpector.Core;
 using ProcSpector.Core.Plugins;
 using ProcSpector.Impl;
+using ProcSpector.Impl.Net.Tools;
 using ProcSpector.Tools;
 using ProcSpector.ViewModels;
 
@@ -18,38 +20,69 @@ namespace ProcSpector.Views
             InitializeComponent();
         }
 
-        private void OnLoaded(object? sender, RoutedEventArgs e)
+        private async Task LoadRegions()
         {
+            var sys = Factory.Platform.Value.System;
+            var f = sys.Flags;
 
+            var model = this.GetData<MemoryViewModel>();
+            model.Regions.Clear();
+            if (model.Proc is { } proc)
+            {
+                Title = $"The memory of {proc.Name} (pid: {proc.Id})";
 
-
-            throw new System.NotImplementedException();
+                if (f.HasFlag(FeatureFlags.GetMemory))
+                    await foreach (var item in sys.GetRegions(proc))
+                        model.Regions.Add(item);
+            }
         }
 
-        private void OnLoadingRow(object? sender, DataGridRowEventArgs e)
+        private async void OnLoaded(object? sender, RoutedEventArgs e)
         {
+            await LoadRegions();
+        }
 
-
-
-            throw new System.NotImplementedException();
+        private async void RefreshClick(object? sender, RoutedEventArgs e)
+        {
+            await LoadRegions();
         }
 
         private void OnCellPointerPressed(object? sender, DataGridCellPointerPressedEventArgs e)
         {
-
-
-
-
-            throw new System.NotImplementedException();
+            if (e.PointerPressedEventArgs.ClickCount == 2)
+            {
+            }
         }
 
-        private void RefreshClick(object? sender, RoutedEventArgs e)
+        private ContextMenu? _rowMenu;
+
+        private void OnLoadingRow(object? sender, DataGridRowEventArgs e)
         {
-
-
-
-
-            throw new System.NotImplementedException();
+            if (_rowMenu == null)
+            {
+                _rowMenu = new ContextMenu();
+                _rowMenu.FillContextMenu(CtxMenu.Memory, sender ?? this);
+                CreateContextMenu(_rowMenu);
+            }
+            e.Row.ContextMenu = _rowMenu;
         }
+
+        private void CreateContextMenu(ContextMenu menu)
+        {
+            var sys = Factory.Platform.Value.System;
+            var f = sys.Flags;
+            if (f.HasFlag(FeatureFlags.SaveMemory))
+                menu.Items.Add(new MenuItem { Header = "Save memory", Command = GuiExt.Relay(SaveMemory) });
+        }
+
+        private async Task SaveMemory()
+        {
+            if (Grid.SelectedItem is not IMemRegion region)
+                return;
+            if ((await Sys.CreateMemSave(region)).Save() is { } file)
+                ProcExt.OpenInShell(file);
+        }
+
+        private static ISystem Sys => Factory.Platform.Value.System;
     }
 }
