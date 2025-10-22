@@ -18,7 +18,7 @@ namespace ProcSpector.Server.Win
             notificationMenu.Items.AddRange(InitializeMenu());
 
             var resources = new ComponentResourceManager(typeof(NotificationIcon));
-            NotifyIcon.Icon = (Icon)resources.GetObject("$this.Icon");
+            NotifyIcon.Icon = (Icon?)resources.GetObject("$this.Icon");
             NotifyIcon.ContextMenuStrip = notificationMenu;
 
             StartIt();
@@ -33,7 +33,7 @@ namespace ProcSpector.Server.Win
             return menu;
         }
 
-        private void MenuExitClick(object sender, EventArgs e)
+        private void MenuExitClick(object? sender, EventArgs e)
         {
             Application.Exit();
         }
