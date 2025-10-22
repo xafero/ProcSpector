@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using ProcSpector.API;
 using ProcSpector.Impl.Net.Tools;
 
@@ -10,8 +11,13 @@ namespace ProcSpector.Impl.Net.Data
 
         public NetProc(Process item) => _item = item;
 
-        public int? Id => _item.Id;
+        public int Id => _item.Id;
         public string Name => _item.ProcessName;
+        public DateTime? StartTime => _item.TryStartTime();
+        public int Threads => _item.Threads.Count;
+        public int Handles => _item.HandleCount;
+        public long WorkingSet => _item.WorkingSet64;
+        public long PagedMem => _item.PagedMemorySize64;
         public string? Path => _item.TryMainModule()?.FileName;
 
         public override string ToString() => $"#{Id} - {Name}";

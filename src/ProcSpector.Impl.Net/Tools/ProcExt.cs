@@ -17,6 +17,18 @@ namespace ProcSpector.Impl.Net.Tools
             }
         }
 
+        public static DateTime? TryStartTime(this Process item)
+        {
+            try
+            {
+                return item.StartTime;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public static bool OpenInShell(string? path)
         {
             var info = new ProcessStartInfo

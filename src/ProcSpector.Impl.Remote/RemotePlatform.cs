@@ -80,6 +80,11 @@ namespace ProcSpector.Impl.Remote
             }
         }
 
+        public Task<IFile?> CreateScreenShot(IProcess proc)
+        {
+            throw new NotImplementedException();
+        }
+
         public async IAsyncEnumerable<IMemRegion> GetRegions(IProcess proc)
         {
             var arg = new JsonReq();
@@ -112,7 +117,32 @@ namespace ProcSpector.Impl.Remote
             return res;
         }
 
+        public Task<IFile?> CreateMemSave(IProcess proc)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IFile?> CreateMemSave(IMemRegion mem)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IFile?> CreateMiniDump(IProcess proc)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Kill(IProcess proc)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> OpenFolder(IProcess proc)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<bool> ISystem.OpenFolder(IModule mod)
         {
             throw new NotImplementedException();
         }
