@@ -21,6 +21,10 @@ namespace ProcSpector.API
 
         SaveMemory = 1L << 6,
 
-        OpenFolder = 1L << 7
+        OpenFolder = 1L << 7,
+
+        KillTree = 1L << 8,
+
+        DumpMini = 1L << 9,
     }
 }

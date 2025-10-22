@@ -2,8 +2,10 @@ using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ProcSpector.API;
+using ProcSpector.Core;
 using ProcSpector.Core.Plugins;
 using ProcSpector.Impl;
+using ProcSpector.Impl.Net.Tools;
 using ProcSpector.Tools;
 using ProcSpector.ViewModels;
 
@@ -75,6 +77,16 @@ namespace ProcSpector.Views
                 menu.Items.Add(new MenuItem { Header = "Show windows", Command = GuiExt.Relay(OpenHandleView) });
             if (f.HasFlag(FeatureFlags.GetMemory))
                 menu.Items.Add(new MenuItem { Header = "Show memory", Command = GuiExt.Relay(OpenMemView) });
+            if (f.HasFlag(FeatureFlags.KillTree))
+                menu.Items.Add(new MenuItem { Header = "Kill tree", Command = GuiExt.Relay(KillTree) });
+            if (f.HasFlag(FeatureFlags.OpenFolder))
+                menu.Items.Add(new MenuItem { Header = "Open folder", Command = GuiExt.Relay(OpenFolder) });
+            if (f.HasFlag(FeatureFlags.CopyScreen))
+                menu.Items.Add(new MenuItem { Header = "Copy screen", Command = GuiExt.Relay(CopyScreen) });
+            if (f.HasFlag(FeatureFlags.SaveMemory))
+                menu.Items.Add(new MenuItem { Header = "Save memory", Command = GuiExt.Relay(SaveMemory) });
+            if (f.HasFlag(FeatureFlags.DumpMini))
+                menu.Items.Add(new MenuItem { Header = "Dump mini", Command = GuiExt.Relay(DumpMini) });
         }
 
         private void OpenModuleView()
@@ -100,5 +112,45 @@ namespace ProcSpector.Views
             var memWind = new MemoryWindow { DataContext = new MemoryViewModel { Proc = proc } };
             memWind.ShowDialog(this);
         }
+
+        private async Task SaveMemory()
+        {
+            if (Grid.SelectedItem is not IProcess proc)
+                return;
+            if ((await Sys.CreateMemSave(proc)).Save() is { } file)
+                ProcExt.OpenInShell(file);
+        }
+
+        private async Task KillTree()
+        {
+            if (Grid.SelectedItem is not IProcess proc)
+                return;
+            await Sys.Kill(proc);
+        }
+
+        private async Task CopyScreen()
+        {
+            if (Grid.SelectedItem is not IProcess proc)
+                return;
+            if ((await Sys.CreateScreenShot(proc)).Save() is { } file)
+                ProcExt.OpenInShell(file);
+        }
+
+        private async Task DumpMini()
+        {
+            if (Grid.SelectedItem is not IProcess proc)
+                return;
+            if ((await Sys.CreateMiniDump(proc)).Save() is { } file)
+                ProcExt.OpenInShell(file);
+        }
+
+        private async Task OpenFolder()
+        {
+            if (Grid.SelectedItem is not IProcess proc)
+                return;
+            await Sys.OpenFolder(proc);
+        }
+
+        private static ISystem Sys => Factory.Platform.Value.System;
     }
 }
