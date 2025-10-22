@@ -8,6 +8,8 @@
 
         Window,
 
-        Memory
+        Memory,
+
+        Module
     }
 }

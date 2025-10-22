@@ -19,6 +19,8 @@ namespace ProcSpector.API
 
         CopyScreen = 1L << 5,
 
-        SaveMemory = 1L << 6
+        SaveMemory = 1L << 6,
+
+        OpenFolder = 1L << 7
     }
 }

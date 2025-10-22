@@ -45,12 +45,25 @@ namespace ProcSpector.Impl.Net
             throw new System.NotImplementedException();
         }
 
+        public IAsyncEnumerable<IModule> GetModules(IProcess arg)
+            => GetModulesSync(arg).ToAsyncEnumerable();
+
+        private IEnumerable<IModule> GetModulesSync(IProcess arg)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<IFile?> CreateScreenShot(IHandle handle)
         {
             throw new System.NotImplementedException();
         }
 
         public Task<IFile?> CreateMemSave(IMemRegion mem)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task OpenFolder(IModule mod)
         {
             throw new System.NotImplementedException();
         }

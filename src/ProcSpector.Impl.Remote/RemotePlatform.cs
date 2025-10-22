@@ -92,6 +92,18 @@ namespace ProcSpector.Impl.Remote
             }
         }
 
+        public async IAsyncEnumerable<IModule> GetModules(IProcess proc)
+        {
+            var arg = new JsonReq();
+            var req = Client.GetModules(arg);
+            await foreach (var item in req.ResponseStream.ReadAllAsync())
+            {
+                var res = item.Res.Unwrap<IModule>();
+                if (res is not null)
+                    yield return res;
+            }
+        }
+
         public async Task<IFile?> CreateScreenShot(IHandle handle)
         {
             var arg = new JsonReq();
@@ -101,6 +113,11 @@ namespace ProcSpector.Impl.Remote
         }
 
         public Task<IFile?> CreateMemSave(IMemRegion mem)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task OpenFolder(IModule mod)
         {
             throw new NotImplementedException();
         }

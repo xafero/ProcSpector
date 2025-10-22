@@ -1,5 +1,11 @@
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using ProcSpector.API;
+using ProcSpector.Core.Plugins;
+using ProcSpector.Impl;
+using ProcSpector.Tools;
+using ProcSpector.ViewModels;
 
 // ReSharper disable AsyncVoidMethod
 
@@ -12,38 +18,68 @@ namespace ProcSpector.Views
             InitializeComponent();
         }
 
-        private void OnLoaded(object? sender, RoutedEventArgs e)
+        private async Task LoadModules()
         {
+            var sys = Factory.Platform.Value.System;
+            var f = sys.Flags;
 
+            var model = this.GetData<ModuleViewModel>();
+            model.Modules.Clear();
+            if (model.Proc is { } proc)
+            {
+                Title = $"The modules of {proc.Name} (pid: {proc.Id})";
 
-
-            throw new System.NotImplementedException();
+                if (f.HasFlag(FeatureFlags.GetModules))
+                    await foreach (var item in sys.GetModules(proc))
+                        model.Modules.Add(item);
+            }
         }
 
-        private void OnLoadingRow(object? sender, DataGridRowEventArgs e)
+        private async void OnLoaded(object? sender, RoutedEventArgs e)
         {
+            await LoadModules();
+        }
 
-
-
-            throw new System.NotImplementedException();
+        private async void RefreshClick(object? sender, RoutedEventArgs e)
+        {
+            await LoadModules();
         }
 
         private void OnCellPointerPressed(object? sender, DataGridCellPointerPressedEventArgs e)
         {
-
-
-
-
-            throw new System.NotImplementedException();
+            if (e.PointerPressedEventArgs.ClickCount == 2)
+            {
+            }
         }
 
-        private void RefreshClick(object? sender, RoutedEventArgs e)
+        private ContextMenu? _rowMenu;
+
+        private void OnLoadingRow(object? sender, DataGridRowEventArgs e)
         {
-
-
-
-
-            throw new System.NotImplementedException();
+            if (_rowMenu == null)
+            {
+                _rowMenu = new ContextMenu();
+                _rowMenu.FillContextMenu(CtxMenu.Module, sender ?? this);
+                CreateContextMenu(_rowMenu);
+            }
+            e.Row.ContextMenu = _rowMenu;
         }
+
+        private void CreateContextMenu(ContextMenu menu)
+        {
+            var sys = Factory.Platform.Value.System;
+            var f = sys.Flags;
+            if (f.HasFlag(FeatureFlags.OpenFolder))
+                menu.Items.Add(new MenuItem { Header = "Open folder", Command = GuiExt.Relay(OpenFolder) });
+        }
+
+        private async Task OpenFolder()
+        {
+            if (Grid.SelectedItem is not IModule mod)
+                return;
+            await Sys.OpenFolder(mod);
+        }
+
+        private static ISystem Sys => Factory.Platform.Value.System;
     }
 }
