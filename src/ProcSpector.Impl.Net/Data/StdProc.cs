@@ -5,11 +5,11 @@ using ProcSpector.Impl.Net.Tools;
 
 namespace ProcSpector.Impl.Net.Data
 {
-    public sealed class NetProc : IProcess
+    public sealed class StdProc : IProcess
     {
         private readonly Process _item;
 
-        public NetProc(Process item) => _item = item;
+        public StdProc(Process item) => _item = item;
 
         public int Id => _item.Id;
         public string Name => _item.ProcessName;
@@ -21,5 +21,7 @@ namespace ProcSpector.Impl.Net.Data
         public string? Path => _item.TryMainModule()?.FileName;
 
         public override string ToString() => $"#{Id} - {Name}";
+
+        internal Process GetReal() => _item;
     }
 }

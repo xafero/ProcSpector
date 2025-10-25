@@ -3,13 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using ProcSpector.API;
 using ProcSpector.Impl.Net;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using ProcSpector.API;
-using ProcSpector.Impl.Net.Data;
-using FF = ProcSpector.API.FeatureFlags;
 
 namespace ProcSpector.Impl.Win
 {

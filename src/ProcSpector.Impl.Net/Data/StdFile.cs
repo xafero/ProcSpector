@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 using System.IO;
 using ProcSpector.API;
 
-namespace ProcSpector.Impl.Net
+namespace ProcSpector.Impl.Net.Data
 {
     public sealed class StdFile : IFile
     {

@@ -1,6 +1,4 @@
-﻿using ProcSpector.API;
-
-namespace ProcSpector.API
+﻿namespace ProcSpector.API
 {
     public interface IMemRegion
     {

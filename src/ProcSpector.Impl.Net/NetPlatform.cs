@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ProcSpector.API;
 using ProcSpector.Impl.Net.Data;
+using ProcSpector.Impl.Net.Tools;
 using FF = ProcSpector.API.FeatureFlags;
 
 namespace ProcSpector.Impl.Net
@@ -28,7 +30,24 @@ namespace ProcSpector.Impl.Net
         private IEnumerable<IProcess> GetProcessesSync()
         {
             foreach (var item in Process.GetProcesses())
-                yield return new NetProc(item);
+                if (WrapP(item) is { } wrap)
+                    yield return wrap;
+        }
+
+        private static StdProc? WrapP(Process process)
+        {
+            try
+            {
+                _ = process.StartTime;
+                _ = process.MainModule;
+                _ = process.HandleCount;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            var wrap = new StdProc(process);
+            return wrap;
         }
 
         public IAsyncEnumerable<IModule> GetModules(IProcess proc)
@@ -36,22 +55,43 @@ namespace ProcSpector.Impl.Net
 
         private IEnumerable<IModule> GetModulesSync(IProcess proc)
         {
-            throw new System.NotImplementedException();
+            var raw = ProcExt.GetStdProc(proc).GetReal();
+            var modules = raw.Modules.Cast<ProcessModule>();
+            foreach (var item in modules)
+                if (WrapM(item) is { } wrap)
+                    yield return wrap;
+        }
+
+        private static StdMod? WrapM(ProcessModule module)
+        {
+            try
+            {
+                _ = module.FileName;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            var wrap = new StdMod(module);
+            return wrap;
         }
 
         public Task<bool> Kill(IProcess proc)
         {
-            throw new System.NotImplementedException();
+            var res = ProcExt.Kill(proc);
+            return Task.FromResult(res);
         }
 
         public Task<bool> OpenFolder(IProcess proc)
         {
-            throw new System.NotImplementedException();
+            var res = ProcExt.OpenFolder(proc);
+            return Task.FromResult(res);
         }
 
         public Task<bool> OpenFolder(IModule mod)
         {
-            throw new System.NotImplementedException();
+            var res = ProcExt.OpenFolder(mod);
+            return Task.FromResult(res);
         }
     }
 }
