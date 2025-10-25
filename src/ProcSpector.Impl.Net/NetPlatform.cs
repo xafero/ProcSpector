@@ -11,7 +11,7 @@ namespace ProcSpector.Impl.Net
     public class NetPlatform : IPlatform, ISystem1, ISystem3
     {
         public ISystem1 System1 => this;
-        public ISystem2? System2 => null;
+        public virtual ISystem2? System2 => null;
         public ISystem3 System3 => this;
 
         public FF Flags => FF.GetUserInfo | FF.GetProcesses;

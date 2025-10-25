@@ -82,11 +82,6 @@ namespace ProcSpector.Impl.Remote
             }
         }
 
-        public Task<IFile?> CreateScreenShot(IProcess proc)
-        {
-            throw new NotImplementedException();
-        }
-
         public async IAsyncEnumerable<IMemRegion> GetRegions(IProcess proc)
         {
             var arg = new JsonReq();
@@ -119,24 +114,44 @@ namespace ProcSpector.Impl.Remote
             return res;
         }
 
-        public Task<IFile?> CreateMemSave(IProcess proc)
+        public async Task<IFile?> CreateScreenShot(IProcess proc)
         {
-            throw new NotImplementedException();
+            var arg = new JsonReq();
+            var req = await Client.CreateScreenShotPAsync(arg);
+            var res = req.Res.Unwrap<IFile>();
+            return res;
         }
 
-        public Task<IFile?> CreateMemSave(IMemRegion mem)
+        public async Task<IFile?> CreateMemSave(IProcess proc)
         {
-            throw new NotImplementedException();
+            var arg = new JsonReq();
+            var req = await Client.CreateMemSavePAsync(arg);
+            var res = req.Res.Unwrap<IFile>();
+            return res;
         }
 
-        public Task<IFile?> CreateMiniDump(IProcess proc)
+        public async Task<IFile?> CreateMemSave(IMemRegion mem)
         {
-            throw new NotImplementedException();
+            var arg = new JsonReq();
+            var req = await Client.CreateMemSaveRAsync(arg);
+            var res = req.Res.Unwrap<IFile>();
+            return res;
         }
 
-        public Task<bool> Kill(IProcess proc)
+        public async Task<IFile?> CreateMiniDump(IProcess proc)
         {
-            throw new NotImplementedException();
+            var arg = new JsonReq();
+            var req = await Client.CreateMiniDumpAsync(arg);
+            var res = req.Res.Unwrap<IFile>();
+            return res;
+        }
+
+        public async Task<bool> Kill(IProcess proc)
+        {
+            var arg = new JsonReq();
+            var req = await Client.KillAsync(arg);
+            var res = req.Res.Unwrap<bool>();
+            return res;
         }
     }
 }
