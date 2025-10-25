@@ -101,7 +101,7 @@ namespace ProcSpector.Impl.Win.Internal
             return bunch;
         }
 
-        public static IFile CreateMiniDump(IProcess proc, WinPlatform winPlatform)
+        public static IFile CreateMiniDump(IProcess proc)
         {
             var title = Path.GetFileNameWithoutExtension(proc.Path);
             var filePath = MiscExt.GetTimedFileName("MiniDump", title, "dmp");
