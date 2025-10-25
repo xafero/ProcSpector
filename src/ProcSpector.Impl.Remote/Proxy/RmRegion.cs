@@ -1,5 +1,4 @@
 using ProcSpector.API;
-using ProcSpector.API.Memory;
 
 namespace ProcSpector.Impl.Remote.Proxy
 {
@@ -7,8 +6,8 @@ namespace ProcSpector.Impl.Remote.Proxy
     {
         public long BaseAddress { get; set; }
         public long Size { get; set; }
-        public MemoryProtect Protection { get; set; }
-        public MemoryState State { get; set; }
-        public MemoryType Type { get; set; }
+        public string? Protection { get; set; }
+        public string? State { get; set; }
+        public string? Type { get; set; }
     }
 }

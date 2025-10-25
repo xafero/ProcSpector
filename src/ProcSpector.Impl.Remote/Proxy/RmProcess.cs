@@ -12,6 +12,6 @@ namespace ProcSpector.Impl.Remote.Proxy
         public int Handles { get; set; }
         public long WorkingSet { get; set; }
         public long PagedMem { get; set; }
-        public string? FileName { get; set; }
+        public string? Path { get; set; }
     }
 }

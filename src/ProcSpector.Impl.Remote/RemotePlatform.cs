@@ -6,6 +6,7 @@ using Grpc.Net.Client;
 using ProcSpector.API;
 using ProcSpector.Core;
 using ProcSpector.Grpc;
+using ProcSpector.Impl.Remote.Proxy;
 using static ProcSpector.Grpc.Inspector;
 
 namespace ProcSpector.Impl.Remote
@@ -54,7 +55,7 @@ namespace ProcSpector.Impl.Remote
         {
             var arg = new JsonReq();
             var req = await Client.GetUserInfoAsync(arg);
-            var res = req.Res.Unwrap<IUserInfo>();
+            var res = req.Res.Unwrap<RmUser>();
             return res;
         }
 
@@ -64,7 +65,7 @@ namespace ProcSpector.Impl.Remote
             var req = Client.GetProcesses(arg);
             await foreach (var item in req.ResponseStream.ReadAllAsync())
             {
-                var res = item.Res.Unwrap<IProcess>();
+                var res = item.Res.Unwrap<RmProcess>();
                 if (res is not null)
                     yield return res;
             }
@@ -76,7 +77,7 @@ namespace ProcSpector.Impl.Remote
             var req = Client.GetHandles(arg);
             await foreach (var item in req.ResponseStream.ReadAllAsync())
             {
-                var res = item.Res.Unwrap<IHandle>();
+                var res = item.Res.Unwrap<RmHandle>();
                 if (res is not null)
                     yield return res;
             }
@@ -88,7 +89,7 @@ namespace ProcSpector.Impl.Remote
             var req = Client.GetRegions(arg);
             await foreach (var item in req.ResponseStream.ReadAllAsync())
             {
-                var res = item.Res.Unwrap<IMemRegion>();
+                var res = item.Res.Unwrap<RmRegion>();
                 if (res is not null)
                     yield return res;
             }
@@ -100,7 +101,7 @@ namespace ProcSpector.Impl.Remote
             var req = Client.GetModules(arg);
             await foreach (var item in req.ResponseStream.ReadAllAsync())
             {
-                var res = item.Res.Unwrap<IModule>();
+                var res = item.Res.Unwrap<RmModule>();
                 if (res is not null)
                     yield return res;
             }
@@ -110,7 +111,7 @@ namespace ProcSpector.Impl.Remote
         {
             var arg = new JsonReq { Arg = handle.Wrap() };
             var req = await Client.CreateScreenShotHAsync(arg);
-            var res = req.Res.Unwrap<IFile>();
+            var res = req.Res.Unwrap<RmFile>();
             return res;
         }
 
@@ -118,7 +119,7 @@ namespace ProcSpector.Impl.Remote
         {
             var arg = new JsonReq { Arg = proc.Wrap() };
             var req = await Client.CreateScreenShotPAsync(arg);
-            var res = req.Res.Unwrap<IFile>();
+            var res = req.Res.Unwrap<RmFile>();
             return res;
         }
 
@@ -126,7 +127,7 @@ namespace ProcSpector.Impl.Remote
         {
             var arg = new JsonReq { Arg = proc.Wrap() };
             var req = await Client.CreateMemSavePAsync(arg);
-            var res = req.Res.Unwrap<IFile>();
+            var res = req.Res.Unwrap<RmFile>();
             return res;
         }
 
@@ -134,7 +135,7 @@ namespace ProcSpector.Impl.Remote
         {
             var arg = new JsonReq { Arg = mem.Wrap() };
             var req = await Client.CreateMemSaveRAsync(arg);
-            var res = req.Res.Unwrap<IFile>();
+            var res = req.Res.Unwrap<RmFile>();
             return res;
         }
 
@@ -142,7 +143,7 @@ namespace ProcSpector.Impl.Remote
         {
             var arg = new JsonReq { Arg = proc.Wrap() };
             var req = await Client.CreateMiniDumpAsync(arg);
-            var res = req.Res.Unwrap<IFile>();
+            var res = req.Res.Unwrap<RmFile>();
             return res;
         }
 

@@ -4,8 +4,8 @@
     {
         long BaseAddress { get; }
         long Size { get; }
-        string Protection { get; }
-        string State { get; }
-        string Type { get; }
+        string? Protection { get; }
+        string? State { get; }
+        string? Type { get; }
     }
 }
