@@ -17,5 +17,7 @@ namespace ProcSpector.Impl.Win.Data
 
         public override string ToString()
             => $"({BaseAddress})";
+
+        internal MemoryRegion GetReal() => _item;
     }
 }

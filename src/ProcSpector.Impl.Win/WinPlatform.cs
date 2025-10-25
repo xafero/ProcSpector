@@ -77,14 +77,14 @@ namespace ProcSpector.Impl.Win
 
         public Task<IFile?> CreateMemSave(IProcess proc)
         {
-            var res = Win32Ext.CreateMemSave(proc, this);
+            var res = Win32Ext.CreateMemSave(proc);
             return Task.FromResult<IFile?>(res);
         }
 
         public Task<IFile?> CreateMemSave(IMemRegion mem)
         {
-            var res = Win32Ext.CreateMemSave(mem, this);
-            return Task.FromResult<IFile?>(res);
+            var res = Win32Ext.CreateMemSave(mem);
+            return Task.FromResult(res);
         }
 
         public Task<IFile?> CreateMiniDump(IProcess proc)
