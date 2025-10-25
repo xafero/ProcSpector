@@ -72,7 +72,7 @@ namespace ProcSpector.Impl.Remote
 
         public async IAsyncEnumerable<IHandle> GetHandles(IProcess proc)
         {
-            var arg = new JsonReq();
+            var arg = new JsonReq { Arg = proc.Wrap() };
             var req = Client.GetHandles(arg);
             await foreach (var item in req.ResponseStream.ReadAllAsync())
             {
@@ -84,7 +84,7 @@ namespace ProcSpector.Impl.Remote
 
         public async IAsyncEnumerable<IMemRegion> GetRegions(IProcess proc)
         {
-            var arg = new JsonReq();
+            var arg = new JsonReq { Arg = proc.Wrap() };
             var req = Client.GetRegions(arg);
             await foreach (var item in req.ResponseStream.ReadAllAsync())
             {
@@ -96,7 +96,7 @@ namespace ProcSpector.Impl.Remote
 
         public async IAsyncEnumerable<IModule> GetModules(IProcess proc)
         {
-            var arg = new JsonReq();
+            var arg = new JsonReq { Arg = proc.Wrap() };
             var req = Client.GetModules(arg);
             await foreach (var item in req.ResponseStream.ReadAllAsync())
             {
@@ -108,7 +108,7 @@ namespace ProcSpector.Impl.Remote
 
         public async Task<IFile?> CreateScreenShot(IHandle handle)
         {
-            var arg = new JsonReq();
+            var arg = new JsonReq { Arg = handle.Wrap() };
             var req = await Client.CreateScreenShotHAsync(arg);
             var res = req.Res.Unwrap<IFile>();
             return res;
@@ -116,7 +116,7 @@ namespace ProcSpector.Impl.Remote
 
         public async Task<IFile?> CreateScreenShot(IProcess proc)
         {
-            var arg = new JsonReq();
+            var arg = new JsonReq { Arg = proc.Wrap() };
             var req = await Client.CreateScreenShotPAsync(arg);
             var res = req.Res.Unwrap<IFile>();
             return res;
@@ -124,7 +124,7 @@ namespace ProcSpector.Impl.Remote
 
         public async Task<IFile?> CreateMemSave(IProcess proc)
         {
-            var arg = new JsonReq();
+            var arg = new JsonReq { Arg = proc.Wrap() };
             var req = await Client.CreateMemSavePAsync(arg);
             var res = req.Res.Unwrap<IFile>();
             return res;
@@ -132,7 +132,7 @@ namespace ProcSpector.Impl.Remote
 
         public async Task<IFile?> CreateMemSave(IMemRegion mem)
         {
-            var arg = new JsonReq();
+            var arg = new JsonReq { Arg = mem.Wrap() };
             var req = await Client.CreateMemSaveRAsync(arg);
             var res = req.Res.Unwrap<IFile>();
             return res;
@@ -140,7 +140,7 @@ namespace ProcSpector.Impl.Remote
 
         public async Task<IFile?> CreateMiniDump(IProcess proc)
         {
-            var arg = new JsonReq();
+            var arg = new JsonReq { Arg = proc.Wrap() };
             var req = await Client.CreateMiniDumpAsync(arg);
             var res = req.Res.Unwrap<IFile>();
             return res;
@@ -148,7 +148,7 @@ namespace ProcSpector.Impl.Remote
 
         public async Task<bool> Kill(IProcess proc)
         {
-            var arg = new JsonReq();
+            var arg = new JsonReq { Arg = proc.Wrap() };
             var req = await Client.KillAsync(arg);
             var res = req.Res.Unwrap<bool>();
             return res;
