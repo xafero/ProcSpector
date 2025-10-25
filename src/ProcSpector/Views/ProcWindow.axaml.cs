@@ -22,10 +22,10 @@ namespace ProcSpector.Views
 
         private async Task LoadProcesses()
         {
-            var sys = Factory.Platform.Value.System;
+            if (Sys1 is not { } sys) return;
             var f = sys.Flags;
             var usr = f.HasFlag(FeatureFlags.GetUserInfo)
-                ? await sys.GetUserInfo()
+                ? await Sys1.GetUserInfo()
                 : null;
             Title = $"All processes for {usr?.Name ?? "?"} on {usr?.Host ?? "?"}";
 
@@ -69,7 +69,7 @@ namespace ProcSpector.Views
 
         private void CreateContextMenu(ContextMenu menu)
         {
-            var sys = Factory.Platform.Value.System;
+            if (Sys1 is not { } sys) return;
             var f = sys.Flags;
             if (f.HasFlag(FeatureFlags.GetModules))
                 menu.Items.Add(new MenuItem { Header = "Show modules", Command = GuiExt.Relay(OpenModuleView) });
@@ -117,7 +117,7 @@ namespace ProcSpector.Views
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            if ((await Sys.CreateMemSave(proc)).Save() is { } file)
+            if (Sys2 != null && (await Sys2.CreateMemSave(proc)).Save() is { } file)
                 ProcExt.OpenInShell(file);
         }
 
@@ -125,14 +125,15 @@ namespace ProcSpector.Views
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            await Sys.Kill(proc);
+            if (Sys1 != null)
+                await Sys1.Kill(proc);
         }
 
         private async Task CopyScreen()
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            if ((await Sys.CreateScreenShot(proc)).Save() is { } file)
+            if (Sys2 != null && (await Sys2.CreateScreenShot(proc)).Save() is { } file)
                 ProcExt.OpenInShell(file);
         }
 
@@ -140,7 +141,7 @@ namespace ProcSpector.Views
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            if ((await Sys.CreateMiniDump(proc)).Save() is { } file)
+            if (Sys2 != null && (await Sys2.CreateMiniDump(proc)).Save() is { } file)
                 ProcExt.OpenInShell(file);
         }
 
@@ -148,9 +149,12 @@ namespace ProcSpector.Views
         {
             if (Grid.SelectedItem is not IProcess proc)
                 return;
-            await Sys.OpenFolder(proc);
+            if (Sys3 != null)
+                await Sys3.OpenFolder(proc);
         }
 
-        private static ISystem Sys => Factory.Platform.Value.System;
+        private static ISystem1? Sys1 => Factory.Platform.Value.System1;
+        private static ISystem2? Sys2 => Factory.Platform.Value.System2;
+        private static ISystem3? Sys3 => Factory.Platform.Value.System3;
     }
 }

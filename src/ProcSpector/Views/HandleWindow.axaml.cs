@@ -22,7 +22,7 @@ namespace ProcSpector.Views
 
         private async Task LoadHandles()
         {
-            var sys = Factory.Platform.Value.System;
+            if (Sys1 is not { } sys) return;
             var f = sys.Flags;
 
             var model = this.GetData<HandleViewModel>();
@@ -31,8 +31,8 @@ namespace ProcSpector.Views
             {
                 Title = $"The windows of {proc.Name} (pid: {proc.Id})";
 
-                if (f.HasFlag(FeatureFlags.GetWindows))
-                    await foreach (var item in sys.GetHandles(proc))
+                if (Sys2 != null && f.HasFlag(FeatureFlags.GetWindows))
+                    await foreach (var item in Sys2.GetHandles(proc))
                         model.Handles.Add(item);
             }
         }
@@ -69,9 +69,8 @@ namespace ProcSpector.Views
 
         private void CreateContextMenu(ContextMenu menu)
         {
-            var sys = Factory.Platform.Value.System;
-            var f = sys.Flags;
-            if (f.HasFlag(FeatureFlags.CopyScreen))
+            var f = Sys1?.Flags ?? default;
+            if (Sys2 != null && f.HasFlag(FeatureFlags.CopyScreen))
                 menu.Items.Add(new MenuItem { Header = "Copy screen", Command = GuiExt.Relay(CopyScreen) });
         }
 
@@ -79,10 +78,11 @@ namespace ProcSpector.Views
         {
             if (Grid.SelectedItem is not IHandle handle)
                 return;
-            if ((await Sys.CreateScreenShot(handle)).Save() is { } file)
+            if (Sys2 != null && (await Sys2.CreateScreenShot(handle)).Save() is { } file)
                 ProcExt.OpenInShell(file);
         }
 
-        private static ISystem Sys => Factory.Platform.Value.System;
+        private static ISystem1? Sys1 => Factory.Platform.Value.System1;
+        private static ISystem2? Sys2 => Factory.Platform.Value.System2;
     }
 }

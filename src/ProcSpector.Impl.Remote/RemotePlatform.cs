@@ -10,7 +10,7 @@ using static ProcSpector.Grpc.Inspector;
 
 namespace ProcSpector.Impl.Remote
 {
-    public sealed class RemotePlatform : IPlatform, ISystem, IDisposable
+    public sealed class RemotePlatform : IPlatform, ISystem1, ISystem2, IDisposable
     {
         public RemotePlatform(IClientCfg cfg)
         {
@@ -35,7 +35,9 @@ namespace ProcSpector.Impl.Remote
             return (channel, client);
         }
 
-        public ISystem System => this;
+        public ISystem1 System1 => this;
+        public ISystem2 System2 => this;
+        public ISystem3? System3 => null;
 
         public FeatureFlags Flags
         {
@@ -133,21 +135,6 @@ namespace ProcSpector.Impl.Remote
         }
 
         public Task<bool> Kill(IProcess proc)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> OpenFolder(IProcess proc)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<bool> ISystem.OpenFolder(IModule mod)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task OpenFolder(IModule mod)
         {
             throw new NotImplementedException();
         }

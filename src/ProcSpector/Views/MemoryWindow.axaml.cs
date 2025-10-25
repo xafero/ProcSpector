@@ -22,7 +22,7 @@ namespace ProcSpector.Views
 
         private async Task LoadRegions()
         {
-            var sys = Factory.Platform.Value.System;
+            if (Sys1 is not { } sys) return;
             var f = sys.Flags;
 
             var model = this.GetData<MemoryViewModel>();
@@ -31,8 +31,8 @@ namespace ProcSpector.Views
             {
                 Title = $"The memory of {proc.Name} (pid: {proc.Id})";
 
-                if (f.HasFlag(FeatureFlags.GetMemory))
-                    await foreach (var item in sys.GetRegions(proc))
+                if (Sys2 != null && f.HasFlag(FeatureFlags.GetMemory))
+                    await foreach (var item in Sys2.GetRegions(proc))
                         model.Regions.Add(item);
             }
         }
@@ -69,7 +69,7 @@ namespace ProcSpector.Views
 
         private void CreateContextMenu(ContextMenu menu)
         {
-            var sys = Factory.Platform.Value.System;
+            if (Sys1 is not { } sys) return;
             var f = sys.Flags;
             if (f.HasFlag(FeatureFlags.SaveMemory))
                 menu.Items.Add(new MenuItem { Header = "Save memory", Command = GuiExt.Relay(SaveMemory) });
@@ -79,10 +79,11 @@ namespace ProcSpector.Views
         {
             if (Grid.SelectedItem is not IMemRegion region)
                 return;
-            if ((await Sys.CreateMemSave(region)).Save() is { } file)
+            if (Sys2 != null && (await Sys2.CreateMemSave(region)).Save() is { } file)
                 ProcExt.OpenInShell(file);
         }
 
-        private static ISystem Sys => Factory.Platform.Value.System;
+        private static ISystem1? Sys1 => Factory.Platform.Value.System1;
+        private static ISystem2? Sys2 => Factory.Platform.Value.System2;
     }
 }

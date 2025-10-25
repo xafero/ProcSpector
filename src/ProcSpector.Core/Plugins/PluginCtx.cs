@@ -29,9 +29,10 @@ namespace ProcSpector.Core.Plugins
             res.Add(new CtxMenuItem(Target: tgt, Title: title, Handler: handler));
         }
 
-        public ISystem? S { get; set; }
+        public IPlatform? P { get; set; }
+        public ISystem1? S1 => P?.System1;
 
         public IProcess? GetFirstProcess(string name)
-            => (S?.GetProcesses().FirstOrDefaultAsync(x => x.Name.EqualsInv(name))).GetVal();
+            => (S1?.GetProcesses().FirstOrDefaultAsync(x => x.Name.EqualsInv(name))).GetVal();
     }
 }

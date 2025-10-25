@@ -8,9 +8,11 @@ using FF = ProcSpector.API.FeatureFlags;
 
 namespace ProcSpector.Impl.Net
 {
-    public class NetPlatform : IPlatform, ISystem
+    public class NetPlatform : IPlatform, ISystem1, ISystem3
     {
-        public ISystem System => this;
+        public ISystem1 System1 => this;
+        public ISystem2? System2 => null;
+        public ISystem3 System3 => this;
 
         public FF Flags => FF.GetUserInfo | FF.GetProcesses;
 
@@ -29,51 +31,10 @@ namespace ProcSpector.Impl.Net
                 yield return new NetProc(item);
         }
 
-        public IAsyncEnumerable<IHandle> GetHandles(IProcess arg)
-            => GetHandlesSync(arg).ToAsyncEnumerable();
+        public IAsyncEnumerable<IModule> GetModules(IProcess proc)
+            => GetModulesSync(proc).ToAsyncEnumerable();
 
-        public Task<IFile?> CreateScreenShot(IProcess proc)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private IEnumerable<IHandle> GetHandlesSync(IProcess arg)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IAsyncEnumerable<IMemRegion> GetRegions(IProcess arg)
-            => GetRegionsSync(arg).ToAsyncEnumerable();
-
-        private IEnumerable<IMemRegion> GetRegionsSync(IProcess arg)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IAsyncEnumerable<IModule> GetModules(IProcess arg)
-            => GetModulesSync(arg).ToAsyncEnumerable();
-
-        private IEnumerable<IModule> GetModulesSync(IProcess arg)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IFile?> CreateScreenShot(IHandle handle)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IFile?> CreateMemSave(IProcess proc)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IFile?> CreateMemSave(IMemRegion mem)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IFile?> CreateMiniDump(IProcess proc)
+        private IEnumerable<IModule> GetModulesSync(IProcess proc)
         {
             throw new System.NotImplementedException();
         }
@@ -88,12 +49,7 @@ namespace ProcSpector.Impl.Net
             throw new System.NotImplementedException();
         }
 
-        Task<bool> ISystem.OpenFolder(IModule mod)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task OpenFolder(IModule mod)
+        public Task<bool> OpenFolder(IModule mod)
         {
             throw new System.NotImplementedException();
         }

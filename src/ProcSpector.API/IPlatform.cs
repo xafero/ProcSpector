@@ -2,6 +2,8 @@
 {
     public interface IPlatform
     {
-        ISystem System { get; }
+        ISystem1? System1 { get; }
+        ISystem2? System2 { get; }
+        ISystem3? System3 { get; }
     }
 }

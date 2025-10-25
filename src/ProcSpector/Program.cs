@@ -37,7 +37,7 @@ namespace ProcSpector
         private static void InitPlug()
         {
             _ = PluginTool.Plugins.Value;
-            PluginTool.Context.S = Factory.Platform.Value.System;
+            PluginTool.Context.P = Factory.Platform.Value;
         }
     }
 }

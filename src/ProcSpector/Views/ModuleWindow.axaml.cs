@@ -20,7 +20,7 @@ namespace ProcSpector.Views
 
         private async Task LoadModules()
         {
-            var sys = Factory.Platform.Value.System;
+            if (Sys1 is not { } sys) return;
             var f = sys.Flags;
 
             var model = this.GetData<ModuleViewModel>();
@@ -30,7 +30,7 @@ namespace ProcSpector.Views
                 Title = $"The modules of {proc.Name} (pid: {proc.Id})";
 
                 if (f.HasFlag(FeatureFlags.GetModules))
-                    await foreach (var item in sys.GetModules(proc))
+                    await foreach (var item in Sys1.GetModules(proc))
                         model.Modules.Add(item);
             }
         }
@@ -67,9 +67,8 @@ namespace ProcSpector.Views
 
         private void CreateContextMenu(ContextMenu menu)
         {
-            var sys = Factory.Platform.Value.System;
-            var f = sys.Flags;
-            if (f.HasFlag(FeatureFlags.OpenFolder))
+            var f = Sys1?.Flags ?? default;
+            if (Sys1 != null || f.HasFlag(FeatureFlags.OpenFolder))
                 menu.Items.Add(new MenuItem { Header = "Open folder", Command = GuiExt.Relay(OpenFolder) });
         }
 
@@ -77,9 +76,11 @@ namespace ProcSpector.Views
         {
             if (Grid.SelectedItem is not IModule mod)
                 return;
-            await Sys.OpenFolder(mod);
+            if (Sys3 != null)
+                await Sys3.OpenFolder(mod);
         }
 
-        private static ISystem Sys => Factory.Platform.Value.System;
+        private static ISystem1? Sys1 => Factory.Platform.Value.System1;
+        private static ISystem3? Sys3 => Factory.Platform.Value.System3;
     }
 }
