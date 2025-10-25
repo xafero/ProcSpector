@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace ProcSpector.Core
 {
@@ -10,13 +11,27 @@ namespace ProcSpector.Core
             return string.IsNullOrWhiteSpace(txt) ? null : txt;
         }
 
-        private const StringComparison Inv = StringComparison.InvariantCultureIgnoreCase;
+        public static readonly Encoding Enc = Encoding.UTF8;
+        public const StringComparison Inv = StringComparison.InvariantCultureIgnoreCase;
 
         public static bool EqualsInv(this string? first, string? second)
         {
             var a = first?.TrimOrNull() ?? string.Empty;
             var b = second?.TrimOrNull() ?? string.Empty;
             return a.Equals(b, Inv);
+        }
+
+        public static string? CleanCrazy(string text)
+        {
+            return text
+                .Replace("[", "").Replace("]", "")
+                .Replace("(", "").Replace(")", "")
+                .Replace("{", "").Replace("}", "")
+                .Replace("-", "").Replace("+", "")
+                .Replace(":", "").Replace(";", "")
+                .Replace(@"\", "")
+                .Replace("  ", " ")
+                .TrimOrNull();
         }
     }
 }
