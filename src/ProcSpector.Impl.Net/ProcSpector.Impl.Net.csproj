@@ -10,4 +10,10 @@
     <ProjectReference Include="..\ProcSpector.Core\ProcSpector.Core.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+			<_Parameter1>ProcSpector.Impl.Win</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+
 </Project>

@@ -1,6 +1,6 @@
 using System;
 
-namespace ProcSpector.API.Memory
+namespace ProcSpector.Impl.Win.Memory
 {
     [Flags]
     public enum MemoryProtect : uint

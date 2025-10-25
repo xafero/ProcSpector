@@ -3,6 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using ProcSpector.API;
 using ProcSpector.Impl.Net;
+using ProcSpector.Impl.Net.Tools;
+using ProcSpector.Impl.Win.Data;
+using ProcSpector.Impl.Win.Internal;
+using ProcSpector.Impl.Win.Memory;
 
 namespace ProcSpector.Impl.Win
 {
@@ -13,9 +17,32 @@ namespace ProcSpector.Impl.Win
         public IAsyncEnumerable<IHandle> GetHandles(IProcess arg)
             => GetHandlesSync(arg).ToAsyncEnumerable();
 
-        private IEnumerable<IHandle> GetHandlesSync(IProcess arg)
+        private IEnumerable<IHandle> GetHandlesSync(IProcess proc)
         {
-            throw new System.NotImplementedException();
+            var res = GetAllHandles(proc).Select(WrapH)
+                .Where(x =>
+                {
+                    var p = (StdWnd)x;
+                    return p.ProcessId == proc.Id && p.Title != null;
+                });
+            return res;
+        }
+
+        private static IEnumerable<WinStruct> GetAllHandles(IProcess proc)
+        {
+            foreach (var top in Win32.GetWindows().Where(w => w.ProcessId == proc.Id))
+            {
+                yield return top;
+
+                foreach (var sub in Win32.GetWindows(top.WindowHandle))
+                    yield return sub;
+            }
+        }
+
+        private static IHandle WrapH(WinStruct obj)
+        {
+            var wrap = new StdWnd(obj.WindowHandle, obj.ProcessId, obj.ThreadId, obj.ParentHandle);
+            return wrap;
         }
 
         public IAsyncEnumerable<IMemRegion> GetRegions(IProcess arg)
@@ -23,32 +50,47 @@ namespace ProcSpector.Impl.Win
 
         private IEnumerable<IMemRegion> GetRegionsSync(IProcess arg)
         {
-            throw new System.NotImplementedException();
+            var real = ProcExt.GetStdProc(arg).GetReal();
+            var regions = MemoryReader.ReadAllMemoryRegions(real);
+            foreach (var item in regions)
+                if (WrapR(item) is { } wrap)
+                    yield return wrap;
+        }
+
+        private static IMemRegion WrapR(MemoryRegion region)
+        {
+            var wrap = new StdMem(region);
+            return wrap;
         }
 
         public Task<IFile?> CreateScreenShot(IProcess proc)
         {
-            throw new System.NotImplementedException();
+            var res = Win32Ext.CreateScreenShot(proc);
+            return Task.FromResult(res);
         }
 
         public Task<IFile?> CreateScreenShot(IHandle handle)
         {
-            throw new System.NotImplementedException();
+            var res = Win32Ext.CreateScreenShot(handle);
+            return Task.FromResult(res);
         }
 
         public Task<IFile?> CreateMemSave(IProcess proc)
         {
-            throw new System.NotImplementedException();
+            var res = Win32Ext.CreateMemSave(proc, this);
+            return Task.FromResult<IFile?>(res);
         }
 
         public Task<IFile?> CreateMemSave(IMemRegion mem)
         {
-            throw new System.NotImplementedException();
+            var res = Win32Ext.CreateMemSave(mem, this);
+            return Task.FromResult<IFile?>(res);
         }
 
         public Task<IFile?> CreateMiniDump(IProcess proc)
         {
-            throw new System.NotImplementedException();
+            var res = Win32Ext.CreateMiniDump(proc, this);
+            return Task.FromResult<IFile?>(res);
         }
     }
 }

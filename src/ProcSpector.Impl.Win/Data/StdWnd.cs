@@ -2,7 +2,7 @@ using System;
 using ProcSpector.API;
 using ProcSpector.Impl.Win.Internal;
 
-namespace ProcSpector.Impl.Win
+namespace ProcSpector.Impl.Win.Data
 {
     public sealed class StdWnd : IHandle
     {
@@ -24,8 +24,8 @@ namespace ProcSpector.Impl.Win
 
         public uint ProcessId { get; }
         public uint? ThreadId { get; }
-        public IntPtr? Parent { get; }
-        public IntPtr? Handle { get; }
+        public long? Parent { get; }
+        public long? Handle { get; }
         public string? Class { get; }
         public string? Title { get; }
         public int? X { get; }
@@ -35,9 +35,5 @@ namespace ProcSpector.Impl.Win
 
         public override string ToString()
             => $"({Handle})";
-
-        // public void CreateScreenShot() => Win32Ext.CreateScreenShot(this);
-        long? IHandle.Parent => Parent?.ToInt64();
-        long? IHandle.Handle => Handle?.ToInt64();
     }
 }
