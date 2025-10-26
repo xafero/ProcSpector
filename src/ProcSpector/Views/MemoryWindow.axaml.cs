@@ -5,7 +5,6 @@ using ProcSpector.API;
 using ProcSpector.Core;
 using ProcSpector.Core.Plugins;
 using ProcSpector.Impl;
-using ProcSpector.Impl.Net.Tools;
 using ProcSpector.Tools;
 using ProcSpector.ViewModels;
 

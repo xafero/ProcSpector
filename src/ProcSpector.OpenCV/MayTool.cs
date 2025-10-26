@@ -1,13 +1,6 @@
 using System.Collections.Generic;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Text;
-using Emgu.CV;
-using Emgu.CV.Structure;
 
 namespace ProcSpector.OpenCV
 {
