@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using ProcSpector.API;
 
 namespace ProcSpector.Core
 {

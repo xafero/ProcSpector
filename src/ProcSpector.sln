@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcSpector.Impl.Win", "Pro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcSpector.Server.Win", "ProcSpector.Server.Win\ProcSpector.Server.Win.csproj", "{84BACA0D-D8F0-4819-9CE5-7239FC78B9DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcSpector.OpenCV", "ProcSpector.OpenCV\ProcSpector.OpenCV.csproj", "{A4C8934C-BDFC-4C13-9668-278DF94BF766}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -139,6 +141,18 @@ Global
 		{84BACA0D-D8F0-4819-9CE5-7239FC78B9DC}.Release|x64.Build.0 = Release|Any CPU
 		{84BACA0D-D8F0-4819-9CE5-7239FC78B9DC}.Release|x86.ActiveCfg = Release|Any CPU
 		{84BACA0D-D8F0-4819-9CE5-7239FC78B9DC}.Release|x86.Build.0 = Release|Any CPU
+		{A4C8934C-BDFC-4C13-9668-278DF94BF766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4C8934C-BDFC-4C13-9668-278DF94BF766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4C8934C-BDFC-4C13-9668-278DF94BF766}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A4C8934C-BDFC-4C13-9668-278DF94BF766}.Debug|x64.Build.0 = Debug|Any CPU
+		{A4C8934C-BDFC-4C13-9668-278DF94BF766}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A4C8934C-BDFC-4C13-9668-278DF94BF766}.Debug|x86.Build.0 = Debug|Any CPU
+		{A4C8934C-BDFC-4C13-9668-278DF94BF766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4C8934C-BDFC-4C13-9668-278DF94BF766}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4C8934C-BDFC-4C13-9668-278DF94BF766}.Release|x64.ActiveCfg = Release|Any CPU
+		{A4C8934C-BDFC-4C13-9668-278DF94BF766}.Release|x64.Build.0 = Release|Any CPU
+		{A4C8934C-BDFC-4C13-9668-278DF94BF766}.Release|x86.ActiveCfg = Release|Any CPU
+		{A4C8934C-BDFC-4C13-9668-278DF94BF766}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
