@@ -70,6 +70,8 @@ namespace ProcSpector.Views
                 menu.Items.Add(new MenuItem { Header = "Activate", Command = GuiExt.Relay(ActivateIt) });
             if (Sys2 != null)
                 menu.Items.Add(new MenuItem { Header = "Copy screen", Command = GuiExt.Relay(CopyScreen) });
+            if (Sys2 != null)
+                menu.Items.Add(new MenuItem { Header = "Set mouse", Command = GuiExt.Relay(SetMouse) });
         }
 
         private async Task ActivateIt()
@@ -78,6 +80,14 @@ namespace ProcSpector.Views
                 return;
             if (Sys2 != null)
                 await Sys2.Activate(handle);
+        }
+
+        private async Task SetMouse()
+        {
+            if (Grid.SelectedItem is not IHandle handle)
+                return;
+            if (Sys2 != null)
+                await Sys2.SetMouse(handle, 25, 45);
         }
 
         private async Task CopyScreen()

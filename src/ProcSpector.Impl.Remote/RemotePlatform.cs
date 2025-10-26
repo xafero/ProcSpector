@@ -152,6 +152,14 @@ namespace ProcSpector.Impl.Remote
             return res;
         }
 
+        public async Task<bool> SetMouse(IHandle handle, int x, int y)
+        {
+            var arg = new JsonReq { Arg = (handle, x, y).Wrap() };
+            var req = await Client.SetMouseAsync(arg);
+            var res = req.Res.Unwrap<bool>();
+            return res;
+        }
+
         public async Task<bool> Kill(IProcess proc)
         {
             var arg = new JsonReq { Arg = proc.Wrap() };

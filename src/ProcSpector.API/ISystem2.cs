@@ -18,5 +18,7 @@ namespace ProcSpector.API
 
         Task<bool> Activate(IProcess proc);
         Task<bool> Activate(IHandle handle);
+
+        Task<bool> SetMouse(IHandle handle, int x, int y);
     }
 }

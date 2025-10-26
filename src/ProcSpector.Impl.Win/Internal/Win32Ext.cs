@@ -106,17 +106,17 @@ namespace ProcSpector.Impl.Win.Internal
         {
             var std = ProcExt.GetStdProc(proc);
 
-            var real = std.GetReal();
-            var hdl1 = real.MainWindowHandle;
-            var r1 = false;
-            if (hdl1 != IntPtr.Zero)
-                r1 = Win32Dsk.ActivateWindowById(hdl1, false);
-
             var main = GetMainWindow(std);
             var hdl2 = main?.WindowHandle ?? 0;
             var r2 = false;
             if (hdl2 != IntPtr.Zero)
                 r2 = Win32Dsk.ActivateWindowById(hdl2, false);
+
+            var real = std.GetReal();
+            var hdl1 = real.MainWindowHandle;
+            var r1 = false;
+            if (hdl1 != IntPtr.Zero)
+                r1 = Win32Dsk.ActivateWindowById(hdl1, false);
 
             return r1 && r2;
         }
@@ -125,6 +125,13 @@ namespace ProcSpector.Impl.Win.Internal
         {
             var hid = (IntPtr)(handle.Handle ?? 0);
             var res = Win32Dsk.ActivateWindowById(hid, true);
+            return res;
+        }
+
+        public static bool SetMouse(IHandle handle, (int x, int y) t)
+        {
+            var hid = (IntPtr)(handle.Handle ?? 0);
+            var res = Win32Dsk.SetMouseToOffset(hid, t);
             return res;
         }
 

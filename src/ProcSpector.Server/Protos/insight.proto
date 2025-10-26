@@ -18,6 +18,7 @@ service Inspector {
   rpc CreateMiniDump (JsonReq) returns (JsonRsp);
   rpc ActivateP (JsonReq) returns (JsonRsp);
   rpc ActivateH (JsonReq) returns (JsonRsp);
+  rpc SetMouse (JsonReq) returns (JsonRsp);
 }
 
 message JsonReq {

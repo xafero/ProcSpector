@@ -31,5 +31,17 @@ namespace ProcSpector.Impl.Win.Internal
             }
             return SetForegroundWindow(hWnd);
         }
+
+        [DllImport("user32")]
+        private static extern bool SetCursorPos(int x, int y);
+
+        public static bool SetMouseToOffset(IntPtr hWnd, (int X, int Y) offset)
+        {
+            if (hWnd == IntPtr.Zero)
+                return false;
+            if (Win32.GetWindowRect(hWnd, out var rect))
+                return SetCursorPos(rect.Left + offset.X, rect.Top + offset.Y);
+            return false;
+        }
     }
 }
