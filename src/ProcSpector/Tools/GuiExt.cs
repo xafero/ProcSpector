@@ -41,8 +41,13 @@ namespace ProcSpector.Tools
 
         public static ICommand Relay(this EventHandler<object> handler, object arg, Func<object, object> get)
         {
-            var cmd = new RelayCommand(DoExecute);
+            var cmd = Relay(DoExecTask);
             return cmd;
+
+            Task DoExecTask()
+            {
+                return Task.Run(DoExecute);
+            }
 
             void DoExecute()
             {

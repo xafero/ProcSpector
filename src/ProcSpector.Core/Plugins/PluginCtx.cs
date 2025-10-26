@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using ProcSpector.API;
 
 // ReSharper disable UnusedMember.Global
@@ -12,7 +13,7 @@ namespace ProcSpector.Core.Plugins
     {
         public void LogDebug(object line)
         {
-            if (!Debugger.IsAttached)
+            if (!Debugger.IsAttached || !RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 Console.WriteLine(line);
             else
                 Debug.WriteLine(line);
@@ -31,8 +32,12 @@ namespace ProcSpector.Core.Plugins
 
         public IPlatform? P { get; set; }
         public ISystem1? S1 => P?.System1;
+        public ISystem2? S2 => P?.System2;
 
-        public IProcess? GetFirstProcess(string name)
+        public IProcess? FindProcess(string name)
             => (S1?.GetProcesses().FirstOrDefaultAsync(x => x.Name.EqualsInv(name))).GetVal();
+
+        public IHandle? FindWindow(IProcess p, string name)
+            => (S2?.GetHandles(p).FirstOrDefaultAsync(x => x.Title.EqualsInv(name))).GetVal();
     }
 }
