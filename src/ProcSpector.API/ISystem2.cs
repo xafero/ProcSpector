@@ -15,5 +15,8 @@ namespace ProcSpector.API
         Task<IFile?> CreateMemSave(IMemRegion mem);
 
         Task<IFile?> CreateMiniDump(IProcess proc);
+
+        Task<bool> Activate(IProcess proc);
+        Task<bool> Activate(IHandle handle);
     }
 }

@@ -5,7 +5,6 @@ option csharp_namespace = "ProcSpector.Grpc";
 package insight;
 
 service Inspector {
-  rpc GetFlags (JsonReq) returns (JsonRsp);
   rpc GetUserInfo (JsonReq) returns (JsonRsp);
   rpc GetProcesses (JsonReq) returns (stream JsonRsp);
   rpc GetModules (JsonReq) returns (stream JsonRsp);
@@ -17,6 +16,8 @@ service Inspector {
   rpc CreateScreenShotP (JsonReq) returns (JsonRsp);
   rpc CreateScreenShotH (JsonReq) returns (JsonRsp);
   rpc CreateMiniDump (JsonReq) returns (JsonRsp);
+  rpc ActivateP (JsonReq) returns (JsonRsp);
+  rpc ActivateH (JsonReq) returns (JsonRsp);
 }
 
 message JsonReq {

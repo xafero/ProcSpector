@@ -92,5 +92,17 @@ namespace ProcSpector.Impl.Win
             var res = Win32Ext.CreateMiniDump(proc);
             return Task.FromResult<IFile?>(res);
         }
+
+        public Task<bool> Activate(IProcess proc)
+        {
+            var res = Win32Ext.Activate(proc);
+            return Task.FromResult(res);
+        }
+
+        public Task<bool> Activate(IHandle handle)
+        {
+            var res = Win32Ext.Activate(handle);
+            return Task.FromResult(res);
+        }
     }
 }

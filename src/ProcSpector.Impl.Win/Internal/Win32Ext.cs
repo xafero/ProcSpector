@@ -12,6 +12,7 @@ using ProcSpector.Impl.Win.Memory;
 using ProcSpector.Impl.Win.Tools;
 
 #pragma warning disable CA1416
+#pragma warning disable CA2020
 
 namespace ProcSpector.Impl.Win.Internal
 {
@@ -99,6 +100,20 @@ namespace ProcSpector.Impl.Win.Internal
                 bitmap?.Save(stream, format);
             });
             return bunch;
+        }
+
+        public static bool Activate(IProcess proc)
+        {
+            var pid = proc.Id;
+            var res = Win32Dsk.ActivateProcessById(pid);
+            return res;
+        }
+
+        public static bool Activate(IHandle handle)
+        {
+            var hid = (IntPtr)(handle.Handle ?? 0);
+            var res = Win32Dsk.ActivateWindowById(hid);
+            return res;
         }
 
         public static IFile CreateMiniDump(IProcess proc)

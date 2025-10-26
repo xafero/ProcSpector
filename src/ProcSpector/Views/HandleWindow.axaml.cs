@@ -67,7 +67,17 @@ namespace ProcSpector.Views
         private void CreateContextMenu(ContextMenu menu)
         {
             if (Sys2 != null)
+                menu.Items.Add(new MenuItem { Header = "Activate", Command = GuiExt.Relay(ActivateIt) });
+            if (Sys2 != null)
                 menu.Items.Add(new MenuItem { Header = "Copy screen", Command = GuiExt.Relay(CopyScreen) });
+        }
+
+        private async Task ActivateIt()
+        {
+            if (Grid.SelectedItem is not IHandle handle)
+                return;
+            if (Sys2 != null)
+                await Sys2.Activate(handle);
         }
 
         private async Task CopyScreen()
@@ -78,7 +88,6 @@ namespace ProcSpector.Views
                 ProcExt.OpenInShell(file);
         }
 
-        private static ISystem1? Sys1 => Factory.Platform.Value.System1;
         private static ISystem2? Sys2 => Factory.Platform.Value.System2;
     }
 }

@@ -40,17 +40,6 @@ namespace ProcSpector.Impl.Remote
         public ISystem2 System2 => this;
         public ISystem3? System3 => null;
 
-        public FeatureFlags Flags
-        {
-            get
-            {
-                var arg = new JsonReq();
-                var req = Client.GetFlags(arg);
-                var res = req.Res.Unwrap<FeatureFlags>();
-                return res;
-            }
-        }
-
         public async Task<IUserInfo?> GetUserInfo()
         {
             var arg = new JsonReq();
@@ -144,6 +133,22 @@ namespace ProcSpector.Impl.Remote
             var arg = new JsonReq { Arg = proc.Wrap() };
             var req = await Client.CreateMiniDumpAsync(arg);
             var res = req.Res.Unwrap<RmFile>();
+            return res;
+        }
+
+        public async Task<bool> Activate(IProcess proc)
+        {
+            var arg = new JsonReq { Arg = proc.Wrap() };
+            var req = await Client.ActivatePAsync(arg);
+            var res = req.Res.Unwrap<bool>();
+            return res;
+        }
+
+        public async Task<bool> Activate(IHandle handle)
+        {
+            var arg = new JsonReq { Arg = handle.Wrap() };
+            var req = await Client.ActivateHAsync(arg);
+            var res = req.Res.Unwrap<bool>();
             return res;
         }
 

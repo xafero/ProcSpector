@@ -8,9 +8,4 @@
         string? State { get; }
         string? Type { get; }
     }
-
-    public interface IMemRegionEx : IMemRegion
-    {
-        int ProcessId { get; }
-    }
 }

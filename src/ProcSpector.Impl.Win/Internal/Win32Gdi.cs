@@ -8,10 +8,6 @@ namespace ProcSpector.Impl.Win.Internal
 {
     public static class Win32Gdi
     {
-        [DllImport("user32")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool SetForegroundWindow(IntPtr hWnd);
-        
         [DllImport("gdi32")]
         private static extern IntPtr CreateCompatibleBitmap(IntPtr hDc, int nWidth, int nHeight);
         

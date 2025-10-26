@@ -78,6 +78,8 @@ namespace ProcSpector.Views
             if (Sys3 != null)
                 menu.Items.Add(new MenuItem { Header = "Open folder", Command = GuiExt.Relay(OpenFolder) });
             if (Sys2 != null)
+                menu.Items.Add(new MenuItem { Header = "Activate", Command = GuiExt.Relay(ActivateIt) });
+            if (Sys2 != null)
                 menu.Items.Add(new MenuItem { Header = "Copy screen", Command = GuiExt.Relay(CopyScreen) });
             if (Sys2 != null)
                 menu.Items.Add(new MenuItem { Header = "Save memory", Command = GuiExt.Relay(SaveMemory) });
@@ -131,6 +133,14 @@ namespace ProcSpector.Views
                 return;
             if (Sys2 != null && (await Sys2.CreateScreenShot(proc)).Save() is { } file)
                 ProcExt.OpenInShell(file);
+        }
+
+        private async Task ActivateIt()
+        {
+            if (Grid.SelectedItem is not IProcess proc)
+                return;
+            if (Sys2 != null)
+                await Sys2.Activate(proc);
         }
 
         private async Task DumpMini()

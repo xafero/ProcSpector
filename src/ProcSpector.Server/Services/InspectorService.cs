@@ -95,6 +95,22 @@ namespace ProcSpector.Server.Services
             return c;
         }
 
+        public override async Task<JsonRsp> ActivateP(JsonReq req, ServerCallContext ctx)
+        {
+            var a = req.Arg.Unwrap<RmProcess>()!;
+            var b = await Sys2.Activate(a);
+            var c = new JsonRsp { Res = b.Wrap() };
+            return c;
+        }
+
+        public override async Task<JsonRsp> ActivateH(JsonReq req, ServerCallContext ctx)
+        {
+            var a = req.Arg.Unwrap<RmHandle>()!;
+            var b = await Sys2.Activate(a);
+            var c = new JsonRsp { Res = b.Wrap() };
+            return c;
+        }
+
         public override async Task<JsonRsp> Kill(JsonReq req, ServerCallContext ctx)
         {
             var a = req.Arg.Unwrap<RmProcess>()!;
