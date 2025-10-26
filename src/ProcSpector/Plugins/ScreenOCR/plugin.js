@@ -1,22 +1,24 @@
 
 function onProcessClick(s, e)
 {
-    let w = c.findWindow(e, "Memory");
+    let w = ctx.findWindow(e, "Memory");
     onWindowClick(s, w);
 }
 
 function onWindowClick(s, e)
 {
-    c.LogDebug("I've found [" + e.Title + "] ?!");
+    ctx.logDebug("I've found [" + e.Title + "] ?!");
     
-    let b = c.ScreenShot(e);
-    c.LogDebug(" ??? " + b.FullName + " ???");
+    let b = c.screenShot(e);
+    ctx.logDebug(" ??? " + b.FullName + " ???");
 }
 
 function init()
 {
-    c.addContextOption("process", "Do OCR on this", onProcessClick);
-    c.addContextOption("window", "Do OCR on this", onWindowClick);
+    ctx.logDebug(" ??? " + plugin.Root + " ???");
+    
+    ctx.addContextOption("process", "Do OCR on this", onProcessClick);
+    ctx.addContextOption("window", "Do OCR on this", onWindowClick);
 }
 
 init();

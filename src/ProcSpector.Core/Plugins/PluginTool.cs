@@ -32,8 +32,11 @@ namespace ProcSpector.Core.Plugins
                 var dir = Path.GetDirectoryName(local);
                 var root = Path.GetDirectoryName(file);
                 var code = File.ReadAllText(file, Encoding.UTF8);
-                Engine.Value.Execute(code, source: file);
-                yield return new Plugin { Name = dir, Root = root, Loaded = DateTime.Now };
+                var p = new Plugin { Name = dir, Root = root, Loaded = DateTime.Now };
+                var ev = Engine.Value;
+                ev.SetValue("plugin", p);
+                ev.Execute(code, source: file);
+                yield return p;
             }
         }
 
