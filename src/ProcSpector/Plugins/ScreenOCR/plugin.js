@@ -1,16 +1,19 @@
 
 function onProcessClick(s, e)
 {
-    var x = e.Name;
-    c.LogDebug("I've found " + x + "!");
+    let w = c.findWindow(e, "Memory");
+    onWindowClick(s, w);
+}
 
-    var y = c.findWindow(e, "Memory");
-    c.LogDebug("I've found " + y.Title + "!");
+function onWindowClick(s, e)
+{
+    c.LogDebug("I've found [" + e.Title + "] ?!");
 }
 
 function init()
 {
     c.addContextOption("process", "Do OCR on this", onProcessClick);
+    c.addContextOption("window", "Do OCR on this", onWindowClick);
 }
 
 init();
