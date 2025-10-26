@@ -8,6 +8,9 @@ function onProcessClick(s, e)
 function onWindowClick(s, e)
 {
     c.LogDebug("I've found [" + e.Title + "] ?!");
+    
+    let b = c.ScreenShot(e);
+    c.LogDebug(" ??? " + b.FullName + " ???");
 }
 
 function init()

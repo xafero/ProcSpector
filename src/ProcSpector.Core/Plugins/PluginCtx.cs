@@ -39,5 +39,8 @@ namespace ProcSpector.Core.Plugins
 
         public IHandle? FindWindow(IProcess p, string name)
             => (S2?.GetHandles(p).FirstOrDefaultAsync(x => x.Title.EqualsInv(name))).GetVal();
+
+        public IFile? ScreenShot(IHandle h)
+            => S2?.CreateScreenShot(h).GetVal();
     }
 }
