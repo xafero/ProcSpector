@@ -1,6 +1,5 @@
 using System;
 using System.Runtime.InteropServices;
-using Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments;
 
 #pragma warning disable CA1416
 

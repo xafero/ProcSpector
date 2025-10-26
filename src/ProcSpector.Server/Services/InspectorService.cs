@@ -118,5 +118,13 @@ namespace ProcSpector.Server.Services
             var c = new JsonRsp { Res = b.Wrap() };
             return c;
         }
+
+        public override async Task<JsonRsp> SetMouse(JsonReq req, ServerCallContext ctx)
+        {
+            var a = req.Arg.Unwrap<(RmHandle, int, int)>()!;
+            var b = await Sys2.SetMouse(a.Item1, a.Item2, a.Item3);
+            var c = new JsonRsp { Res = b.Wrap() };
+            return c;
+        }
     }
 }
