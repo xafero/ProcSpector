@@ -22,8 +22,6 @@ namespace ProcSpector.Views
 
         private async Task LoadHandles()
         {
-            if (Sys1 is not { } sys) return;
-
             var model = this.GetData<HandleViewModel>();
             model.Handles.Clear();
             if (model.Proc is { } proc)
