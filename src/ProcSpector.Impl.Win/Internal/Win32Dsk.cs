@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments;
 
 #pragma warning disable CA1416
 
@@ -18,11 +19,11 @@ namespace ProcSpector.Impl.Win.Internal
 
         private const int SwRestore = 9;
 
-        public static bool ActivateWindowById(IntPtr hWnd)
+        public static bool ActivateWindowById(IntPtr hWnd, bool recursive)
         {
-            if (Win32.GetMyParent(hWnd) is { } parent)
+            if (recursive && Win32.GetMyParent(hWnd) is { } parent)
             {
-                ActivateWindowById(parent);
+                ActivateWindowById(parent, recursive);
             }
             if (IsIconic(hWnd))
             {

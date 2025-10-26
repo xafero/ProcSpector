@@ -110,13 +110,13 @@ namespace ProcSpector.Impl.Win.Internal
             var hdl1 = real.MainWindowHandle;
             var r1 = false;
             if (hdl1 != IntPtr.Zero)
-                r1 = Win32Dsk.ActivateWindowById(hdl1);
+                r1 = Win32Dsk.ActivateWindowById(hdl1, false);
 
             var main = GetMainWindow(std);
             var hdl2 = main?.WindowHandle ?? 0;
             var r2 = false;
             if (hdl2 != IntPtr.Zero)
-                r2 = Win32Dsk.ActivateWindowById(hdl2);
+                r2 = Win32Dsk.ActivateWindowById(hdl2, false);
 
             return r1 && r2;
         }
@@ -124,7 +124,7 @@ namespace ProcSpector.Impl.Win.Internal
         public static bool Activate(IHandle handle)
         {
             var hid = (IntPtr)(handle.Handle ?? 0);
-            var res = Win32Dsk.ActivateWindowById(hid);
+            var res = Win32Dsk.ActivateWindowById(hid, true);
             return res;
         }
 
