@@ -4,7 +4,7 @@
 
 namespace ProcSpector.OpenCV
 {
-    public class OcrRect(
+    public record OcrRect(
         Point Point,
         Size Size,
         float Similar,

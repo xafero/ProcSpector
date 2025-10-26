@@ -17,5 +17,17 @@ namespace ProcSpector.Core
             File.WriteAllBytes(path, bytes);
             return path;
         }
+
+        public static string[] List(string path, string pattern)
+        {
+            const SearchOption o = SearchOption.AllDirectories;
+            var res = Directory.GetFiles(path, pattern, o);
+            return res;
+        }
+
+        public static FileTmp CreateTmp()
+        {
+            return new FileTmp();
+        }
     }
 }

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProcSpector.API\ProcSpector.API.csproj" />
+    <ProjectReference Include="..\ProcSpector.OpenCV\ProcSpector.OpenCV.csproj" />
   </ItemGroup>
 
 </Project>
