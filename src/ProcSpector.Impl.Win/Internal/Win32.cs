@@ -81,7 +81,7 @@ namespace ProcSpector.Impl.Win.Internal
         [DllImport("user32", SetLastError = true)]
         private static extern IntPtr GetParent(IntPtr hWnd);
 
-        private static IntPtr? GetMyParent(IntPtr hWnd)
+        public static IntPtr? GetMyParent(IntPtr hWnd)
         {
             var res = GetParent(hWnd);
             return res == 0 ? null : res;

@@ -104,9 +104,21 @@ namespace ProcSpector.Impl.Win.Internal
 
         public static bool Activate(IProcess proc)
         {
-            var pid = proc.Id;
-            var res = Win32Dsk.ActivateProcessById(pid);
-            return res;
+            var std = ProcExt.GetStdProc(proc);
+
+            var real = std.GetReal();
+            var hdl1 = real.MainWindowHandle;
+            var r1 = false;
+            if (hdl1 != IntPtr.Zero)
+                r1 = Win32Dsk.ActivateWindowById(hdl1);
+
+            var main = GetMainWindow(std);
+            var hdl2 = main?.WindowHandle ?? 0;
+            var r2 = false;
+            if (hdl2 != IntPtr.Zero)
+                r2 = Win32Dsk.ActivateWindowById(hdl2);
+
+            return r1 && r2;
         }
 
         public static bool Activate(IHandle handle)

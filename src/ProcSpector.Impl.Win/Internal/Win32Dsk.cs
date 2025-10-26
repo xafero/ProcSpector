@@ -1,6 +1,5 @@
 using System;
 using System.Runtime.InteropServices;
-using System.Diagnostics;
 
 #pragma warning disable CA1416
 
@@ -19,17 +18,12 @@ namespace ProcSpector.Impl.Win.Internal
 
         private const int SwRestore = 9;
 
-        public static bool ActivateProcessById(int procId)
-        {
-            var process = Process.GetProcessById(procId);
-            if (process.MainWindowHandle == IntPtr.Zero)
-                return false;
-            var handle = process.MainWindowHandle;
-            return ActivateWindowById(handle);
-        }
-
         public static bool ActivateWindowById(IntPtr hWnd)
         {
+            if (Win32.GetMyParent(hWnd) is { } parent)
+            {
+                ActivateWindowById(parent);
+            }
             if (IsIconic(hWnd))
             {
                 ShowWindow(hWnd, SwRestore);
