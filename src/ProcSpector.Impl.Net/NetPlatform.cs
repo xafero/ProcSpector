@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using ProcSpector.API;
 using ProcSpector.Impl.Net.Data;
 using ProcSpector.Impl.Net.Tools;
-using FF = ProcSpector.API.FeatureFlags;
 
 namespace ProcSpector.Impl.Net
 {
@@ -15,8 +14,6 @@ namespace ProcSpector.Impl.Net
         public ISystem1 System1 => this;
         public virtual ISystem2? System2 => null;
         public ISystem3 System3 => this;
-
-        public FF Flags => FF.GetUserInfo | FF.GetProcesses;
 
         public Task<IUserInfo?> GetUserInfo()
             => Task.FromResult<IUserInfo?>(GetUserInfoSync());

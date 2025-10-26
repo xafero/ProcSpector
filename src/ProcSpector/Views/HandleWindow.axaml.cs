@@ -23,7 +23,6 @@ namespace ProcSpector.Views
         private async Task LoadHandles()
         {
             if (Sys1 is not { } sys) return;
-            var f = sys.Flags;
 
             var model = this.GetData<HandleViewModel>();
             model.Handles.Clear();
@@ -31,7 +30,7 @@ namespace ProcSpector.Views
             {
                 Title = $"The windows of {proc.Name} (pid: {proc.Id})";
 
-                if (Sys2 != null && f.HasFlag(FeatureFlags.GetWindows))
+                if (Sys2 != null)
                     await foreach (var item in Sys2.GetHandles(proc))
                         model.Handles.Add(item);
             }
@@ -69,8 +68,7 @@ namespace ProcSpector.Views
 
         private void CreateContextMenu(ContextMenu menu)
         {
-            var f = Sys1?.Flags ?? default;
-            if (Sys2 != null && f.HasFlag(FeatureFlags.CopyScreen))
+            if (Sys2 != null)
                 menu.Items.Add(new MenuItem { Header = "Copy screen", Command = GuiExt.Relay(CopyScreen) });
         }
 

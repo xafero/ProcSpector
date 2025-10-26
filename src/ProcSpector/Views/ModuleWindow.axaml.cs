@@ -20,16 +20,13 @@ namespace ProcSpector.Views
 
         private async Task LoadModules()
         {
-            if (Sys1 is not { } sys) return;
-            var f = sys.Flags;
-
             var model = this.GetData<ModuleViewModel>();
             model.Modules.Clear();
             if (model.Proc is { } proc)
             {
                 Title = $"The modules of {proc.Name} (pid: {proc.Id})";
 
-                if (f.HasFlag(FeatureFlags.GetModules))
+                if (Sys1 != null)
                     await foreach (var item in Sys1.GetModules(proc))
                         model.Modules.Add(item);
             }
@@ -67,8 +64,7 @@ namespace ProcSpector.Views
 
         private void CreateContextMenu(ContextMenu menu)
         {
-            var f = Sys1?.Flags ?? default;
-            if (Sys1 != null || f.HasFlag(FeatureFlags.OpenFolder))
+            if (Sys3 != null)
                 menu.Items.Add(new MenuItem { Header = "Open folder", Command = GuiExt.Relay(OpenFolder) });
         }
 

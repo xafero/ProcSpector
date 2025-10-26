@@ -1,21 +1,5 @@
 using System;
-using System.Drawing;
 using WindowsInput;
-using System;
-using System.Linq;
-using WindowsInput;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using ProcSpector.API;
-using ProcSpector.Core;
-using ProcSpector.Impl.Net.Data;
-using ProcSpector.Impl.Net.Tools;
-using ProcSpector.Impl.Win.Data;
-using ProcSpector.Impl.Win.Memory;
 using xj;
 using static ProcSpector.Core.EnumTool;
 

@@ -5,8 +5,6 @@ namespace ProcSpector.API
 {
     public interface ISystem1
     {
-        FeatureFlags Flags { get; }
-
         Task<IUserInfo?> GetUserInfo();
 
         IAsyncEnumerable<IProcess> GetProcesses();

@@ -22,17 +22,15 @@ namespace ProcSpector.Views
 
         private async Task LoadProcesses()
         {
-            if (Sys1 is not { } sys) return;
-            var f = sys.Flags;
-            var usr = f.HasFlag(FeatureFlags.GetUserInfo)
+            var usr = Sys1 != null
                 ? await Sys1.GetUserInfo()
                 : null;
             Title = $"All processes for {usr?.Name ?? "?"} on {usr?.Host ?? "?"}";
 
             var model = this.GetData<ProcViewModel>();
             model.Processes.Clear();
-            if (f.HasFlag(FeatureFlags.GetProcesses))
-                await foreach (var item in sys.GetProcesses())
+            if (Sys1 != null)
+                await foreach (var item in Sys1.GetProcesses())
                     if (item.Path is not null)
                         model.Processes.Add(item);
         }
@@ -69,23 +67,21 @@ namespace ProcSpector.Views
 
         private void CreateContextMenu(ContextMenu menu)
         {
-            if (Sys1 is not { } sys) return;
-            var f = sys.Flags;
-            if (f.HasFlag(FeatureFlags.GetModules))
+            if (Sys1 != null)
                 menu.Items.Add(new MenuItem { Header = "Show modules", Command = GuiExt.Relay(OpenModuleView) });
-            if (f.HasFlag(FeatureFlags.GetWindows))
+            if (Sys2 != null)
                 menu.Items.Add(new MenuItem { Header = "Show windows", Command = GuiExt.Relay(OpenHandleView) });
-            if (f.HasFlag(FeatureFlags.GetMemory))
+            if (Sys2 != null)
                 menu.Items.Add(new MenuItem { Header = "Show memory", Command = GuiExt.Relay(OpenMemView) });
-            if (f.HasFlag(FeatureFlags.KillTree))
+            if (Sys1 != null)
                 menu.Items.Add(new MenuItem { Header = "Kill tree", Command = GuiExt.Relay(KillTree) });
-            if (f.HasFlag(FeatureFlags.OpenFolder))
+            if (Sys3 != null)
                 menu.Items.Add(new MenuItem { Header = "Open folder", Command = GuiExt.Relay(OpenFolder) });
-            if (f.HasFlag(FeatureFlags.CopyScreen))
+            if (Sys2 != null)
                 menu.Items.Add(new MenuItem { Header = "Copy screen", Command = GuiExt.Relay(CopyScreen) });
-            if (f.HasFlag(FeatureFlags.SaveMemory))
+            if (Sys2 != null)
                 menu.Items.Add(new MenuItem { Header = "Save memory", Command = GuiExt.Relay(SaveMemory) });
-            if (f.HasFlag(FeatureFlags.DumpMini))
+            if (Sys2 != null)
                 menu.Items.Add(new MenuItem { Header = "Dump mini", Command = GuiExt.Relay(DumpMini) });
         }
 

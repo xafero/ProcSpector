@@ -67,7 +67,9 @@ namespace ProcSpector.Tools
         {
             var cm = PluginTool.Context.ContextMenu;
             var ri = rowMenu.Items;
-            foreach (var act in cm[menu])
+            if (!cm.TryGetValue(menu, out var items))
+                return;
+            foreach (var act in items)
             {
                 var mi = new MenuItem
                 {
