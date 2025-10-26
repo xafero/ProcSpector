@@ -28,7 +28,7 @@ namespace ProcSpector.Impl.Win.Tools
                 );
             if (mr == null)
                 return null;
-            return new StdMem(mr);
+            return new StdMem(mr, proc.Id);
         }
     }
 }

@@ -53,13 +53,13 @@ namespace ProcSpector.Impl.Win
             var real = ProcExt.GetStdProc(arg).GetReal();
             var regions = MemoryReader.ReadAllMemoryRegions(real);
             foreach (var item in regions)
-                if (WrapR(item) is { } wrap)
+                if (WrapR(item, real.Id) is { } wrap)
                     yield return wrap;
         }
 
-        private static IMemRegion WrapR(MemoryRegion region)
+        private static IMemRegion WrapR(MemoryRegion region, int pid)
         {
-            var wrap = new StdMem(region);
+            var wrap = new StdMem(region, pid);
             return wrap;
         }
 

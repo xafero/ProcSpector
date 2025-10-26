@@ -3,11 +3,17 @@ using ProcSpector.Impl.Win.Memory;
 
 namespace ProcSpector.Impl.Win.Data
 {
-    public sealed class StdMem : IMemRegion
+    public sealed class StdMem : IMemRegionEx
     {
         private readonly MemoryRegion _item;
 
-        public StdMem(MemoryRegion item) => _item = item;
+        public StdMem(MemoryRegion item, int procId)
+        {
+            _item = item;
+            ProcessId = procId;
+        }
+
+        public int ProcessId { get; }
 
         public long BaseAddress => _item.BaseAddress;
         public long Size => _item.Size;
