@@ -116,7 +116,7 @@ namespace ProcSpector.Views
             if (Grid.SelectedItem is not IProcess proc)
                 return;
             if (Sys2 != null && (await Sys2.CreateMemSave(proc)).Save() is { } file)
-                ProcExt.OpenInShell(file);
+                FileExt.OpenInShell(file);
         }
 
         private async Task KillTree()
@@ -132,7 +132,7 @@ namespace ProcSpector.Views
             if (Grid.SelectedItem is not IProcess proc)
                 return;
             if (Sys2 != null && (await Sys2.CreateScreenShot(proc)).Save() is { } file)
-                ProcExt.OpenInShell(file);
+                FileExt.OpenInShell(file);
         }
 
         private async Task ActivateIt()
@@ -148,7 +148,7 @@ namespace ProcSpector.Views
             if (Grid.SelectedItem is not IProcess proc)
                 return;
             if (Sys2 != null && (await Sys2.CreateMiniDump(proc)).Save() is { } file)
-                ProcExt.OpenInShell(file);
+                FileExt.OpenInShell(file);
         }
 
         private async Task OpenFolder()

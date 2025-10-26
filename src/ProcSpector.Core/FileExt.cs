@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using ProcSpector.API;
 
@@ -28,6 +29,17 @@ namespace ProcSpector.Core
         public static FileTmp CreateTmp()
         {
             return new FileTmp();
+        }
+
+        public static bool OpenInShell(string? path)
+        {
+            var info = new ProcessStartInfo
+            {
+                FileName = path,
+                UseShellExecute = true
+            };
+            Process.Start(info);
+            return true;
         }
     }
 }

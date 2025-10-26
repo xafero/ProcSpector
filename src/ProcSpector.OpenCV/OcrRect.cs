@@ -8,7 +8,9 @@ namespace ProcSpector.OpenCV
         Point Point,
         Size Size,
         float Similar,
-        string File)
+        string File
+    )
     {
+        public Rectangle Rect => new(Point, Size);
     }
 }

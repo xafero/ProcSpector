@@ -95,7 +95,7 @@ namespace ProcSpector.Views
             if (Grid.SelectedItem is not IHandle handle)
                 return;
             if (Sys2 != null && (await Sys2.CreateScreenShot(handle)).Save() is { } file)
-                ProcExt.OpenInShell(file);
+                FileExt.OpenInShell(file);
         }
 
         private static ISystem2? Sys2 => Factory.Platform.Value.System2;

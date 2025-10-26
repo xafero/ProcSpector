@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using ProcSpector.API;
 using System.IO;
+using ProcSpector.Core;
 using ProcSpector.Impl.Net.Data;
 
 namespace ProcSpector.Impl.Net.Tools
@@ -32,24 +33,13 @@ namespace ProcSpector.Impl.Net.Tools
             }
         }
 
-        public static bool OpenInShell(string? path)
-        {
-            var info = new ProcessStartInfo
-            {
-                FileName = path,
-                UseShellExecute = true
-            };
-            Process.Start(info);
-            return true;
-        }
-
         public static bool OpenFolder(IProcess proc) => OpenFileFolder(proc.Path);
         public static bool OpenFolder(IModule mod) => OpenFileFolder(mod.FileName);
 
         public static bool OpenFileFolder(string? file)
         {
             var dir = Path.GetDirectoryName(file);
-            return ProcExt.OpenInShell(dir);
+            return FileExt.OpenInShell(dir);
         }
 
         public static bool Kill(IProcess proc)

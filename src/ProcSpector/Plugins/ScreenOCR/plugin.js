@@ -1,18 +1,12 @@
 
 function onProcessClick(s, e)
 {
-    let w = c.findWindow(e, "Memory");
-    onWindowClick(s, w);
+    onWindowClick(s, c.findWindow(e, "Memory"));
 }
 
 function onWindowClick(s, e)
 {
-    c.logDebug("I've found [" + e.Title + "] ?!");
-    
-    let b = c.screenShot(e);
-    c.logDebug(" ??? " + b.FullName + " ???");
-    
-    c.xxx(b, _root, "Training");
+    c.DoOcr(c.screenShot(e), _root, "Training");
 }
 
 function init()
