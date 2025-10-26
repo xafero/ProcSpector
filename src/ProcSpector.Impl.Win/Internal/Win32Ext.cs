@@ -8,8 +8,8 @@ using ProcSpector.API;
 using ProcSpector.Core;
 using ProcSpector.Impl.Net.Data;
 using ProcSpector.Impl.Net.Tools;
-using ProcSpector.Impl.Win.Data;
 using ProcSpector.Impl.Win.Memory;
+using ProcSpector.Impl.Win.Tools;
 
 #pragma warning disable CA1416
 
@@ -38,7 +38,7 @@ namespace ProcSpector.Impl.Win.Internal
             var title = $"0x{region.BaseAddress:X}";
             var filePath = MiscExt.GetTimedFileName("Region", title, "bin");
 
-            var real = ((StdMem)region).GetReal();
+            var real = WProcExt.GetStdMem(region).GetReal();
             if (real.Data is not { Length: >= 1 } data)
                 return null;
 
