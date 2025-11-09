@@ -20,7 +20,7 @@ namespace ProcSpector.API
         Task<bool> Activate(IHandle handle);
 
         Task<bool> SetMouse(IHandle handle, int x, int y);
-        Task<bool> PressKey(IHandle handle, string mode, string key);
+        Task<bool> SendKey(IHandle handle, string mode, string key);
         Task<bool> Sleep(string mode, double val);
     }
 }

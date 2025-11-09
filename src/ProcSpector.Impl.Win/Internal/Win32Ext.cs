@@ -136,7 +136,7 @@ namespace ProcSpector.Impl.Win.Internal
             return res;
         }
         
-        public static bool PressKey(IHandle handle, string mode, string key)
+        public static bool SendKey(IHandle handle, string mode, string key)
         {
             _ = (IntPtr)(handle.Handle ?? 0);
             InpSim.SendKey(mode, key);

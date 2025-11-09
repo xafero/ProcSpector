@@ -160,7 +160,7 @@ namespace ProcSpector.Impl.Remote
             return res;
         }
 
-        public async Task<bool> PressKey(IHandle handle, string mode, string key)
+        public async Task<bool> SendKey(IHandle handle, string mode, string key)
         {
             var arg = new JsonReq { Arg = (handle, mode, key).Wrap() };
             var req = await Client.SendKeyAsync(arg);

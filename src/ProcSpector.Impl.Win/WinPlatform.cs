@@ -111,9 +111,9 @@ namespace ProcSpector.Impl.Win
             return Task.FromResult(res);
         }
 
-        public Task<bool> PressKey(IHandle handle, string mode, string key)
+        public Task<bool> SendKey(IHandle handle, string mode, string key)
         {
-            var res = Win32Ext.PressKey(handle, mode, key);
+            var res = Win32Ext.SendKey(handle, mode, key);
             return Task.FromResult(res);
         }
 
