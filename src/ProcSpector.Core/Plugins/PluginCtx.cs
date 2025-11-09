@@ -47,7 +47,7 @@ namespace ProcSpector.Core.Plugins
 
         public bool? SendKey(IHandle h, string mode, string key)
             => S2?.SendKey(h, mode, key).GetVal();
-        
+
         public bool? SendModKey(IHandle h, string mod, string key)
             => S2?.SendModKey(h, mod, key).GetVal();
 
@@ -56,8 +56,8 @@ namespace ProcSpector.Core.Plugins
 
         public bool? Activate(IHandle h)
             => S2?.Activate(h).GetVal();
-        
-        public void DoOcr(IFile file, string root, string sub)
+
+        public string? DoOcr(IFile file, string root, string sub)
         {
             var dir = Path.Combine(root, sub);
             var files = FileExt.List(dir, "*.png");
@@ -65,11 +65,12 @@ namespace ProcSpector.Core.Plugins
             tmp.SetBytes(file.Bytes);
             var txt = EmguOcr.Find(files, tmp.FullPath, dir).GetText();
             var dict = txt.ReadMem();
-            if (dict == null) return;
-            const string jff = "mem.json";
-            using (var jf = File.CreateText(jff))
-                jf.WriteLine(dict.Wrap());
-            FileExt.OpenInShell(jff);
+            if (dict == null) return null;
+            var jff = MiscExt.GetTimedFileName("ocr", "mem", "json");
+            using var jf = File.CreateText(jff);
+            jf.WriteLine(dict.Wrap());
+            // TODO FileExt.OpenInShell(jff);
+            return jff;
         }
     }
 }
