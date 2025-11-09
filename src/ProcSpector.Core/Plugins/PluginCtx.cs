@@ -45,6 +45,15 @@ namespace ProcSpector.Core.Plugins
         public IFile? ScreenShot(IHandle h)
             => S2?.CreateScreenShot(h).GetVal();
 
+        public bool? SendKey(IHandle h, string mode, string key)
+            => S2?.SendKey(h, mode, key).GetVal();
+
+        public bool? Sleep(string mode, double val)
+            => S2?.Sleep(mode, val).GetVal();
+
+        public bool? Activate(IHandle h)
+            => S2?.Activate(h).GetVal();
+        
         public void DoOcr(IFile file, string root, string sub)
         {
             var dir = Path.Combine(root, sub);
