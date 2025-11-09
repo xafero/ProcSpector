@@ -28,8 +28,8 @@ namespace ProcSpector.Impl.Win.Internal
         private static bool ForceForegroundWindow(IntPtr hWnd)
         {
             ShowWindow(hWnd, SwShow);
-            var res = SetForegroundWindow(hWnd);
             BringWindowToTop(hWnd);
+            var res = SetForegroundWindow(hWnd);
             EnableWindow(hWnd, true);
             return res;
         }
