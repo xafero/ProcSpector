@@ -143,6 +143,13 @@ namespace ProcSpector.Impl.Win.Internal
             return true;
         }
         
+        public static bool SendModKey(IHandle handle, string mode, string key)
+        {
+            _ = (IntPtr)(handle.Handle ?? 0);
+            InpSim.SendModKey(mode, key);
+            return true;
+        }
+        
         public static bool Sleep(string mode, double val)
         {
             InpSim.Sleep(mode, val);

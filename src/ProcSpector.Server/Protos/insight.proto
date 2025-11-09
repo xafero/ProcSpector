@@ -20,6 +20,7 @@ service Inspector {
   rpc ActivateH (JsonReq) returns (JsonRsp);
   rpc SetMouse (JsonReq) returns (JsonRsp);
   rpc SendKey (JsonReq) returns (JsonRsp);
+  rpc SendModKey (JsonReq) returns (JsonRsp);
   rpc Sleep (JsonReq) returns (JsonRsp);
 }
 

@@ -168,6 +168,14 @@ namespace ProcSpector.Impl.Remote
             return res;
         }
 
+        public async Task<bool> SendModKey(IHandle handle, string mod, string key)
+        {
+            var arg = new JsonReq { Arg = (handle, mod, key).Wrap() };
+            var req = await Client.SendModKeyAsync(arg);
+            var res = req.Res.Unwrap<bool>();
+            return res;
+        }
+
         public async Task<bool> Sleep(string mode, double val)
         {
             var arg = new JsonReq { Arg = (mode, val).Wrap() };

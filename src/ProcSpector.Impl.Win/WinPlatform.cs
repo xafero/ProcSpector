@@ -117,6 +117,12 @@ namespace ProcSpector.Impl.Win
             return Task.FromResult(res);
         }
 
+        public Task<bool> SendModKey(IHandle handle, string mod, string key)
+        {
+            var res = Win32Ext.SendModKey(handle, mod, key);
+            return Task.FromResult(res);
+        }
+
         public Task<bool> Sleep(string mode, double val)
         {
             var res = Win32Ext.Sleep(mode, val);

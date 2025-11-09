@@ -135,6 +135,14 @@ namespace ProcSpector.Server.Services
             return c;
         }
         
+        public override async Task<JsonRsp> SendModKey(JsonReq req, ServerCallContext ctx)
+        {
+            var a = req.Arg.Unwrap<(RmHandle, string, string)>();
+            var b = await Sys2.SendModKey(a.Item1, a.Item2, a.Item3);
+            var c = new JsonRsp { Res = b.Wrap() };
+            return c;
+        }
+        
         public override async Task<JsonRsp> Sleep(JsonReq req, ServerCallContext ctx)
         {
             var a = req.Arg.Unwrap<(string, double)>();

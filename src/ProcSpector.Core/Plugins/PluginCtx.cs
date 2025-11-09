@@ -47,6 +47,9 @@ namespace ProcSpector.Core.Plugins
 
         public bool? SendKey(IHandle h, string mode, string key)
             => S2?.SendKey(h, mode, key).GetVal();
+        
+        public bool? SendModKey(IHandle h, string mod, string key)
+            => S2?.SendModKey(h, mod, key).GetVal();
 
         public bool? Sleep(string mode, double val)
             => S2?.Sleep(mode, val).GetVal();
