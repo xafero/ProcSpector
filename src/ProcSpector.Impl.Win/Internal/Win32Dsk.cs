@@ -11,12 +11,28 @@ namespace ProcSpector.Impl.Win.Internal
         private static extern bool SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("user32")]
+        private static extern bool BringWindowToTop(IntPtr hWnd);
+
+        [DllImport("user32")]
+        private static extern bool EnableWindow(IntPtr hWnd, bool bEnable);
+
+        [DllImport("user32")]
         private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
         [DllImport("user32")]
         private static extern bool IsIconic(IntPtr hWnd);
 
+        private const int SwShow = 5;
         private const int SwRestore = 9;
+
+        private static bool ForceForegroundWindow(IntPtr hWnd)
+        {
+            ShowWindow(hWnd, SwShow);
+            var res = SetForegroundWindow(hWnd);
+            BringWindowToTop(hWnd);
+            EnableWindow(hWnd, true);
+            return res;
+        }
 
         public static bool ActivateWindowById(IntPtr hWnd, bool recursive)
         {
@@ -28,7 +44,7 @@ namespace ProcSpector.Impl.Win.Internal
             {
                 ShowWindow(hWnd, SwRestore);
             }
-            return SetForegroundWindow(hWnd);
+            return ForceForegroundWindow(hWnd);
         }
 
         [DllImport("user32")]
