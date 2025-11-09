@@ -8,6 +8,7 @@ using ProcSpector.API;
 using ProcSpector.Core;
 using ProcSpector.Impl.Net.Data;
 using ProcSpector.Impl.Net.Tools;
+using ProcSpector.Impl.Win.Inputs;
 using ProcSpector.Impl.Win.Memory;
 using ProcSpector.Impl.Win.Tools;
 
@@ -133,6 +134,19 @@ namespace ProcSpector.Impl.Win.Internal
             var hid = (IntPtr)(handle.Handle ?? 0);
             var res = Win32Dsk.SetMouseToOffset(hid, t);
             return res;
+        }
+        
+        public static bool PressKey(IHandle handle, string mode, string key)
+        {
+            _ = (IntPtr)(handle.Handle ?? 0);
+            InpSim.SendKey(mode, key);
+            return true;
+        }
+        
+        public static bool Sleep(string mode, double val)
+        {
+            InpSim.Sleep(mode, val);
+            return true;
         }
 
         public static IFile CreateMiniDump(IProcess proc)

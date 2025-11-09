@@ -160,6 +160,22 @@ namespace ProcSpector.Impl.Remote
             return res;
         }
 
+        public async Task<bool> PressKey(IHandle handle, string mode, string key)
+        {
+            var arg = new JsonReq { Arg = (handle, mode, key).Wrap() };
+            var req = await Client.SendKeyAsync(arg);
+            var res = req.Res.Unwrap<bool>();
+            return res;
+        }
+
+        public async Task<bool> Sleep(string mode, double val)
+        {
+            var arg = new JsonReq { Arg = (mode, val).Wrap() };
+            var req = await Client.SleepAsync(arg);
+            var res = req.Res.Unwrap<bool>();
+            return res;
+        }
+
         public async Task<bool> Kill(IProcess proc)
         {
             var arg = new JsonReq { Arg = proc.Wrap() };

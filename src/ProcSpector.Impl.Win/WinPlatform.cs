@@ -110,5 +110,17 @@ namespace ProcSpector.Impl.Win
             var res = Win32Ext.SetMouse(handle, (x, y));
             return Task.FromResult(res);
         }
+
+        public Task<bool> PressKey(IHandle handle, string mode, string key)
+        {
+            var res = Win32Ext.PressKey(handle, mode, key);
+            return Task.FromResult(res);
+        }
+
+        public Task<bool> Sleep(string mode, double val)
+        {
+            var res = Win32Ext.Sleep(mode, val);
+            return Task.FromResult(res);
+        }
     }
 }
