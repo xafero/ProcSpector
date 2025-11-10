@@ -6,5 +6,5 @@ dotnet publish \
    -c Release \
    -o dist \
    --sc \
-   ProcSpector
+   ProcSpector.Server
 
