@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,10 +7,9 @@ namespace ProcSpector.OpenCV
 {
     public static class RectTool
     {
-        public static string GetText(this IReadOnlyCollection<OcrRect> matches)
+        public static string GetText(this IReadOnlyCollection<OcrRect> matches,
+            int ignoreY = 4, int ignoreX = 9, Func<string, string>? fix = null)
         {
-            const int ignoreY = 4;
-            const int ignoreX = 9;
             using var bld = new StringWriter();
             var y1 = matches.Select(m => m.Point.Y)
                 .OrderBy(m => m).Distinct().ToArray();
@@ -34,6 +34,8 @@ namespace ProcSpector.OpenCV
                 last = match;
             }
             var txt = bld.ToString();
+            if (fix != null)
+                txt = fix(txt);
             return txt;
         }
 
