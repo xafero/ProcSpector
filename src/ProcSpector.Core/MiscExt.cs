@@ -26,7 +26,7 @@ namespace ProcSpector.Core
         public static string GetTimedFileName(string prefix, string? middle, string ext)
         {
             var now = DateTime.Now;
-            var nTx = $"{now:s}".Replace("T", " ").Replace(":", "");
+            var nTx = $"{now:yyyy-MM-dd HHmmss fff}";
             var title = StrTool.CleanCrazy(middle ?? "noTitle");
             var fileName = $"{prefix} {title} {nTx}.{ext}";
             return Path.Combine(Environment.CurrentDirectory, fileName);
