@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 using ProcSpector.API;
 using ProcSpector.OpenCV;
 
@@ -63,7 +64,11 @@ namespace ProcSpector.Core.Plugins
             var files = FileExt.List(dir, "*.png");
             using var tmp = FileExt.CreateTmp();
             tmp.SetBytes(file.Bytes);
-            var txt = EmguOcr.Find(files, tmp.FullPath, dir).GetText();
+            var rects = EmguOcr.Find(files, tmp.FullPath, dir);
+
+            var txt = rects.GetText(6, 0, FixTool.ForWine);
+            File.WriteAllText($"todo.txt", txt, Encoding.UTF8);
+
             var dict = txt.ReadMem();
             if (dict == null) return null;
             var jff = MiscExt.GetTimedFileName("ocr", "mem", "json");
