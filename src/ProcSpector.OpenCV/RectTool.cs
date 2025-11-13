@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace ProcSpector.OpenCV
 {
@@ -16,8 +17,10 @@ namespace ProcSpector.OpenCV
             var y2 = y1.Skip(1).Zip(y1)
                 .Where(x => x.First - x.Second <= ignoreY).ToArray();
             OcrRect? last = null;
-            foreach (var match in matches.OrderBy(m => ToKey(m, y2)))
+            foreach (var one in matches.Select(m => (k: ToKey(m, y2), m))
+                         .OrderBy(t => t.k).GroupBy(t => t.k))
             {
+                var match = GetBestMatch(one);
                 var letter = Path.GetFileNameWithoutExtension(match.File);
                 string tmp;
                 if (letter.StartsWith(tmp = "d_")) letter = letter[tmp.Length..];
@@ -46,6 +49,15 @@ namespace ProcSpector.OpenCV
                 y = fix.Second;
             var x = match.Point.X;
             return $"{y:D4}:{x:D4}";
+        }
+
+        private static OcrRect GetBestMatch(IGrouping<string, (string k, OcrRect m)> group)
+        {
+            var all = group.ToArray();
+            if (all.Length == 1)
+                return all[0].m;
+            var best = all.MaxBy(a => a.m.Size.Width * a.m.Size.Height);
+            return best.m;
         }
     }
 }

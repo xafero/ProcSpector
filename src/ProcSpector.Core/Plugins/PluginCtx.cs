@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using Newtonsoft.Json;
 using ProcSpector.API;
 using ProcSpector.OpenCV;
 
@@ -65,10 +66,7 @@ namespace ProcSpector.Core.Plugins
             using var tmp = FileExt.CreateTmp();
             tmp.SetBytes(file.Bytes);
             var rects = EmguOcr.Find(files, tmp.FullPath, dir);
-
             var txt = rects.GetText(6, 0, FixTool.ForWine);
-            File.WriteAllText($"todo.txt", txt, Encoding.UTF8);
-
             var dict = txt.ReadMem();
             if (dict == null) return null;
             var jff = MiscExt.GetTimedFileName("ocr", "mem", "json");
